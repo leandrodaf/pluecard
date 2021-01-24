@@ -23,6 +23,6 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:8',
         ]);
 
-        return $this->authService->create($data);
+        $this->authService->create($data);
     }
 }

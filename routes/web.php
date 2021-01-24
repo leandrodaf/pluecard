@@ -18,7 +18,6 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('account/create', 'AuthController@register');
-// $router->post('login', 'AuthController@login');
 
 // $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
 
