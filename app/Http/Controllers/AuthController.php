@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Transformers\AuthenticationTransformer;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
@@ -14,15 +16,15 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function register(Request $request)
+    public function login(Request $request): Response
     {
         $data = $this->validate($request, [
-            'name' => 'required|string|max:155|min:3',
-            'acceptTerms' => 'accepted',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:8',
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        $this->authService->create($data);
+        $token = $this->authService->login($data['email'], $data['password']);
+
+        return $this->itemResponse($token, new AuthenticationTransformer);
     }
 }
