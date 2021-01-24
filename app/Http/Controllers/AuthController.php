@@ -25,6 +25,18 @@ class AuthController extends Controller
 
         $token = $this->authService->login($data['email'], $data['password']);
 
-        return $this->itemResponse($token, new AuthenticationTransformer);
+        return $this->itemResponse($token, new AuthenticationTransformer, 200);
+    }
+
+    public function refresh(): Response
+    {
+        $token = auth()->refresh();
+
+        return $this->itemResponse($token, new AuthenticationTransformer, 200);
+    }
+
+    public function logout()
+    {
+        auth()->logout();
     }
 }

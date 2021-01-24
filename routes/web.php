@@ -17,14 +17,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('account/create', 'AccountController@register');
+$router->post('/account/create', 'AccountController@register');
 
 $router->post('/auth/login', 'AuthController@login');
 
-// $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
-
-//     $router->post('refresh', 'AuthController@refresh');
-//     $router->post('user', 'AuthController@getAuthUser');
-//     $router->post('logout', 'AuthController@logout');
-
-// });
+$router->group(['middleware' => 'auth.jwt'], function () use ($router) {
+    $router->post('/auth/refresh', 'AuthController@refresh');
+    $router->post('/auth/logout', 'AuthController@logout');
+});

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 use League\Fractal\Resource\ResourceAbstract;
 use League\Fractal\TransformerAbstract;
 
@@ -20,7 +22,7 @@ class Controller extends BaseController
      */
     protected function itemResponse($item, TransformerAbstract $transformer, int $status = 200, array $headers = []): Response
     {
-        $resource = new \League\Fractal\Resource\Item($item, $transformer);
+        $resource = new Item($item, $transformer);
 
         return $this->buildResourceResponse($resource, $status, $headers);
     }
@@ -36,7 +38,7 @@ class Controller extends BaseController
      */
     protected function collectionResponse($collection, TransformerAbstract $transformer, $status = 200, array $headers = []): Response
     {
-        $resource = new \League\Fractal\Resource\Collection($collection, $transformer);
+        $resource = new Collection($collection, $transformer);
 
         return $this->buildResourceResponse($resource, $status, $headers);
     }
