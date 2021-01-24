@@ -1,0 +1,18 @@
+FROM php:8.0-fpm-alpine
+
+ARG CURRENT_USER=${CURRENT_USER:-pluecard}
+ARG CURRENT_UID=${CURRENT_UID:-1000}
+ARG CURRENT_GID=${CURRENT_GID:-1000}
+
+ENV CURRENT_USER=$CURRENT_USER
+ENV CURRENT_UID=$CURRENT_UID
+ENV CURRENT_GID=$CURRENT_GID
+
+RUN (adduser -h /home/${CURRENT_USER} -D -u ${CURRENT_UID} ${CURRENT_USER} \ 
+    && mkdir -p /home/$CURRENT_USER \
+    && chown -R "${CURRENT_UID}:${CURRENT_UID}" /home/${CURRENT_USER})
+
+RUN docker-php-ext-install tokenizer mysqli pdo_mysql
+
+
+USER $CURRENT_USER

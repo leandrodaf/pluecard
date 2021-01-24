@@ -1,0 +1,75 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: mysql
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: pluecard
+
+  nginx:
+    container_name: nginx
+    build: docker/nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_USER=${CURRENT_USER}
+    user: ${CURRENT_USER}
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    links:
+      - db:db
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+
+  artisan:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_USER=${CURRENT_USER}
+    user: ${CURRENT_USER}
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php", "/var/www/html/artisan"]
+
+  composer:
+    build:
+      context: .
+      dockerfile: docker/composer/Dockerfile
+      args:
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_USER=${CURRENT_USER}
+    user: ${CURRENT_USER}
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+
+  php-cs-fixer:
+    image: cytopia/php-cs-fixer:latest
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php-cs-fixer"]
