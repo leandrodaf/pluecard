@@ -20,6 +20,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'email',
         'password',
         'acceptTerms',
+        'newsletter',
+        'discountCoupons',
     ];
 
     protected $hidden = [

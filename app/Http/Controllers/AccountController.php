@@ -22,6 +22,8 @@ class AccountController extends Controller
             'acceptTerms' => 'accepted',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:8',
+            'newsletter' => 'required|boolean',
+            'discountCoupons' => 'required|boolean',
         ]);
 
         $this->authService->create($data);
