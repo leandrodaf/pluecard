@@ -95,7 +95,9 @@ return [
         'application' => env('APP_NAME', 'PlueCard'),
         'repository' => 'git@github.com:leandrodaf/pluecard.git',
         'php_fpm_service' => 'php8.0-fpm',
-        'branch' => 'main'
+        'branch' => 'main',
+        'composer_options' => '{{composer_action}} --verbose --no-interaction --no-dev --optimize-autoloader --ignore-platform-reqs'
+        
     ],
 
     /*
