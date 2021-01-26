@@ -55,6 +55,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+
+    needs: tests
+
     steps:
       - uses: actions/checkout@v2
 
@@ -68,6 +71,9 @@ jobs:
           name: pluecard.pem
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           config: ${{ secrets.SSH_CONFIG }}
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Deploy
         run: php artisan deploy
