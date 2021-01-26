@@ -48,32 +48,32 @@ return [
         'start' => [
             //
         ],
-        
+
         // Code and composer vendors are ready but nothing is built.
         'build' => [
             //
         ],
-        
+
         // Deployment is done but not live yet (before symlink)
         'ready' => [
             'artisan:migrate',
         ],
-        
+
         // Deployment is done and live
         'done' => [
             'fpm:reload',
         ],
-        
+
         // Deployment succeeded.
         'success' => [
             //
         ],
-        
+
         // Deployment failed.
         'fail' => [
             //
         ],
-        
+
         // After a deployment has been rolled back.
         'rollback' => [
             'fpm:reload',
@@ -95,6 +95,7 @@ return [
         'application' => env('APP_NAME', 'PlueCard'),
         'repository' => 'git@github.com:leandrodaf/pluecard.git',
         'php_fpm_service' => 'php8.0-fpm',
+        'branch' => 'main'
     ],
 
     /*
@@ -111,7 +112,8 @@ return [
     'hosts' => [
         'api.pluecard.com' => [
             'deploy_path' => '/var/www/api.pluecard.com',
-            'user' => 'ubuntu'
+            'user' => 'ubuntu',
+            'configfile' => '~/.ssh/config'
         ],
     ],
 

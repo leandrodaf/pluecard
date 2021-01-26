@@ -59,13 +59,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install SSH key of bastion
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          name: pluecard.pem
-          known_hosts: ${{ secrets.KNOWN_HOSTS_OF_BASTION }}
-
       - name: Install dependencies
         uses: php-actions/composer@v5
         with:
@@ -74,9 +67,12 @@ jobs:
           dev: yes
           args: --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
-      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
         with:
-          php-version: 8.0
-
-      - name: Deploy application for production
+          key: ${{ secrets.SSH_KEY }}
+          name: pluecard.pem
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          config: ${{ secrets.KNOWN_HOSTS_OF_BASTION }}
+      - name: Deploy
         run: php artisan deploy
