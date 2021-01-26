@@ -1,0 +1,244 @@
+openapi: 3.0.0
+info:
+  title: PlueCard
+  version: '1.0'
+  description: Documentação da interface de integração dos servidores REST da aplicação PlueCard.
+  contact:
+    name: Leandro Ferreira
+    url: 'https://github.com/leandroferreirra'
+    email: leandro.daf4@gmail.com
+servers:
+  - url: 'http://localhost'
+    description: Desenvolvimento
+paths:
+  /account/create:
+    post:
+      summary: Criação de usuário
+      operationId: post-account-create
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Cria um usuário.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Schema do payload de integração.
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Nome do usuário.
+                email:
+                  type: string
+                  minLength: 1
+                  description: Email do usuário.
+                acceptTerms:
+                  type: boolean
+                  description: Validação dos termos de usu.
+                password:
+                  type: string
+                  minLength: 1
+                  description: Senha do usuário.
+                password_confirmation:
+                  type: string
+                  minLength: 1
+                  description: Confirmação da senha.
+              required:
+                - name
+                - email
+                - acceptTerms
+                - password
+                - password_confirmation
+            examples:
+              Criação de usuário:
+                value:
+                  name: Leandro Ferreira
+                  email: foo@gmail.com
+                  acceptTerms: true
+                  password: foo-bar-123456789
+                  password_confirmation: foo-bar-123456789
+        description: Criação de usuário
+      security: []
+      tags:
+        - Conta de usuário
+  /auth/login:
+    post:
+      summary: Autenticação de usuário
+      operationId: post-auth-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Schema do response de autenticação.
+                type: object
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - accessToken
+                      - tokenType
+                      - expiresIn
+                    description: Nó principal do retorno da API.
+                    properties:
+                      accessToken:
+                        type: string
+                        minLength: 1
+                        description: Token de acesso.
+                        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                      tokenType:
+                        type: string
+                        minLength: 1
+                        description: Tipo do token.
+                        example: bearer
+                      expiresIn:
+                        type: number
+                        example: 3600
+                        description: Tempo de vida do token.
+                required:
+                  - data
+              examples:
+                Exemplo de retorno.:
+                  value:
+                    data:
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                      tokenType: bearer
+                      expiresIn: 3600
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Autentica um usuário.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Schema do payload de integração.
+              type: object
+              properties:
+                password:
+                  type: string
+                  minLength: 12
+                  description: Senha do usuário.
+                email:
+                  type: string
+                  format: email
+                  description: Email de autenticação do usuário.
+              required:
+                - password
+                - email
+            examples:
+              Autenticação do usuário:
+                value:
+                  email: foo@gmail.com
+                  password: foo-bar-123456789
+        description: Autenticação de usuário.
+      security: []
+      tags:
+        - Autenticação
+      parameters: []
+  /auth/refresh:
+    post:
+      summary: Atualização de token de autenticação
+      operationId: post-auth-refresh
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Schema do response de atualização de autenticação.
+                type: object
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - accessToken
+                      - tokenType
+                      - expiresIn
+                    description: Nó principal do retorno da API.
+                    properties:
+                      accessToken:
+                        type: string
+                        minLength: 1
+                        description: Token de acesso.
+                      tokenType:
+                        type: string
+                        minLength: 1
+                        description: Tipo do token.
+                      expiresIn:
+                        type: number
+                        description: Tempo de vida do token.
+                required:
+                  - data
+              examples:
+                Exemplo de retorno.:
+                  value:
+                    data:
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
+                      tokenType: bearer
+                      expiresIn: 3600
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Esse endpoint gera um novo token de acesso sem a necessidade de informar o nome de usuário e senha.
+      tags:
+        - Autenticação
+  /auth/logout:
+    post:
+      summary: Invalidar token de usuário
+      operationId: post-auth-logout
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Faz o logout do usuário.
+      tags:
+        - Autenticação
+components:
+  schemas: {}
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+  - name: Autenticação
+  - name: Conta de usuário
+security:
+  - bearerAuth: []
