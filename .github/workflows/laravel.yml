@@ -39,5 +39,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Copy .env
-        run: php artisan deploy
+      - name: Install dependencies
+        uses: php-actions/composer@v5
+        with:
+          php_version: 8.0
+          command: install
+          dev: yes
+          args: --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
+
+      - name: PHP version
+        run: php -v
