@@ -75,4 +75,7 @@ jobs:
           args: --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
       - name: Deploy application for production
+        uses: php-actions/composer@v5
+        with:
+          php_version: 8.0
         run: php artisan deploy
