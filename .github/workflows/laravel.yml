@@ -22,6 +22,6 @@ jobs:
       - name: Install dependencies
         uses: php-actions/composer@v5
         with:
-          command: install
+          command: composer install
           dev: no
-          args: --profile --ignore-platform-reqs
+          args: --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
