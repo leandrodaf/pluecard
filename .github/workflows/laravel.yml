@@ -74,8 +74,9 @@ jobs:
           dev: yes
           args: --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
-      - name: Deploy application for production
-        uses: php-actions/composer@v5
+      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
-          php_version: 8.0
+          php-version: 8.0
+
+      - name: Deploy application for production
         run: php artisan deploy
