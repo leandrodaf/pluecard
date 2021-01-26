@@ -1,4 +1,4 @@
-name: Laravel
+name: CI-CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  laravel-tests:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,12 @@ jobs:
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Copy .env
+        run: php artisan deploy
