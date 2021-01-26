@@ -70,9 +70,9 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: pluecard.pem
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
-          config: ${{ secrets.KNOWN_HOSTS_OF_BASTION }}
+          config: ${{ secrets.SSH_CONFIG }}
       - name: Deploy
         run: php artisan deploy
