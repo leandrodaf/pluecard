@@ -97,7 +97,7 @@ return [
         'php_fpm_service' => 'php8.0-fpm',
         'branch' => 'main',
         'composer_options' => '{{composer_action}} --verbose --no-interaction --no-dev --optimize-autoloader --ignore-platform-reqs',
-        'writable_dirs' => ["storage", "storage/app", "storage/framework", "storage/logs"]
+        'writable_dirs' => ["storage", "storage/app", "storage/framework", "storage/logs"],
     ],
 
     /*
