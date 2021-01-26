@@ -45,6 +45,11 @@ jobs:
         with:
           output: swagger-ui
           spec-file: PlueCard.v1.yaml
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.PAGES }}
+          publish_dir: swagger-ui
 
   deploy:
     runs-on: ubuntu-latest
