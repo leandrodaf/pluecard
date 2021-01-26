@@ -33,6 +33,19 @@ jobs:
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
 
+  deploy-swagger-hub:
+    runs-on: ubuntu-latest
+    
+    needs: tests
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate Swagger UI
+        uses: Legion2/swagger-ui-action@v1
+        with:
+          output: swagger-ui
+          spec-file: PlueCard.v1.yaml
+
   deploy:
     runs-on: ubuntu-latest
     needs: tests
@@ -46,6 +59,3 @@ jobs:
           command: install
           dev: yes
           args: --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
-
-      - name: PHP version
-        run: php -v
