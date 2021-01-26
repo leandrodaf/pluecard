@@ -64,6 +64,7 @@ $app->configure('auth');
 $app->configure('mail');
 $app->configure('hashing');
 $app->configure('logging');
+$app->configure('deploy');
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ $app->register(App\Providers\FractalServiceProviderque::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Illuminate\Mail\MailServiceProvider::class);
-
+$app->register(Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class);
 
 
 /*

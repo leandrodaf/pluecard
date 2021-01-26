@@ -45,3 +45,7 @@ tests:
 .PHONY: compose-cm
 compose-cm:
 	docker-compose run --rm composer $(cm)
+
+.PHONY: deploy
+deploy:
+	docker-compose run --rm artisan deploy
