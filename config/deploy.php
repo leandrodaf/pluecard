@@ -37,7 +37,7 @@ return [
     | Hooks
     |--------------------------------------------------------------------------
     |
-    | Hooks let you customize your deployments conveniently by pushing tasks 
+    | Hooks let you customize your deployments conveniently by pushing tasks
     | into strategic places of your deployment flow. Each of the official
     | strategies invoke hooks in different ways to implement their logic.
     |
@@ -97,7 +97,7 @@ return [
         'php_fpm_service' => 'php8.0-fpm',
         'branch' => 'main',
         'composer_options' => '{{composer_action}} --verbose --no-interaction --no-dev --optimize-autoloader --ignore-platform-reqs',
-        'writable_dirs' => ["storage", "storage/app", "storage/framework", "storage/logs"],
+        'writable_dirs' => ['storage', 'storage/app', 'storage/framework', 'storage/logs'],
     ],
 
     /*
@@ -115,7 +115,7 @@ return [
         'api.pluecard.com' => [
             'deploy_path' => '/var/www/api.pluecard.com',
             'user' => 'ubuntu',
-            'configfile' => '~/.ssh/config'
+            'configfile' => '~/.ssh/config',
         ],
     ],
 
@@ -139,7 +139,7 @@ return [
     | Include additional Deployer recipes
     |--------------------------------------------------------------------------
     |
-    | Here, you can add any third party recipes to provide additional tasks, 
+    | Here, you can add any third party recipes to provide additional tasks,
     | options and strategies. Therefore, it also allows you to create and
     | include your own recipes to define more complex deployment flows.
     |
