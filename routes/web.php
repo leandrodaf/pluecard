@@ -18,6 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/account/create', 'AccountController@register');
+$router->get('/account/confirmation/{token}', 'AccountController@confirmation');
 
 $router->post('/auth/login', 'AuthController@login');
 

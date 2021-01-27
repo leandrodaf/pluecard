@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\AccountService;
+use App\Http\Controllers\AuthController;
 
 class AccountController extends Controller
 {
-    private $authService;
+    private $accountService;
 
-    public function __construct(AuthService $authService)
+    private $authController;
+
+    public function __construct(AccountService $accountService, AuthController $authController)
     {
-        $this->authService = $authService;
+        $this->accountService = $accountService;
+
+        $this->authController = $authController;
     }
 
     public function register(Request $request): Response
@@ -26,8 +31,23 @@ class AccountController extends Controller
             'discountCoupons' => 'required|boolean',
         ]);
 
-        $this->authService->create($data);
+        $this->accountService->create($data);
 
         return response(null, 201);
+    }
+
+    public function confirmation(Request $request, string $token)
+    {
+
+        dd(
+            $token
+        );
+        
+        $request->merge([
+            'email' => '5508-foo@gmail.com',
+            'password' => '2-foo-bar'
+        ]);
+
+        return $this->authController->login($request);
     }
 }
