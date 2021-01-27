@@ -64,6 +64,7 @@ $app->configure('auth');
 $app->configure('mail');
 $app->configure('hashing');
 $app->configure('logging');
+$app->configure('cors');
 $app->configure('deploy');
 
 /*
