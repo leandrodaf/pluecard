@@ -8,7 +8,7 @@ info:
     url: 'https://github.com/leandroferreirra'
     email: leandro.daf4@gmail.com
 servers:
-  - url: 'http://localhost'
+  - url: 'https://api.pluecard.com'
     description: Desenvolvimento
 paths:
   /account/create:
@@ -55,12 +55,20 @@ paths:
                   type: string
                   minLength: 1
                   description: Confirmação da senha.
+                newsletter:
+                  type: boolean
+                  description: Confirmação do usuário para receber notificações de atualização da aplicação.
+                discountCoupons:
+                  type: boolean
+                  description: Confirmação do usuário para receber cupons de descontos.
               required:
                 - name
                 - email
                 - acceptTerms
                 - password
                 - password_confirmation
+                - newsletter
+                - discountCoupons
             examples:
               Criação de usuário:
                 value:
@@ -69,6 +77,8 @@ paths:
                   acceptTerms: true
                   password: foo-bar-123456789
                   password_confirmation: foo-bar-123456789
+                  newsletter: true
+                  discountCoupons: true
         description: Criação de usuário
       security: []
       tags:
