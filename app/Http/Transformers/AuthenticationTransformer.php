@@ -2,6 +2,7 @@
 
 namespace App\Http\Transformers;
 
+use Carbon\Carbon;
 use League\Fractal\TransformerAbstract;
 
 class AuthenticationTransformer extends TransformerAbstract
@@ -11,7 +12,7 @@ class AuthenticationTransformer extends TransformerAbstract
         return [
             'accessToken' => $token,
             'tokenType' => 'bearer',
-            'expiresIn' => auth()->factory()->getTTL() * 60,
+            'expiresIn' => Carbon::now()->addSeconds(auth()->factory()->getTTL() * 60),
         ];
     }
 }
