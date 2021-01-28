@@ -570,8 +570,7 @@ paths:
     get:
       summary: Listagem de todos os usuários do sistema
       tags:
-        - Usuário
-        - Administração
+        - Usuário - Administração
       responses:
         '200':
           description: OK
@@ -654,8 +653,7 @@ paths:
           description: Internal Server Error
       description: Atualiza um usuário específico.
       tags:
-        - Usuário
-        - Administração
+        - Usuário - Administração
     delete:
       summary: Deleta de um usuário específico
       operationId: delete-users-id
@@ -663,13 +661,13 @@ paths:
         '200':
           description: OK
       tags:
-        - Administração
-        - Usuário
+        - Usuário - Administração
       description: Deletar completamente do sistema um usuário específico.
   /users/me:
     get:
       summary: Retorna um usuário específico
-      tags: []
+      tags:
+        - Usuário - Administração
       responses: {}
       operationId: get-users-me
       description: Retorna o contexto do usuário logado.
@@ -792,6 +790,7 @@ tags:
   - name: Autenticação
   - name: Conta de usuário
   - name: Usuario
-  - name: Administração
+  - name: Usuário - Administração
+  - name: Usuário
 security:
   - bearerAuth: []
