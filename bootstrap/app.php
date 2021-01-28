@@ -66,6 +66,7 @@ $app->configure('hashing');
 $app->configure('logging');
 $app->configure('cors');
 $app->configure('deploy');
+$app->configure('permission');
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +86,9 @@ $app->middleware([
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
-    'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class
+    'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+    'permission' => Spatie\Permission\Middlewares\PermissionMiddleware::class,
+    'role'       => Spatie\Permission\Middlewares\RoleMiddleware::class,
 ]);
 
 /*
@@ -106,6 +109,8 @@ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(MarvinLabs\DiscordLogger\ServiceProvider::class);
+$app->alias('cache', Illuminate\Cache\CacheManager::class); 
+$app->register(Spatie\Permission\PermissionServiceProvider::class);
 
 if (app()->environment('local')) {
     $app->register(Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class);

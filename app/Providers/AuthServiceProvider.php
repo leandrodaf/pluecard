@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -28,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         // application. The callback which receives the incoming request instance
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
+
+        Gate::define('is-admin', function () {
+            return auth()->user()->hasRole('Administrator');
+        });
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->input('api_token')) {
