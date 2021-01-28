@@ -445,8 +445,344 @@ paths:
                   password_confirmation: '123456789900'
       tags:
         - Conta de usuário
+  /users:
+    get:
+      summary: Retorna o contexto do usuário
+      tags:
+        - Usuário
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Listagem de usuários.
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/MetaPaginate'
+                required:
+                  - data
+                  - meta
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Leandro Ferreira
+                        email: leandro.daf4@gmail.com
+                        acceptTerms: true
+                        newsletter: true
+                        discountCoupons: true
+                        confirmationEmail: true
+                        created_at: '2021-01-28T17:20:40.000000Z'
+                        updated_at: '2021-01-28T21:25:53.000000Z'
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 1
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-users
+      description: Lista todos os usuários do sistema.
+    put:
+      summary: Atualiza o usuário autenticado
+      operationId: put-users
+      responses:
+        '200':
+          description: OK
+      description: Atualização do usuário logado.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Nome do usuário.
+                newsletter:
+                  type: boolean
+                  description: Confirmação do usuário para receber notificações de atualização da aplicação.
+                discountCoupons:
+                  type: boolean
+                  description: Confirmação do usuário para receber cupons de descontos.
+              required:
+                - name
+                - newsletter
+                - discountCoupons
+            examples:
+              Exemplo de atualização:
+                value:
+                  name: Leandro Ferreira
+                  newsletter: true
+                  discountCoupons: true
+      tags:
+        - Usuário
+    delete:
+      summary: Deleta o usuário autenticado
+      operationId: delete-users
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Deletar completamente do sistema o usuário autenticado.
+      tags:
+        - Usuário
+  '/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificado do usuário
+    get:
+      summary: Listagem de todos os usuários do sistema
+      tags:
+        - Usuário
+        - Administração
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+                required:
+                  - data
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      id: 1
+                      name: Leandro Ferreira
+                      email: leandro.daf4@gmail.com
+                      acceptTerms: true
+                      newsletter: true
+                      discountCoupons: true
+                      confirmationEmail: true
+                      created_at: '2021-01-28T17:20:40.000000Z'
+                      updated_at: '2021-01-28T21:25:53.000000Z'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-users-id
+      description: Retorna o contexto de um usuário específico.
+    put:
+      summary: Atualização de um usuário específico
+      operationId: put-users-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  name:
+                    type: string
+                    minLength: 1
+                    description: Nome do usuário.
+                  newsletter:
+                    type: boolean
+                    description: Confirmação do usuário para receber notificações de atualização da aplicação.
+                  discountCoupons:
+                    type: boolean
+                    description: Confirmação do usuário para receber cupons de descontos.
+                required:
+                  - name
+                  - newsletter
+                  - discountCoupons
+              examples:
+                Exemplo de atualização:
+                  value:
+                    name: Leandro Ferreira
+                    newsletter: true
+                    discountCoupons: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Atualiza um usuário específico.
+      tags:
+        - Usuário
+        - Administração
+    delete:
+      summary: Deleta de um usuário específico
+      operationId: delete-users-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Administração
+        - Usuário
+      description: Deletar completamente do sistema um usuário específico.
+  /users/me:
+    get:
+      summary: Retorna um usuário específico
+      tags: []
+      responses: {}
+      operationId: get-users-me
+      description: Retorna o contexto do usuário logado.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/User'
+              required:
+                - data
+            examples:
+              Exemplo de retorno:
+                value:
+                  data:
+                    id: 1
+                    name: Leandro Ferreira
+                    email: leandro.daf4@gmail.com
+                    acceptTerms: true
+                    newsletter: true
+                    discountCoupons: true
+                    confirmationEmail: true
+                    created_at: '2021-01-28T17:20:40.000000Z'
+                    updated_at: '2021-01-28T21:25:53.000000Z'
+        description: ''
 components:
-  schemas: {}
+  schemas:
+    User:
+      description: Modelo do usuário
+      type: object
+      x-examples:
+        Exemplo de usuário:
+          name: Leandro Ferreira
+          email: leandro.daf4@gmail.com
+          acceptTerms: true
+          newsletter: true
+          discountCoupons: true
+          confirmationEmail: true
+          created_at: '2021-01-28T17:20:40.000000Z'
+          updated_at: '2021-01-28T21:25:53.000000Z'
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Nome do usuário.
+        email:
+          type: string
+          minLength: 1
+          description: Email do usuário.
+        acceptTerms:
+          type: boolean
+          description: Validação dos termos de uso.
+        newsletter:
+          type: boolean
+          description: Confirmação do usuário para receber notificações de atualização da aplicação.
+        discountCoupons:
+          type: boolean
+          description: Confirmação do usuário para receber cupons de descontos.
+        confirmationEmail:
+          type: boolean
+          description: Confirmação do email do usuário.
+        created_at:
+          type: string
+          minLength: 1
+          description: Data de criação.
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização.
+        id:
+          type: integer
+          description: Identificador do usuário.
+      title: User
+    MetaPaginate:
+      description: Metadados do modelo de paginação.
+      type: object
+      properties:
+        pagination:
+          type: object
+          required:
+            - total
+            - count
+            - per_page
+            - current_page
+            - total_pages
+            - links
+          properties:
+            total:
+              type: number
+              description: Total de páginas para integração.
+              deprecated: true
+            count:
+              type: number
+              description: Quantidade de itens retornados.
+            per_page:
+              type: number
+              description: Quantidade por página.
+            current_page:
+              type: number
+              description: Página atual.
+            total_pages:
+              type: number
+              description: Quantidade de páginas iteradas.
+            links:
+              type: object
+              deprecated: true
+              description: Link para a próxima iteração.
+      required:
+        - pagination
+      title: Meta Paginate
   securitySchemes:
     bearerAuth:
       type: http
@@ -455,5 +791,7 @@ components:
 tags:
   - name: Autenticação
   - name: Conta de usuário
+  - name: Usuario
+  - name: Administração
 security:
   - bearerAuth: []
