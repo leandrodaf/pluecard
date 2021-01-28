@@ -13,7 +13,16 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \App\Events\UserCreate::class => [
+            \App\Listeners\GenerateHashEmailConfirmation::class,
+        ],
+
+        \App\Events\CreateConfirmationAccount::class => [
             \App\Listeners\EmailConfirmation::class,
         ],
+
+        \App\Events\CreateResetPassword::class => [
+            \App\Listeners\ResetPassword::class,
+        ],
+
     ];
 }

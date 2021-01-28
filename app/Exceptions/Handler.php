@@ -4,15 +4,15 @@ namespace App\Exceptions;
 
 use App\Http\Controllers\FractalTrait;
 use App\Http\Transformers\ExceptionTransformer;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -29,6 +29,19 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
+    ];
+
+    /**
+     * Custom status texts.
+     *
+     * @var array
+     */
+    private static $customStatusTexts = [
+        Response::HTTP_BAD_REQUEST => 'BadRequestError', // 400
+        Response::HTTP_UNAUTHORIZED => 'UnauthorizedError', // 401
+        Response::HTTP_NOT_FOUND => 'NotFoundError', // 404
+        Response::HTTP_CONFLICT => 'ConflictError', // 409
+        Response::HTTP_INTERNAL_SERVER_ERROR => 'InternalError', // 500
     ];
 
     /**
@@ -57,28 +70,61 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $response = [
+            'code' => $this->getStatusText(Response::HTTP_INTERNAL_SERVER_ERROR),
+            'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+            'message' => (string) $exception->getMessage(),
+        ];
 
-        if ($exception instanceof HttpResponseException) {
-            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } elseif ($exception instanceof MethodNotAllowedHttpException) {
-            $status = Response::HTTP_METHOD_NOT_ALLOWED;
-            $exception = new MethodNotAllowedHttpException([], 'HTTP_METHOD_NOT_ALLOWED', $exception);
-        } elseif ($exception instanceof NotFoundHttpException) {
-            $status = Response::HTTP_NOT_FOUND;
-            $exception = new NotFoundHttpException('HTTP_NOT_FOUND', $exception);
-        } elseif ($exception instanceof AuthorizationException) {
-            $status = Response::HTTP_FORBIDDEN;
-            $exception = new AuthorizationException('HTTP_FORBIDDEN', $status);
-        } elseif ($exception instanceof \Dotenv\Exception\ValidationException && $exception->getResponse()) {
-            $status = Response::HTTP_BAD_REQUEST;
-            $exception = new \Dotenv\Exception\ValidationException('HTTP_BAD_REQUEST', $status, $exception);
+        if ($exception instanceof AuthorizationException) {
+            $response['code'] = $this->getStatusText(Response::HTTP_UNAUTHORIZED);
+            $response['status'] = Response::HTTP_UNAUTHORIZED;
+        } elseif ($exception instanceof HttpException) {
+            $response['code'] = $this->getStatusText($exception->getStatusCode());
+            $response['status'] = $exception->getStatusCode();
+        } elseif ($exception instanceof ModelNotFoundException) {
+            $response['code'] = $this->getStatusText(Response::HTTP_NOT_FOUND);
+            $response['status'] = Response::HTTP_NOT_FOUND;
+        } elseif ($exception instanceof QueryException) {
+            $response['code'] = $this->getStatusText(Response::HTTP_CONFLICT);
+            $response['status'] = Response::HTTP_CONFLICT;
+            $response['message'] = $this->sanitizeMySQLConflictError($exception->getMessage());
         } elseif ($exception instanceof ValidationException) {
-            $status = Response::HTTP_BAD_REQUEST;
-        } elseif ($exception) {
-            $exception = new HttpException($status, 'HTTP_INTERNAL_SERVER_ERROR');
+            $response['code'] = $this->getStatusText(Response::HTTP_BAD_REQUEST);
+            if (array_key_first($exception->validator->errors()->toArray()) === 0) {
+                $response['errors'] = $exception->validator->errors()->all();
+            } else {
+                $response['errors'] = $exception->validator->errors()->toArray();
+            }
+
+            $response['status'] = Response::HTTP_BAD_REQUEST;
+            $response['message'] = 'One or more fields are invalid';
+        } elseif ($exception instanceof AuthenticationException) {
+            $response['code'] = $this->getStatusText(Response::HTTP_UNAUTHORIZED);
+            $response['status'] = Response::HTTP_UNAUTHORIZED;
+            $response['message'] = '[auth] Invalid user or password';
         }
 
-        return $this->itemResponse($exception, new ExceptionTransformer, $status);
+        $response['debug'] = (string) $exception;
+
+        return $this->itemResponse($response, new ExceptionTransformer, $response['status']);
+    }
+
+    private function getStatusText(int $code): string
+    {
+        $statusTexts = self::$customStatusTexts + Response::$statusTexts;
+
+        return $statusTexts[$code];
+    }
+
+    private function sanitizeMySQLConflictError($error)
+    {
+        try {
+            preg_match('/SQLSTATE\[[0-9]+\]: ([a-zA-Z0-9\s:\'-_]+) \(.*/', $error, $matches);
+
+            return $matches[1];
+        } catch (Exception $e) {
+            return 'Integrity constraint violation';
+        }
     }
 }
