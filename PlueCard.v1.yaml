@@ -46,7 +46,7 @@ paths:
                   description: Email do usuário.
                 acceptTerms:
                   type: boolean
-                  description: Validação dos termos de usu.
+                  description: Validação dos termos de uso.
                 password:
                   type: string
                   minLength: 1
@@ -98,26 +98,31 @@ paths:
                 properties:
                   data:
                     type: object
+                    description: Nó principal do retorno da API.
                     required:
                       - accessToken
                       - tokenType
                       - expiresIn
-                    description: Nó principal do retorno da API.
                     properties:
                       accessToken:
                         type: string
                         minLength: 1
                         description: Token de acesso.
                         example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                        readOnly: true
                       tokenType:
                         type: string
                         minLength: 1
                         description: Tipo do token.
                         example: bearer
+                        readOnly: true
                       expiresIn:
-                        type: number
-                        example: 3600
+                        type: string
+                        example: '2021-01-28T15:06:41.534407Z'
                         description: Tempo de vida do token.
+                        format: date-time
+                        readOnly: true
+                    readOnly: true
                 required:
                   - data
               examples:
@@ -126,7 +131,7 @@ paths:
                     data:
                       accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
                       tokenType: bearer
-                      expiresIn: 3600
+                      expiresIn: '2021-01-28T15:06:41.534407Z'
         '400':
           description: Bad Request
         '401':
@@ -181,23 +186,29 @@ paths:
                 properties:
                   data:
                     type: object
+                    description: Nó principal do retorno da API.
                     required:
                       - accessToken
                       - tokenType
                       - expiresIn
-                    description: Nó principal do retorno da API.
                     properties:
                       accessToken:
                         type: string
                         minLength: 1
                         description: Token de acesso.
+                        readOnly: true
                       tokenType:
                         type: string
                         minLength: 1
                         description: Tipo do token.
+                        readOnly: true
                       expiresIn:
-                        type: number
+                        type: string
                         description: Tempo de vida do token.
+                        example: '2021-01-28T15:08:02.486877Z'
+                        format: date-time
+                        readOnly: true
+                    readOnly: true
                 required:
                   - data
               examples:
@@ -206,7 +217,7 @@ paths:
                     data:
                       accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
                       tokenType: bearer
-                      expiresIn: 3600
+                      expiresIn: '2021-01-28T15:29:24.017877Z'
         '400':
           description: Bad Request
         '401':
@@ -240,6 +251,200 @@ paths:
       description: Faz o logout do usuário.
       tags:
         - Autenticação
+  /account/confirmation:
+    post:
+      summary: Confirmação de (E-mail / Conta)
+      operationId: post-account-confirmation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - accessToken
+                      - tokenType
+                      - expiresIn
+                    description: Nó principal do retorno da API.
+                    properties:
+                      accessToken:
+                        type: string
+                        minLength: 1
+                        description: Token de acesso.
+                        readOnly: true
+                      tokenType:
+                        type: string
+                        minLength: 1
+                        description: Tipo do token.
+                        readOnly: true
+                      expiresIn:
+                        type: string
+                        minLength: 1
+                        description: Tempo de vida do token.
+                        format: date-time
+                        readOnly: true
+                required:
+                  - data
+              examples:
+                Conta confirmada com sucesso.:
+                  value:
+                    data:
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnBsdWVjYXJkLmNvbVwvYWNjb3VudFwvY29uZmlybWF0aW9uIiwiaWF0IjoxNjExODQzMTgxLCJleHAiOjE2MTE4NDY3ODEsIm5iZiI6MTYxMTg0MzE4MSwianRpIjoiOWM4d0hXclZocElRcmpmOCIsInN1YiI6MTAsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sKtfzqIB8JKKAh47wmWYT3a4aqXAoRMI_cEklsh4DVI
+                      tokenType: bearer
+                      expiresIn: '2021-01-28T15:13:01.152812Z'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Esse endpoint faz a validação da conta do usuário utilizando a hash que foi notificada no email do mesmo.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                hash:
+                  type: string
+                  minLength: 1
+                  description: Hash recebida no e-mail do usuário.
+                  example: '5687618537'
+                  writeOnly: true
+              required:
+                - hash
+            examples:
+              Exemplo De integração:
+                value:
+                  hash: '3502183397'
+        description: Confirmação de email de usuário
+      tags:
+        - Conta de usuário
+      security: []
+  /account/confirmation/refresh:
+    post:
+      summary: Notificar token de confirmação de Email
+      operationId: post-account-confirmation-refresh
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Esse endpoint renotifica o email do usuário com uma nova hash de confirmação de email.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                email:
+                  type: string
+                  minLength: 1
+                  format: email
+                  description: E-mail do usuário.
+              required:
+                - email
+            examples:
+              Exemplo de solicitação de nova hash:
+                value:
+                  email: foo@gmail.com
+        description: ''
+      tags:
+        - Conta de usuário
+      security: []
+  /account/password/reset:
+    post:
+      summary: Solicitar reset de senha
+      operationId: post-account-password-reset
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Esse endpoint notifica o email do usuário com uma hash para a troca de senha.
+      tags:
+        - Conta de usuário
+  /account/password:
+    put:
+      summary: Resetar senha do usuário
+      operationId: put-account-password
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: 'Esse endpoint troca a senha do usuário, é necessário ter uma hash válida.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                hash:
+                  type: string
+                  minLength: 1
+                  description: Hash de troca de senha enviada no email do usuário.
+                  writeOnly: true
+                password:
+                  type: string
+                  minLength: 1
+                  description: Nova senha.
+                  writeOnly: true
+                password_confirmation:
+                  type: string
+                  minLength: 1
+                  description: Confirmação da senha.
+                  writeOnly: true
+              required:
+                - hash
+                - password
+                - password_confirmation
+            examples:
+              Exemplo de payload para troca de senha.:
+                value:
+                  hash: '9918219100'
+                  password: '123456789900'
+                  password_confirmation: '123456789900'
+      tags:
+        - Conta de usuário
 components:
   schemas: {}
   securitySchemes:
