@@ -31,7 +31,8 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
 
     // Users
     $router->get('/users', 'UserController@index');
-    $router->put('/users', 'UserController@update');
+    $router->put('/users', 'UserController@meUpdate');
+    $router->put('/users/{id}', 'UserController@update');
     $router->get('/users', 'UserController@me');
     $router->get('/users/{id}', 'UserController@show');
     $router->delete('/users', 'UserController@meDestroy');

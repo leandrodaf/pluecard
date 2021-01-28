@@ -30,8 +30,8 @@ class UserController extends Controller
 
         return $this->paginateResponse($list, new UserTransformer, 200);
     }
-
-    public function update(Request $request): Response
+    
+    public function meUpdate(Request $request): Response
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());
 
@@ -42,6 +42,23 @@ class UserController extends Controller
         ]);
 
         $this->userService->update($this->auth->user(), $data);
+
+        return response(null, 200);
+    }
+
+    public function update(Request $request, string $id): Response
+    {
+        $user = $this->userService->show($id);
+
+        Gate::authorize('adminOrSimpleUser', $user);
+
+        $data = $this->validate($request, [
+            'name' => 'string',
+            'newsletter' => 'boolean',
+            'discountCoupons' => 'boolean',
+        ]);
+
+        $this->userService->update($user, $data);
 
         return response(null, 200);
     }
