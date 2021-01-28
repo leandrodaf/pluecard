@@ -54,7 +54,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    needs: tests
+    # needs: tests
 
     steps:
       - uses: actions/checkout@v2
@@ -72,6 +72,9 @@ jobs:
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Show .env
+        run: cat .env
 
       - name: Deploy
         run: php artisan deploy
