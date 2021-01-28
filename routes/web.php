@@ -28,4 +28,12 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->post('/auth/logout', 'AuthController@logout');
     $router->post('/account/password/reset', 'AccountController@resetPassword');
     $router->put('/account/password', 'AccountController@updatePassword');
+
+    // Users
+    $router->get('/users', 'UserController@index');
+    $router->put('/users', 'UserController@update');
+    $router->get('/users', 'UserController@me');
+    $router->get('/users/{id}', 'UserController@show');
+    $router->delete('/users', 'UserController@meDestroy');
+    $router->delete('/users/{id}', 'UserController@destroy');
 });
