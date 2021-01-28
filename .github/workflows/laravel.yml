@@ -83,16 +83,9 @@ jobs:
 
     steps:
       - uses: actions/setup-ruby@v1
-      - name: Send Webhook Notification
-        if: always()
+      - name: Discord notification
         env:
-          JOB_STATUS: ${{ job.status }}
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          HOOK_OS_NAME: ${{ runner.os }}
-          WORKFLOW_NAME: ${{ github.workflow }}
-          WEBHOOK_REPO: ${{ secrets.WEBHOOK_REPO }}
-        run: |
-          echo Status: $JOB_STATUS
-          git clone $WEBHOOK_REPO webhook
-          bash webhook/send.sh $JOB_STATUS $WEBHOOK_URL
-        shell: bash
+          DISCORD_WEBHOOK: ${{ secrets.WEBHOOK_URL }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed."
