@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\ConfirmationAccount;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -13,9 +14,13 @@ class ConfirmationEmail extends Mailable
 
     private $user;
 
-    public function __construct(User $user)
+    private $confirmationAccount;
+
+    public function __construct(User $user, ConfirmationAccount $confirmationAccount)
     {
         $this->user = $user;
+
+        $this->confirmationAccount = $confirmationAccount;
     }
 
     public function build(): Mailable
@@ -24,7 +29,8 @@ class ConfirmationEmail extends Mailable
             ->with([
                 'name' => $this->user->name,
                 'email' => $this->user->email,
-                'url' => '',
+                'hash' => $this->confirmationAccount->hash,
+                'validatedAt' => $this->confirmationAccount->validatedAt->toDateString(),
             ]);
     }
 }

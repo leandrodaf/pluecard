@@ -18,10 +18,14 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/account/create', 'AccountController@register');
+$router->post('/account/confirmation', 'AccountController@confirmationEmail');
+$router->post('/account/confirmation/refresh', 'AccountController@refreshConfirmationEmail');
 
 $router->post('/auth/login', 'AuthController@login');
 
 $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->post('/auth/refresh', 'AuthController@refresh');
     $router->post('/auth/logout', 'AuthController@logout');
+    $router->post('/account/password/reset', 'AccountController@resetPassword');
+    $router->put('/account/password', 'AccountController@updatePassword');
 });
