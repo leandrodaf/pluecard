@@ -447,7 +447,7 @@ paths:
         - Conta de usuário
   /users:
     get:
-      summary: Retorna o contexto do usuário
+      summary: Lista todos os usuários do sistema
       tags:
         - Usuário
       responses:
@@ -568,7 +568,7 @@ paths:
         required: true
         description: Identificado do usuário
     get:
-      summary: Listagem de todos os usuários do sistema
+      summary: Retorna o contexto de um usuário especifico
       tags:
         - Usuário - Administração
       responses:
@@ -660,42 +660,61 @@ paths:
       responses:
         '200':
           description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
       tags:
         - Usuário - Administração
       description: Deletar completamente do sistema um usuário específico.
   /users/me:
     get:
-      summary: Retorna um usuário específico
+      summary: Retorna o contexto do usuário logado
       tags:
         - Usuário - Administração
-      responses: {}
       operationId: get-users-me
       description: Retorna o contexto do usuário logado.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/User'
-              required:
-                - data
-            examples:
-              Exemplo de retorno:
-                value:
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
                   data:
-                    id: 1
-                    name: Leandro Ferreira
-                    email: leandro.daf4@gmail.com
-                    acceptTerms: true
-                    newsletter: true
-                    discountCoupons: true
-                    confirmationEmail: true
-                    created_at: '2021-01-28T17:20:40.000000Z'
-                    updated_at: '2021-01-28T21:25:53.000000Z'
-        description: ''
+                    $ref: '#/components/schemas/User'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      id: 1
+                      name: Leandro Ferreira
+                      email: leandro.daf4@gmail.com
+                      acceptTerms: true
+                      newsletter: true
+                      discountCoupons: true
+                      confirmationEmail: true
+                      created_at: '2021-01-28T17:20:40.000000Z'
+                      updated_at: '2021-01-28T21:25:53.000000Z'
 components:
   schemas:
     User:
