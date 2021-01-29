@@ -8,9 +8,34 @@ use App\Models\ConfirmationAccount;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Throwable;
 
 class AuthService extends Services
 {
+    private $user;
+
+    private $confirmationAccount;
+
+    /**
+     * @param User $user
+     * @param ConfirmationAccount $confirmationAccount
+     * @return void
+     */
+    public function __construct(User $user, ConfirmationAccount $confirmationAccount)
+    {
+        $this->user = $user;
+
+        $this->confirmationAccount = $confirmationAccount;
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @return string
+     * @throws BindingResolutionException
+     * @throws Throwable
+     */
     public function login(string $username, string $password): string
     {
         $credentals = ['email' => $username, 'password' => $password];
@@ -24,6 +49,12 @@ class AuthService extends Services
         return $token;
     }
 
+    /**
+     * @param User $user
+     * @return void
+     * @throws Throwable
+     * @throws BindingResolutionException
+     */
     public function generateHashConfirmation(User $user): void
     {
         throw_if($user->confirmationEmail, ValidatorException::class, ['The user is already active.']);
@@ -43,11 +74,18 @@ class AuthService extends Services
         event(new CreateConfirmationAccount($user, $confirmationHash));
     }
 
+    /**
+     * @param string $hash
+     * @return User
+     */
     public function hashConfirmation(string $hash): User
     {
         $dateNow = Carbon::now();
 
-        $confirmationAccount = ConfirmationAccount::where('hash', $hash)->whereDate('validatedAt', '>', $dateNow)->with('user')->firstOrFail();
+        $confirmationAccount = $this->confirmationAccount
+            ->where('hash', $hash)
+            ->whereDate('validatedAt', '>', $dateNow)
+            ->with('user')->firstOrFail();
 
         $confirmationAccount->update(['validatedAt' => $dateNow]);
 
@@ -58,9 +96,15 @@ class AuthService extends Services
         return $user;
     }
 
+    /**
+     * @param string $email
+     * @return void
+     * @throws Throwable
+     * @throws BindingResolutionException
+     */
     public function refreshHash(string $email): void
     {
-        $user = User::where('email', $email)->where('confirmationEmail', '!=', true)->firstOrFail();
+        $user = $this->user->where('email', $email)->where('confirmationEmail', '!=', true)->firstOrFail();
 
         $this->generateHashConfirmation($user);
     }
