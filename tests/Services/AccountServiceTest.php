@@ -2,6 +2,7 @@
 
 use App\Events\CreateResetPassword;
 use App\Events\UserCreate;
+use App\Exceptions\ValidatorException;
 use App\Models\ResetPassword;
 use App\Models\User;
 use App\Services\AccountService;
@@ -109,6 +110,28 @@ class AccountServiceTest extends TestCase
         }))->once()->andReturn(new ResetPassword());
 
         $user->shouldReceive('resetPasswords')->once()->andReturn($resetPasswords);
+
+        $this->app->make(AccountService::class)->resetPassword($user);
+    }
+
+    public function testMustGenerateHashTokenForRestPasswordError()
+    {
+        Carbon::setTestNow();
+
+        $this->expectException(ValidatorException::class);
+
+        $user = Mockery::mock(User::factory()->make());
+
+        $this->mockDependence(ResetPassword::class, function (ResetPassword $resetPassword) use ($user) {
+            $resetPassword
+                ->shouldReceive('where')->with('userId', $user->id)->once()->andReturnSelf()
+                ->shouldReceive('whereDate')->with('created_at', Mockery::on(function (Carbon $date) {
+                    return $date->toString() === Carbon::today()->toString();
+                }))->once()->andReturnSelf()
+                ->shouldReceive('count')->once()->andReturn(6);
+
+            return $resetPassword;
+        });
 
         $this->app->make(AccountService::class)->resetPassword($user);
     }
