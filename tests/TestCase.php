@@ -13,4 +13,11 @@ abstract class TestCase extends BaseTestCase
     {
         return require __DIR__.'/../bootstrap/app.php';
     }
+
+    protected function mockDependence(string $class, Closure $function)
+    {
+        $mock = Mockery::mock($class);
+
+        $this->app->instance($class, $function($mock));
+    }
 }

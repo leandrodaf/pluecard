@@ -30,7 +30,7 @@ class UserController extends Controller
 
         return $this->paginateResponse($list, new UserTransformer, 200);
     }
-    
+
     public function meUpdate(Request $request): Response
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());

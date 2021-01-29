@@ -11,9 +11,20 @@ use Carbon\Carbon;
 
 class AccountService
 {
+    private $user;
+
+    private $resetPassword;
+
+    public function __construct(User $user, ResetPassword $resetPassword)
+    {
+        $this->user = $user;
+
+        $this->resetPassword = $resetPassword;
+    }
+
     public function create(array $attributes): User
     {
-        $user = User::create($attributes);
+        $user = $this->user->create($attributes);
 
         event(new UserCreate($user));
 
@@ -22,23 +33,24 @@ class AccountService
 
     public function resetPasswordUpdate(User $user, array $attributes): void
     {
-        $hash = ResetPassword::where('userId', $user->id)
+        $hash = $this->resetPassword->where('userId', $user->id)
             ->where('enable', true)
             ->where('hash', $attributes['hash'])
             ->whereDate('validatedAt', Carbon::today())
             ->firstOrFail();
 
         $hash->update(['enable' => false]);
+
         $user->update(['password' => $attributes['password']]);
     }
 
     public function resetPassword(User $user): void
     {
-        $quantity = ResetPassword::where('userId', $user->id)->whereDate('created_at', Carbon::today())->count();
+        $quantity = $this->resetPassword->where('userId', $user->id)->whereDate('created_at', Carbon::today())->count();
 
         throw_if($quantity >= 5, ValidatorException::class, ['Password reset attempts exhausted.']);
 
-        ResetPassword::where('userId', $user->id)->update(['enable' => false]);
+        $this->resetPassword->where('userId', $user->id)->update(['enable' => false]);
 
         $resetPasswords = $user->resetPasswords()->create([
             'hash' => mt_rand(1000000000, 9999999999),

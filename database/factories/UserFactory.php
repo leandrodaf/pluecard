@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -24,6 +25,12 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'password' => Hash::make($this->faker->password(8, 12)),
+            'acceptTerms' => $this->faker->boolean(),
+            'newsletter' => $this->faker->boolean(),
+            'discountCoupons' => $this->faker->boolean(),
+            'confirmationEmail' => $this->faker->boolean(),
+
         ];
     }
 }
