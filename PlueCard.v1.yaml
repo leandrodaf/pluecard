@@ -808,7 +808,6 @@ components:
 tags:
   - name: Autenticação
   - name: Conta de usuário
-  - name: Usuario
   - name: Usuário - Administração
   - name: Usuário
 security:
