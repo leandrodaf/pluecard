@@ -5,7 +5,7 @@ info:
   description: Documentação da interface de integração dos servidores REST da aplicação PlueCard.
   contact:
     name: Leandro Ferreira
-    url: 'https://github.com/leandroferreirra'
+    url: 'https://github.com/leandrodaf'
     email: leandro.daf4@gmail.com
 servers:
   - url: 'https://api.pluecard.com'
