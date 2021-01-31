@@ -449,7 +449,7 @@ paths:
     get:
       summary: Lista todos os usuários do sistema
       tags:
-        - Usuário
+        - Usuario
       responses:
         '200':
           description: OK
@@ -539,7 +539,7 @@ paths:
                   newsletter: true
                   discountCoupons: true
       tags:
-        - Usuário
+        - Usuario
     delete:
       summary: Deleta o usuário autenticado
       operationId: delete-users
@@ -558,7 +558,7 @@ paths:
           description: Internal Server Error
       description: Deletar completamente do sistema o usuário autenticado.
       tags:
-        - Usuário
+        - Usuario
   '/users/{id}':
     parameters:
       - schema:
@@ -570,7 +570,7 @@ paths:
     get:
       summary: Retorna o contexto de um usuário específico
       tags:
-        - Usuário - Administração
+        - Usuario - Administração
       responses:
         '200':
           description: OK
@@ -653,7 +653,7 @@ paths:
           description: Internal Server Error
       description: Atualiza um usuário específico.
       tags:
-        - Usuário - Administração
+        - Usuario - Administração
     delete:
       summary: Deleta de um usuário específico
       operationId: delete-users-id
@@ -671,13 +671,11 @@ paths:
         '500':
           description: Internal Server Error
       tags:
-        - Usuário - Administração
+        - Usuario - Administração
       description: Deletar completamente do sistema um usuário específico.
   /users/me:
     get:
       summary: Retorna o contexto do usuário logado
-      tags:
-        - Usuário - Administração
       operationId: get-users-me
       description: Retorna o contexto do usuário logado.
       responses:
@@ -715,6 +713,8 @@ paths:
                       confirmationEmail: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
+      tags:
+        - Usuario
   /account/password/forgot:
     post:
       summary: Solicitação de recuperação de senha
