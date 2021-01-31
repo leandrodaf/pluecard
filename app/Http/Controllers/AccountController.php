@@ -80,4 +80,27 @@ class AccountController extends Controller
 
         return response(null, 200);
     }
+
+    public function forgotPassword(Request $request): Response
+    {
+        $data = $this->validate($request, [
+            'email' => 'required|email',
+        ]);
+
+        $this->accountService->forgotPassword($data['email']);
+
+        return response(null, 200);
+    }
+
+    public function forgotPasswordConfirmation(Request $request): Response
+    {
+        $data = $this->validate($request, [
+            'hash' => 'required|string',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $this->accountService->forgotPasswordConfirmation($data['hash'], $data['password']);
+
+        return response(null, 200);
+    }
 }

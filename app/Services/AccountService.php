@@ -60,4 +60,18 @@ class AccountService
 
         event(new CreateResetPassword($user, $resetPasswords));
     }
+
+    public function forgotPassword(string $email): void
+    {
+        $user = $this->user->where('email', $email)->firstOrFail();
+
+        $this->resetPassword($user);
+    }
+
+    public function forgotPasswordConfirmation(string $hash, string $password): void
+    {
+        $resetPassword = $this->resetPassword->where('hash', $hash)->with('user')->firstOrFail();
+
+        $this->resetPasswordUpdate($resetPassword->user, compact('hash', 'password'));
+    }
 }

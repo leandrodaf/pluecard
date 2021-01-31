@@ -7,6 +7,7 @@ use App\Models\ResetPassword;
 use App\Models\User;
 use App\Services\AccountService;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AccountServiceTest extends TestCase
@@ -134,5 +135,39 @@ class AccountServiceTest extends TestCase
         });
 
         $this->app->make(AccountService::class)->resetPassword($user);
+    }
+
+    public function testOrderedForForgotItMyPassword()
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $email = 'foo-email#mail.com';
+
+        $this->mockDependence(User::class, function ($user) use ($email) {
+            $user->shouldReceive('where')->with('email', $email)->once()->andReturnSelf()
+                ->shouldReceive('firstOrFail')->once()->andThrow(ModelNotFoundException::class);
+
+            return $user;
+        });
+
+        $this->app->make(AccountService::class)->forgotPassword($email);
+    }
+
+    public function testConfirmationForgotItMyPassword()
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $hash = 'foo-hash-12345';
+        $email = 'foo-email#mail.com';
+
+        $this->mockDependence(ResetPassword::class, function ($resetPassword) use ($hash) {
+            $resetPassword->shouldReceive('where')->with('hash', $hash)->once()->andReturnSelf()
+                ->shouldReceive('with')->with('user')->once()->andReturnSelf()
+                ->shouldReceive('firstOrFail')->once()->andThrow(ModelNotFoundException::class);
+
+            return $resetPassword;
+        });
+
+        $this->app->make(AccountService::class)->forgotPasswordConfirmation($hash, $email);
     }
 }
