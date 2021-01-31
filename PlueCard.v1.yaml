@@ -568,7 +568,7 @@ paths:
         required: true
         description: Identificado do usuário
     get:
-      summary: Retorna o contexto de um usuário especifico
+      summary: Retorna o contexto de um usuário específico
       tags:
         - Usuário - Administração
       responses:
@@ -715,6 +715,88 @@ paths:
                       confirmationEmail: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
+  /account/password/forgot:
+    post:
+      summary: Solicitação de recuperação de senha
+      operationId: post-account-password-forgot
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Envie uma hash para reset de senha no e-mail do usuário.
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                email:
+                  type: string
+                  minLength: 1
+                  description: E-mail do usuário.
+                  format: email
+                  writeOnly: true
+              required:
+                - email
+            examples:
+              Exemplo de retorno.:
+                value:
+                  email: foo-user@mail.com
+      tags:
+        - Recuperação de senha
+  /account/password/forgot/reset:
+    put:
+      summary: Confirmação da recuperação de senha
+      operationId: put-account-password-forgot-reset
+      responses:
+        '200':
+          description: OK
+      security: []
+      description: Realiza a troca de senha usando o token enviado no email do usuário.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: ''
+              properties:
+                hash:
+                  type: string
+                  minLength: 1
+                  description: Hash de troca de senha enviada no email do usuário.
+                  writeOnly: true
+                password:
+                  type: string
+                  minLength: 1
+                  description: Nova senha do usuário
+                password_confirmation:
+                  type: string
+                  minLength: 1
+                  description: Confirmação da nova senha do usuário
+              required:
+                - hash
+                - password
+                - password_confirmation
+              writeOnly: true
+            examples:
+              Exemplo de solicitação.:
+                value:
+                  hash: Hash-foo-bar
+                  password: foo-password-12345
+                  password_confirmation: foo-password-12345
+      tags:
+        - Recuperação de senha
 components:
   schemas:
     User:
@@ -808,7 +890,8 @@ components:
 tags:
   - name: Autenticação
   - name: Conta de usuário
-  - name: Usuário - Administração
-  - name: Usuário
+  - name: Usuario - Administração
+  - name: Usuario
+  - name: Recuperação de senha
 security:
   - bearerAuth: []
