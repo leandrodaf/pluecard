@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function index(): Response
     {
-        Gate::authorize('index', $this->auth->user());
+        Gate::authorize('admin', $this->auth->user());
 
         $list = $this->userService->listUsersPaginate();
 
