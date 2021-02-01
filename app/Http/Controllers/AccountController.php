@@ -26,7 +26,7 @@ class AccountController extends Controller
     {
         $data = $this->validate($request, [
             'name' => 'required|string|max:155|min:3',
-            'acceptTerms' => 'accepted',
+            'accept_terms' => 'accepted',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:8',
             'newsletter' => 'required|boolean',

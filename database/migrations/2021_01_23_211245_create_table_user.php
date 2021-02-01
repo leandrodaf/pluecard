@@ -16,7 +16,7 @@ class CreateTableUser extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 155);
-            $table->boolean('acceptTerms', false);
+            $table->boolean('accept_terms', false);
             $table->string('email', 255)->unique();
             $table->string('password', 255);
             $table->timestamps();

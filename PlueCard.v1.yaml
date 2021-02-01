@@ -44,7 +44,7 @@ paths:
                   type: string
                   minLength: 1
                   description: Email do usuário.
-                acceptTerms:
+                accept_terms:
                   type: boolean
                   description: Validação dos termos de uso.
                 password:
@@ -64,7 +64,7 @@ paths:
               required:
                 - name
                 - email
-                - acceptTerms
+                - accept_terms
                 - password
                 - password_confirmation
                 - newsletter
@@ -74,7 +74,7 @@ paths:
                 value:
                   name: Leandro Ferreira
                   email: foo@gmail.com
-                  acceptTerms: true
+                  accept_terms: true
                   password: foo-bar-123456789
                   password_confirmation: foo-bar-123456789
                   newsletter: true
@@ -478,7 +478,7 @@ paths:
                       - id: 1
                         name: Leandro Ferreira
                         email: leandro.daf4@gmail.com
-                        acceptTerms: true
+                        accept_terms: true
                         newsletter: true
                         discount_coupons: true
                         confirmation_email: true
@@ -591,7 +591,7 @@ paths:
                       id: 1
                       name: Leandro Ferreira
                       email: leandro.daf4@gmail.com
-                      acceptTerms: true
+                      accept_terms: true
                       newsletter: true
                       discount_coupons: true
                       confirmation_email: true
@@ -707,7 +707,7 @@ paths:
                       id: 1
                       name: Leandro Ferreira
                       email: leandro.daf4@gmail.com
-                      acceptTerms: true
+                      accept_terms: true
                       newsletter: true
                       discount_coupons: true
                       confirmation_email: true
@@ -806,7 +806,7 @@ components:
         Exemplo de usuário:
           name: Leandro Ferreira
           email: leandro.daf4@gmail.com
-          acceptTerms: true
+          accept_terms: true
           newsletter: true
           discount_coupons: true
           confirmation_email: true
@@ -821,7 +821,7 @@ components:
           type: string
           minLength: 1
           description: Email do usuário.
-        acceptTerms:
+        accept_terms:
           type: boolean
           description: Validação dos termos de uso.
         newsletter:

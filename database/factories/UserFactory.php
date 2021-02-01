@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => Hash::make($this->faker->password(8, 12)),
-            'acceptTerms' => $this->faker->boolean(),
+            'accept_terms' => $this->faker->boolean(),
             'newsletter' => $this->faker->boolean(),
             'discount_coupons' => $this->faker->boolean(),
             'confirmation_email' => $this->faker->boolean(),

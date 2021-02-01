@@ -25,7 +25,7 @@ class AccountServiceTest extends TestCase
             'name' => 'foo-name',
             'email' => 'fo1o@mail.com',
             'password' => '1234',
-            'acceptTerms' => true,
+            'accept_terms' => true,
             'newsletter' => true,
             'discount_coupons' => true,
             'confirmation_email' => true,

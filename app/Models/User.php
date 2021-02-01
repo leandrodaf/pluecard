@@ -21,7 +21,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'name',
         'email',
         'password',
-        'acceptTerms',
+        'accept_terms',
         'newsletter',
         'discount_coupons',
         'confirmation_email',
@@ -32,7 +32,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     protected $casts = [
-        'acceptTerms' => 'boolean',
+        'accept_terms' => 'boolean',
         'newsletter' => 'boolean',
         'discount_coupons' => 'boolean',
         'confirmation_email' => 'boolean',
