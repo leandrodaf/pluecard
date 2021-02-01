@@ -13,7 +13,6 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Throwable;
 
-/** @package App\Services */
 class AccountService
 {
     private $user;
@@ -21,9 +20,9 @@ class AccountService
     private $resetPassword;
 
     /**
-     * @param User $user 
-     * @param ResetPassword $resetPassword 
-     * @return void 
+     * @param User $user
+     * @param ResetPassword $resetPassword
+     * @return void
      */
     public function __construct(User $user, ResetPassword $resetPassword)
     {
@@ -33,9 +32,9 @@ class AccountService
     }
 
     /**
-     * @param array $attributes 
-     * @return User 
-     * @throws BindingResolutionException 
+     * @param array $attributes
+     * @return User
+     * @throws BindingResolutionException
      */
     public function create(array $attributes): User
     {
@@ -47,11 +46,11 @@ class AccountService
     }
 
     /**
-     * @param User $user 
-     * @param array $attributes 
-     * @return void 
-     * @throws InvalidFormatException 
-     * @throws MassAssignmentException 
+     * @param User $user
+     * @param array $attributes
+     * @return void
+     * @throws InvalidFormatException
+     * @throws MassAssignmentException
      */
     public function resetPasswordUpdate(User $user, array $attributes): void
     {
@@ -67,11 +66,11 @@ class AccountService
     }
 
     /**
-     * @param User $user 
-     * @return void 
-     * @throws InvalidFormatException 
-     * @throws Throwable 
-     * @throws BindingResolutionException 
+     * @param User $user
+     * @return void
+     * @throws InvalidFormatException
+     * @throws Throwable
+     * @throws BindingResolutionException
      */
     public function resetPassword(User $user): void
     {
@@ -91,11 +90,11 @@ class AccountService
     }
 
     /**
-     * @param string $email 
-     * @return void 
-     * @throws InvalidFormatException 
-     * @throws Throwable 
-     * @throws BindingResolutionException 
+     * @param string $email
+     * @return void
+     * @throws InvalidFormatException
+     * @throws Throwable
+     * @throws BindingResolutionException
      */
     public function forgotPassword(string $email): void
     {
@@ -105,11 +104,11 @@ class AccountService
     }
 
     /**
-     * @param string $hash 
-     * @param string $password 
-     * @return void 
-     * @throws InvalidFormatException 
-     * @throws MassAssignmentException 
+     * @param string $hash
+     * @param string $password
+     * @return void
+     * @throws InvalidFormatException
+     * @throws MassAssignmentException
      */
     public function forgotPasswordConfirmation(string $hash, string $password): void
     {
