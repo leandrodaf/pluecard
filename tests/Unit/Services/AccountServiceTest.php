@@ -53,7 +53,7 @@ class AccountServiceTest extends TestCase
 
         $this->mockDependence(ResetPassword::class, function (ResetPassword $resetPassword) use ($user, $data) {
             $resetPassword
-                ->shouldReceive('where')->with('userId', $user->id)->once()->andReturnSelf()
+                ->shouldReceive('where')->with('user_id', $user->id)->once()->andReturnSelf()
                 ->shouldReceive('where')->with('enable', true)->once()->andReturnSelf()
                 ->shouldReceive('where')->with('hash', $data['hash'])->once()->andReturnSelf()
                 ->shouldReceive('whereDate')->with('validatedAt', Mockery::on(function (Carbon $date) {
@@ -80,12 +80,12 @@ class AccountServiceTest extends TestCase
 
         $this->mockDependence(ResetPassword::class, function (ResetPassword $resetPassword) use ($user) {
             $resetPassword
-                ->shouldReceive('where')->with('userId', $user->id)->once()->andReturnSelf()
+                ->shouldReceive('where')->with('user_id', $user->id)->once()->andReturnSelf()
                 ->shouldReceive('whereDate')->with('created_at', Mockery::on(function (Carbon $date) {
                     return $date->toString() === Carbon::today()->toString();
                 }))->once()->andReturnSelf()
                 ->shouldReceive('count')->once()->andReturn(2)
-                ->shouldReceive('where')->with('userId', $user->id)->once()->andReturnSelf()
+                ->shouldReceive('where')->with('user_id', $user->id)->once()->andReturnSelf()
                 ->shouldReceive('update')->with(['enable' => false])->once();
 
             return $resetPassword;
@@ -125,7 +125,7 @@ class AccountServiceTest extends TestCase
 
         $this->mockDependence(ResetPassword::class, function (ResetPassword $resetPassword) use ($user) {
             $resetPassword
-                ->shouldReceive('where')->with('userId', $user->id)->once()->andReturnSelf()
+                ->shouldReceive('where')->with('user_id', $user->id)->once()->andReturnSelf()
                 ->shouldReceive('whereDate')->with('created_at', Mockery::on(function (Carbon $date) {
                     return $date->toString() === Carbon::today()->toString();
                 }))->once()->andReturnSelf()

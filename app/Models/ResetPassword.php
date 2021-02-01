@@ -10,7 +10,7 @@ class ResetPassword extends Model
     protected $table = 'resetPasswords';
 
     protected $fillable = [
-        'userId',
+        'user_id',
         'hash',
         'validatedAt',
         'enable',
@@ -26,6 +26,6 @@ class ResetPassword extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'userId', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

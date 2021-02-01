@@ -10,7 +10,7 @@ class ConfirmationAccount extends Model
     protected $table = 'confirmationAccounts';
 
     protected $fillable = [
-        'userId',
+        'user_id',
         'hash',
         'validatedAt',
     ];
@@ -23,6 +23,6 @@ class ConfirmationAccount extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'userId', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

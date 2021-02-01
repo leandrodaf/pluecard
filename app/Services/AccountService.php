@@ -33,7 +33,7 @@ class AccountService
 
     public function resetPasswordUpdate(User $user, array $attributes): void
     {
-        $hash = $this->resetPassword->where('userId', $user->id)
+        $hash = $this->resetPassword->where('user_id', $user->id)
             ->where('enable', true)
             ->where('hash', $attributes['hash'])
             ->whereDate('validatedAt', Carbon::today())
@@ -46,11 +46,11 @@ class AccountService
 
     public function resetPassword(User $user): void
     {
-        $quantity = $this->resetPassword->where('userId', $user->id)->whereDate('created_at', Carbon::today())->count();
+        $quantity = $this->resetPassword->where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
 
         throw_if($quantity >= 5, ValidatorException::class, ['Password reset attempts exhausted.']);
 
-        $this->resetPassword->where('userId', $user->id)->update(['enable' => false]);
+        $this->resetPassword->where('user_id', $user->id)->update(['enable' => false]);
 
         $resetPasswords = $user->resetPasswords()->create([
             'hash' => mt_rand(1000000000, 9999999999),

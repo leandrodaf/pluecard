@@ -55,12 +55,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function confirmationAccount(): HasOne
     {
-        return $this->hasOne(ConfirmationAccount::class, 'userId', 'id');
+        return $this->hasOne(ConfirmationAccount::class, 'user_id', 'id');
     }
 
     public function resetPasswords(): HasMany
     {
-        return $this->hasMany(ResetPassword::class, 'userId', 'id');
+        return $this->hasMany(ResetPassword::class, 'user_id', 'id');
     }
 
     public function isAdmin(): bool

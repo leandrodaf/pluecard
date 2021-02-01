@@ -18,7 +18,7 @@ class CreateConfirmationAccountTable extends Migration
             $table->string('hash', 255)->index();
             $table->dateTime('validatedAt');
             $table->timestamps();
-            $table->unsignedInteger('userId')->unique()->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('user_id')->unique()->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
