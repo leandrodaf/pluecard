@@ -13,7 +13,7 @@ class CreateConfirmationAccountTable extends Migration
      */
     public function up()
     {
-        Schema::create('confirmationAccounts', function (Blueprint $table) {
+        Schema::create('confirmation_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('hash', 255)->index();
             $table->dateTime('validatedAt');
@@ -29,6 +29,6 @@ class CreateConfirmationAccountTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('confirmationAccounts');
+        Schema::dropIfExists('confirmation_accounts');
     }
 }

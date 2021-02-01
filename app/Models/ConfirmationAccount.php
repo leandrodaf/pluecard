@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ConfirmationAccount extends Model
 {
-    protected $table = 'confirmationAccounts';
+    protected $table = 'confirmation_accounts';
 
     protected $fillable = [
         'user_id',
