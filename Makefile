@@ -40,6 +40,10 @@ style-fix:
 
 .PHONY: tests
 tests:
+	docker-compose run --rm php vendor/bin/phpunit
+
+.PHONY: filter-tests
+filter-tests:
 	docker-compose run --rm php vendor/bin/phpunit --filter $(filter)
 
 .PHONY: compose-cm
