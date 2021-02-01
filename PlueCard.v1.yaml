@@ -58,7 +58,7 @@ paths:
                 newsletter:
                   type: boolean
                   description: Confirmação do usuário para receber notificações de atualização da aplicação.
-                discountCoupons:
+                discount_coupons:
                   type: boolean
                   description: Confirmação do usuário para receber cupons de descontos.
               required:
@@ -68,7 +68,7 @@ paths:
                 - password
                 - password_confirmation
                 - newsletter
-                - discountCoupons
+                - discount_coupons
             examples:
               Criação de usuário:
                 value:
@@ -78,7 +78,7 @@ paths:
                   password: foo-bar-123456789
                   password_confirmation: foo-bar-123456789
                   newsletter: true
-                  discountCoupons: true
+                  discount_coupons: true
         description: Criação de usuário
       security: []
       tags:
@@ -480,7 +480,7 @@ paths:
                         email: leandro.daf4@gmail.com
                         acceptTerms: true
                         newsletter: true
-                        discountCoupons: true
+                        discount_coupons: true
                         confirmation_email: true
                         created_at: '2021-01-28T17:20:40.000000Z'
                         updated_at: '2021-01-28T21:25:53.000000Z'
@@ -525,19 +525,19 @@ paths:
                 newsletter:
                   type: boolean
                   description: Confirmação do usuário para receber notificações de atualização da aplicação.
-                discountCoupons:
+                discount_coupons:
                   type: boolean
                   description: Confirmação do usuário para receber cupons de descontos.
               required:
                 - name
                 - newsletter
-                - discountCoupons
+                - discount_coupons
             examples:
               Exemplo de atualização:
                 value:
                   name: Leandro Ferreira
                   newsletter: true
-                  discountCoupons: true
+                  discount_coupons: true
       tags:
         - Usuario
     delete:
@@ -593,7 +593,7 @@ paths:
                       email: leandro.daf4@gmail.com
                       acceptTerms: true
                       newsletter: true
-                      discountCoupons: true
+                      discount_coupons: true
                       confirmation_email: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
@@ -628,19 +628,19 @@ paths:
                   newsletter:
                     type: boolean
                     description: Confirmação do usuário para receber notificações de atualização da aplicação.
-                  discountCoupons:
+                  discount_coupons:
                     type: boolean
                     description: Confirmação do usuário para receber cupons de descontos.
                 required:
                   - name
                   - newsletter
-                  - discountCoupons
+                  - discount_coupons
               examples:
                 Exemplo de atualização:
                   value:
                     name: Leandro Ferreira
                     newsletter: true
-                    discountCoupons: true
+                    discount_coupons: true
         '400':
           description: Bad Request
         '401':
@@ -709,7 +709,7 @@ paths:
                       email: leandro.daf4@gmail.com
                       acceptTerms: true
                       newsletter: true
-                      discountCoupons: true
+                      discount_coupons: true
                       confirmation_email: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
@@ -808,7 +808,7 @@ components:
           email: leandro.daf4@gmail.com
           acceptTerms: true
           newsletter: true
-          discountCoupons: true
+          discount_coupons: true
           confirmation_email: true
           created_at: '2021-01-28T17:20:40.000000Z'
           updated_at: '2021-01-28T21:25:53.000000Z'
@@ -827,7 +827,7 @@ components:
         newsletter:
           type: boolean
           description: Confirmação do usuário para receber notificações de atualização da aplicação.
-        discountCoupons:
+        discount_coupons:
           type: boolean
           description: Confirmação do usuário para receber cupons de descontos.
         confirmation_email:

@@ -38,7 +38,7 @@ class UserController extends Controller
         $data = $this->validate($request, [
             'name' => 'string',
             'newsletter' => 'boolean',
-            'discountCoupons' => 'boolean',
+            'discount_coupons' => 'boolean',
         ]);
 
         $this->userService->update($this->auth->user(), $data);
@@ -55,7 +55,7 @@ class UserController extends Controller
         $data = $this->validate($request, [
             'name' => 'string',
             'newsletter' => 'boolean',
-            'discountCoupons' => 'boolean',
+            'discount_coupons' => 'boolean',
         ]);
 
         $this->userService->update($user, $data);

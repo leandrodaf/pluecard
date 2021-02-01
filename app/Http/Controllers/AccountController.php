@@ -30,7 +30,7 @@ class AccountController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:8',
             'newsletter' => 'required|boolean',
-            'discountCoupons' => 'required|boolean',
+            'discount_coupons' => 'required|boolean',
         ]);
 
         $this->accountService->create($data);

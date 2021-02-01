@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'password' => Hash::make($this->faker->password(8, 12)),
             'acceptTerms' => $this->faker->boolean(),
             'newsletter' => $this->faker->boolean(),
-            'discountCoupons' => $this->faker->boolean(),
+            'discount_coupons' => $this->faker->boolean(),
             'confirmation_email' => $this->faker->boolean(),
 
         ];

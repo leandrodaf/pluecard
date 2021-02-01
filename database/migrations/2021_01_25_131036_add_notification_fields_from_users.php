@@ -15,7 +15,7 @@ class AddNotificationFieldsFromUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('newsletter')->default(0);
-            $table->boolean('discountCoupons')->default(0);
+            $table->boolean('discount_coupons')->default(0);
         });
     }
 
@@ -27,7 +27,7 @@ class AddNotificationFieldsFromUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['newsletter', 'discountCoupons']);
+            $table->dropColumn(['newsletter', 'discount_coupons']);
         });
     }
 }

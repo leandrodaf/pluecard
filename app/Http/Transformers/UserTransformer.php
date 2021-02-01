@@ -15,7 +15,7 @@ class UserTransformer extends TransformerAbstract
             'email' => $user->email,
             'acceptTerms' => $user->acceptTerms,
             'newsletter' => $user->newsletter,
-            'discountCoupons' => $user->discountCoupons,
+            'discount_coupons' => $user->discount_coupons,
             'confirmation_email' => $user->confirmation_email,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,

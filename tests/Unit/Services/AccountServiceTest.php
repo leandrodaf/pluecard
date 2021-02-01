@@ -27,7 +27,7 @@ class AccountServiceTest extends TestCase
             'password' => '1234',
             'acceptTerms' => true,
             'newsletter' => true,
-            'discountCoupons' => true,
+            'discount_coupons' => true,
             'confirmation_email' => true,
         ];
 
