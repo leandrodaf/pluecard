@@ -52,13 +52,13 @@ class AccountService
 
         $this->resetPassword->where('user_id', $user->id)->update(['enable' => false]);
 
-        $resetPasswords = $user->resetPasswords()->create([
+        $reset_passwords = $user->reset_passwords()->create([
             'hash' => mt_rand(1000000000, 9999999999),
             'validated_at' => Carbon::today(),
             'enable' => true,
         ]);
 
-        event(new CreateResetPassword($user, $resetPasswords));
+        event(new CreateResetPassword($user, $reset_passwords));
     }
 
     public function forgotPassword(string $email): void

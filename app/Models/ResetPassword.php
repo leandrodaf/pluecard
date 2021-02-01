@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ResetPassword extends Model
 {
-    protected $table = 'resetPasswords';
+    protected $table = 'reset_passwords';
 
     protected $fillable = [
         'user_id',

@@ -91,9 +91,9 @@ class AccountServiceTest extends TestCase
             return $resetPassword;
         });
 
-        $resetPasswords = Mockery::mock(HasMany::class);
+        $reset_passwords = Mockery::mock(HasMany::class);
 
-        $resetPasswords->shouldReceive('create')->with(Mockery::on(function ($data) {
+        $reset_passwords->shouldReceive('create')->with(Mockery::on(function ($data) {
             if (! isset($data['hash'])) {
                 return false;
             } else {
@@ -110,7 +110,7 @@ class AccountServiceTest extends TestCase
             return $data === $expected;
         }))->once()->andReturn(new ResetPassword());
 
-        $user->shouldReceive('resetPasswords')->once()->andReturn($resetPasswords);
+        $user->shouldReceive('reset_passwords')->once()->andReturn($reset_passwords);
 
         $this->app->make(AccountService::class)->resetPassword($user);
     }

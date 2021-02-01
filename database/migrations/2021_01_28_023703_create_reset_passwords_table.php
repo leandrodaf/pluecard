@@ -13,7 +13,7 @@ class CreateResetPasswordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('resetPasswords', function (Blueprint $table) {
+        Schema::create('reset_passwords', function (Blueprint $table) {
             $table->id();
             $table->string('hash', 255)->index();
             $table->dateTime('validated_at');
@@ -31,6 +31,6 @@ class CreateResetPasswordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resetPasswords');
+        Schema::dropIfExists('reset_passwords');
     }
 }
