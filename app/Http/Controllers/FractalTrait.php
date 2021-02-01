@@ -40,7 +40,7 @@ trait FractalTrait
     {
         $fractal = app('League\Fractal\Manager');
 
-        $fractal->parseIncludes(Request::input('include'));
+        $fractal->parseIncludes(Request::input('include') ?? []);
 
         return new Response($fractal->createData($resource)->toArray(), $status, $headers);
     }
