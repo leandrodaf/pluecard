@@ -20,7 +20,7 @@ class AuthServiceTest extends TestCase
 
         $fakeToken = 'foo-token';
 
-        $user = User::factory()->make(['confirmationEmail' => true]);
+        $user = User::factory()->make(['confirmation_email' => true]);
 
         Auth::shouldReceive('attempt')->with(['email' => $username, 'password' => $password])->once()->andReturn($fakeToken);
         Auth::shouldReceive('user')->andReturn($user);
@@ -53,7 +53,7 @@ class AuthServiceTest extends TestCase
 
         $fakeToken = 'foo-token';
 
-        $user = User::factory()->make(['confirmationEmail' => false]);
+        $user = User::factory()->make(['confirmation_email' => false]);
 
         Auth::shouldReceive('attempt')->with(['email' => $username, 'password' => $password])->once()->andReturn($fakeToken);
         Auth::shouldReceive('user')->andReturn($user);
@@ -65,7 +65,7 @@ class AuthServiceTest extends TestCase
     {
         $this->expectException(ValidatorException::class);
 
-        $user = User::factory()->make(['confirmationEmail' => true]);
+        $user = User::factory()->make(['confirmation_email' => true]);
 
         $this->app->make(AuthService::class)->generateHashConfirmation($user);
     }
@@ -76,7 +76,7 @@ class AuthServiceTest extends TestCase
 
         $this->expectsEvents(CreateConfirmationAccount::class);
 
-        $user = Mockery::mock(User::factory()->make(['confirmationEmail' => false]));
+        $user = Mockery::mock(User::factory()->make(['confirmation_email' => false]));
 
         $confirmationAccount = Mockery::mock(HasOne::class);
 
@@ -95,7 +95,7 @@ class AuthServiceTest extends TestCase
 
         $this->expectsEvents(CreateConfirmationAccount::class);
 
-        $user = Mockery::mock(User::factory()->make(['confirmationEmail' => false]));
+        $user = Mockery::mock(User::factory()->make(['confirmation_email' => false]));
 
         $confirmationAccount = Mockery::mock(ConfirmationAccount::class);
 
@@ -119,7 +119,7 @@ class AuthServiceTest extends TestCase
         $this->mockDependence(ConfirmationAccount::class, function ($confirmationAccount) use ($fakeHash) {
             $user = Mockery::mock(User::class);
 
-            $user->shouldReceive('update')->with(['confirmationEmail' => true])->once();
+            $user->shouldReceive('update')->with(['confirmation_email' => true])->once();
 
             $mockConfirmationAccount = Mockery::mock(new stdClass());
 
@@ -150,8 +150,8 @@ class AuthServiceTest extends TestCase
 
         $this->mockDependence(User::class, function ($user) use ($email) {
             $user->shouldReceive('where')->with('email', $email)->once()->andReturnSelf()
-                ->shouldReceive('where')->with('confirmationEmail', '!=', true)->once()->andReturnSelf()
-                ->shouldReceive('firstOrFail')->once()->andReturn(User::factory()->make(['confirmationEmail' => true]));
+                ->shouldReceive('where')->with('confirmation_email', '!=', true)->once()->andReturnSelf()
+                ->shouldReceive('firstOrFail')->once()->andReturn(User::factory()->make(['confirmation_email' => true]));
 
             return $user;
         });

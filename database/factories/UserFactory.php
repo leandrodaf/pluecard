@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'acceptTerms' => $this->faker->boolean(),
             'newsletter' => $this->faker->boolean(),
             'discountCoupons' => $this->faker->boolean(),
-            'confirmationEmail' => $this->faker->boolean(),
+            'confirmation_email' => $this->faker->boolean(),
 
         ];
     }

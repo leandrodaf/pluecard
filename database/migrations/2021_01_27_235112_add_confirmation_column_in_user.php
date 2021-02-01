@@ -14,9 +14,9 @@ class AddConfirmationColumnInUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('confirmationEmail')->default(false);
+            $table->boolean('confirmation_email')->default(false);
 
-            $table->index(['email', 'confirmationEmail']);
+            $table->index(['email', 'confirmation_email']);
         });
     }
 
@@ -28,8 +28,8 @@ class AddConfirmationColumnInUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['email', 'confirmationEmail']);
-            $table->dropColumn('confirmationEmail');
+            $table->dropIndex(['email', 'confirmation_email']);
+            $table->dropColumn('confirmation_email');
         });
     }
 }

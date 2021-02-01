@@ -28,7 +28,7 @@ class AccountServiceTest extends TestCase
             'acceptTerms' => true,
             'newsletter' => true,
             'discountCoupons' => true,
-            'confirmationEmail' => true,
+            'confirmation_email' => true,
         ];
 
         $this->mockDependence(User::class, function ($user) use ($data) {

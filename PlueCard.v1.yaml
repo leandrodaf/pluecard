@@ -481,7 +481,7 @@ paths:
                         acceptTerms: true
                         newsletter: true
                         discountCoupons: true
-                        confirmationEmail: true
+                        confirmation_email: true
                         created_at: '2021-01-28T17:20:40.000000Z'
                         updated_at: '2021-01-28T21:25:53.000000Z'
                     meta:
@@ -594,7 +594,7 @@ paths:
                       acceptTerms: true
                       newsletter: true
                       discountCoupons: true
-                      confirmationEmail: true
+                      confirmation_email: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
         '400':
@@ -710,7 +710,7 @@ paths:
                       acceptTerms: true
                       newsletter: true
                       discountCoupons: true
-                      confirmationEmail: true
+                      confirmation_email: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
       tags:
@@ -809,7 +809,7 @@ components:
           acceptTerms: true
           newsletter: true
           discountCoupons: true
-          confirmationEmail: true
+          confirmation_email: true
           created_at: '2021-01-28T17:20:40.000000Z'
           updated_at: '2021-01-28T21:25:53.000000Z'
       properties:
@@ -830,7 +830,7 @@ components:
         discountCoupons:
           type: boolean
           description: Confirmação do usuário para receber cupons de descontos.
-        confirmationEmail:
+        confirmation_email:
           type: boolean
           description: Confirmação do email do usuário.
         created_at:

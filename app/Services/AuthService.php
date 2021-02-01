@@ -44,7 +44,7 @@ class AuthService extends Services
 
         throw_unless($token, AuthorizationException::class, null, 401);
 
-        throw_unless(auth()->user()->confirmationEmail, ValidatorException::class, ['The user is not active.']);
+        throw_unless(auth()->user()->confirmation_email, ValidatorException::class, ['The user is not active.']);
 
         return $token;
     }
@@ -57,7 +57,7 @@ class AuthService extends Services
      */
     public function generateHashConfirmation(User $user): void
     {
-        throw_if($user->confirmationEmail, ValidatorException::class, ['The user is already active.']);
+        throw_if($user->confirmation_email, ValidatorException::class, ['The user is already active.']);
 
         $newHash = [
             'hash' => mt_rand(1000000000, 9999999999),
@@ -91,7 +91,7 @@ class AuthService extends Services
 
         $user = $confirmationAccount->user;
 
-        $user->update(['confirmationEmail' => true]);
+        $user->update(['confirmation_email' => true]);
 
         return $user;
     }
@@ -104,7 +104,7 @@ class AuthService extends Services
      */
     public function refreshHash(string $email): void
     {
-        $user = $this->user->where('email', $email)->where('confirmationEmail', '!=', true)->firstOrFail();
+        $user = $this->user->where('email', $email)->where('confirmation_email', '!=', true)->firstOrFail();
 
         $this->generateHashConfirmation($user);
     }

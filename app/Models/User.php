@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'acceptTerms',
         'newsletter',
         'discountCoupons',
-        'confirmationEmail',
+        'confirmation_email',
     ];
 
     protected $hidden = [
@@ -35,7 +35,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'acceptTerms' => 'boolean',
         'newsletter' => 'boolean',
         'discountCoupons' => 'boolean',
-        'confirmationEmail' => 'boolean',
+        'confirmation_email' => 'boolean',
     ];
 
     public function getJWTIdentifier()
