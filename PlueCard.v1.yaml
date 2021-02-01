@@ -100,11 +100,11 @@ paths:
                     type: object
                     description: Nó principal do retorno da API.
                     required:
-                      - accessToken
+                      - access_token
                       - tokenType
                       - expiresIn
                     properties:
-                      accessToken:
+                      access_token:
                         type: string
                         minLength: 1
                         description: Token de acesso.
@@ -129,7 +129,7 @@ paths:
                 Exemplo de retorno.:
                   value:
                     data:
-                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                      access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
                       tokenType: bearer
                       expiresIn: '2021-01-28T15:06:41.534407Z'
         '400':
@@ -188,11 +188,11 @@ paths:
                     type: object
                     description: Nó principal do retorno da API.
                     required:
-                      - accessToken
+                      - access_token
                       - tokenType
                       - expiresIn
                     properties:
-                      accessToken:
+                      access_token:
                         type: string
                         minLength: 1
                         description: Token de acesso.
@@ -215,7 +215,7 @@ paths:
                 Exemplo de retorno.:
                   value:
                     data:
-                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
+                      access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
                       tokenType: bearer
                       expiresIn: '2021-01-28T15:29:24.017877Z'
         '400':
@@ -267,12 +267,12 @@ paths:
                   data:
                     type: object
                     required:
-                      - accessToken
+                      - access_token
                       - tokenType
                       - expiresIn
                     description: Nó principal do retorno da API.
                     properties:
-                      accessToken:
+                      access_token:
                         type: string
                         minLength: 1
                         description: Token de acesso.
@@ -294,7 +294,7 @@ paths:
                 Conta confirmada com sucesso.:
                   value:
                     data:
-                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnBsdWVjYXJkLmNvbVwvYWNjb3VudFwvY29uZmlybWF0aW9uIiwiaWF0IjoxNjExODQzMTgxLCJleHAiOjE2MTE4NDY3ODEsIm5iZiI6MTYxMTg0MzE4MSwianRpIjoiOWM4d0hXclZocElRcmpmOCIsInN1YiI6MTAsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sKtfzqIB8JKKAh47wmWYT3a4aqXAoRMI_cEklsh4DVI
+                      access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnBsdWVjYXJkLmNvbVwvYWNjb3VudFwvY29uZmlybWF0aW9uIiwiaWF0IjoxNjExODQzMTgxLCJleHAiOjE2MTE4NDY3ODEsIm5iZiI6MTYxMTg0MzE4MSwianRpIjoiOWM4d0hXclZocElRcmpmOCIsInN1YiI6MTAsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sKtfzqIB8JKKAh47wmWYT3a4aqXAoRMI_cEklsh4DVI
                       tokenType: bearer
                       expiresIn: '2021-01-28T15:13:01.152812Z'
         '400':

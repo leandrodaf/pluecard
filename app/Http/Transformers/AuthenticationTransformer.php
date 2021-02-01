@@ -10,7 +10,7 @@ class AuthenticationTransformer extends TransformerAbstract
     public function transform(string $token)
     {
         return [
-            'accessToken' => $token,
+            'access_token' => $token,
             'tokenType' => 'bearer',
             'expiresIn' => Carbon::now()->addSeconds(auth()->factory()->getTTL() * 60),
         ];
