@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Transformers\IlluminatePaginatorAdapter;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Request;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\ResourceAbstract;
@@ -38,6 +39,8 @@ trait FractalTrait
     private function buildResourceResponse(ResourceAbstract $resource, $status = 200, array $headers = []): Response
     {
         $fractal = app('League\Fractal\Manager');
+
+        $fractal->parseIncludes(Request::input('include'));
 
         return new Response($fractal->createData($resource)->toArray(), $status, $headers);
     }

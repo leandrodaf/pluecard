@@ -7,6 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'rules',
+    ];
+
     public function transform(User $user)
     {
         return [
@@ -20,5 +24,10 @@ class UserTransformer extends TransformerAbstract
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,
         ];
+    }
+
+    public function includeRules(User $user)
+    {
+        return $this->item($user->getRoleNames(), new RulesTransformer);
     }
 }
