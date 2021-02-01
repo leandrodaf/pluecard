@@ -114,6 +114,9 @@ $app->register(Spatie\Permission\PermissionServiceProvider::class);
 
 if (app()->environment('local')) {
     $app->register(Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class);
+
+    $app->configure('tinker');
+    $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 }
 
 /*
