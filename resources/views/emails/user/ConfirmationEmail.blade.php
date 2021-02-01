@@ -2,5 +2,5 @@
     Nome: {{ $name }}<br>
     Email: {{ $email }}<br>
     hash: {{ $hash }}<br>
-    Data de validate: {{ $validatedAt }}<br>
+    Data de validate: {{ $validated_at }}<br>
 </div>

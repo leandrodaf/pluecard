@@ -56,7 +56,7 @@ class AccountServiceTest extends TestCase
                 ->shouldReceive('where')->with('user_id', $user->id)->once()->andReturnSelf()
                 ->shouldReceive('where')->with('enable', true)->once()->andReturnSelf()
                 ->shouldReceive('where')->with('hash', $data['hash'])->once()->andReturnSelf()
-                ->shouldReceive('whereDate')->with('validatedAt', Mockery::on(function (Carbon $date) {
+                ->shouldReceive('whereDate')->with('validated_at', Mockery::on(function (Carbon $date) {
                     return $date->toString() === Carbon::today()->toString();
                 }))->once()->andReturnSelf()
                 ->shouldReceive('firstOrFail')->once()->andReturnSelf()
@@ -100,10 +100,10 @@ class AccountServiceTest extends TestCase
                 unset($data['hash']);
             }
 
-            $data['validatedAt'] = $data['validatedAt']->toString();
+            $data['validated_at'] = $data['validated_at']->toString();
 
             $expected = [
-                'validatedAt' => Carbon::today()->toString(),
+                'validated_at' => Carbon::today()->toString(),
                 'enable' => true,
             ];
 

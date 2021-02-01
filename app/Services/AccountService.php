@@ -36,7 +36,7 @@ class AccountService
         $hash = $this->resetPassword->where('user_id', $user->id)
             ->where('enable', true)
             ->where('hash', $attributes['hash'])
-            ->whereDate('validatedAt', Carbon::today())
+            ->whereDate('validated_at', Carbon::today())
             ->firstOrFail();
 
         $hash->update(['enable' => false]);
@@ -54,7 +54,7 @@ class AccountService
 
         $resetPasswords = $user->resetPasswords()->create([
             'hash' => mt_rand(1000000000, 9999999999),
-            'validatedAt' => Carbon::today(),
+            'validated_at' => Carbon::today(),
             'enable' => true,
         ]);
 

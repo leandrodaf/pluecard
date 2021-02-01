@@ -30,7 +30,7 @@ class ConfirmationEmail extends Mailable
                 'name' => $this->user->name,
                 'email' => $this->user->email,
                 'hash' => $this->confirmationAccount->hash,
-                'validatedAt' => $this->confirmationAccount->validatedAt->toDateString(),
+                'validated_at' => $this->confirmationAccount->validated_at->toDateString(),
             ]);
     }
 }

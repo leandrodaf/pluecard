@@ -12,14 +12,14 @@ class ResetPassword extends Model
     protected $fillable = [
         'user_id',
         'hash',
-        'validatedAt',
+        'validated_at',
         'enable',
     ];
 
     protected $casts = [
         'hash' => 'string',
         'enable' => 'boolean',
-        'validatedAt' => 'date',
+        'validated_at' => 'date',
     ];
 
     protected $hidden = ['hash'];

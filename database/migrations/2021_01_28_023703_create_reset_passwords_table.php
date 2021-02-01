@@ -16,11 +16,11 @@ class CreateResetPasswordsTable extends Migration
         Schema::create('resetPasswords', function (Blueprint $table) {
             $table->id();
             $table->string('hash', 255)->index();
-            $table->dateTime('validatedAt');
+            $table->dateTime('validated_at');
             $table->boolean('enable')->default(true);
             $table->timestamps();
             $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->index(['user_id', 'enable', 'hash', 'validatedAt']);
+            $table->index(['user_id', 'enable', 'hash', 'validated_at']);
         });
     }
 

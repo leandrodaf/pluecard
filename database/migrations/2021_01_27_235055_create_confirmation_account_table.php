@@ -16,7 +16,7 @@ class CreateConfirmationAccountTable extends Migration
         Schema::create('confirmation_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('hash', 255)->index();
-            $table->dateTime('validatedAt');
+            $table->dateTime('validated_at');
             $table->timestamps();
             $table->unsignedInteger('user_id')->unique()->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

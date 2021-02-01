@@ -81,7 +81,7 @@ class AuthServiceTest extends TestCase
         $confirmationAccount = Mockery::mock(HasOne::class);
 
         $confirmationAccount->shouldReceive('create')->with(Mockery::on(function (array $newHash) {
-            return array_key_exists('hash', $newHash) && $newHash['validatedAt']->toString() === Carbon::now()->addDays(1)->toString();
+            return array_key_exists('hash', $newHash) && $newHash['validated_at']->toString() === Carbon::now()->addDays(1)->toString();
         }))->once()->andReturn(new ConfirmationAccount());
 
         $user->shouldReceive('confirmationAccount')->once()->andReturn($confirmationAccount);
@@ -101,7 +101,7 @@ class AuthServiceTest extends TestCase
 
         $confirmationAccount->shouldReceive('fill')->with(Mockery::on(function (array $newHash) {
             return array_key_exists('hash', $newHash)
-                && $newHash['validatedAt']->toString() === Carbon::now()->addDays(1)->toString();
+                && $newHash['validated_at']->toString() === Carbon::now()->addDays(1)->toString();
         }))->once()->andReturnSelf()
             ->shouldReceive('save')->once();
 
@@ -124,13 +124,13 @@ class AuthServiceTest extends TestCase
             $mockConfirmationAccount = Mockery::mock(new stdClass());
 
             $mockConfirmationAccount->shouldReceive('update')->with(Mockery::on(function ($teste) {
-                return $teste['validatedAt']->toString() === Carbon::now()->toString();
+                return $teste['validated_at']->toString() === Carbon::now()->toString();
             }))->once();
 
             $mockConfirmationAccount->user = $user;
 
             $confirmationAccount->shouldReceive('where')->with('hash', $fakeHash)->andReturnSelf()
-                ->shouldReceive('whereDate')->with('validatedAt', '>', Mockery::on(function ($dateNow) {
+                ->shouldReceive('whereDate')->with('validated_at', '>', Mockery::on(function ($dateNow) {
                     return $dateNow->toString() === Carbon::now()->toString();
                 }))->andReturnSelf()
                 ->shouldReceive('with')->with('user')->once()->andReturnSelf()

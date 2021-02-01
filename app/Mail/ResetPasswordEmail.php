@@ -32,7 +32,7 @@ class ResetPasswordEmail extends Mailable
                 'name' => $this->user->name,
                 'email' => $this->user->email,
                 'hash' => $this->resetPassword->hash,
-                'validatedAt' => $this->resetPassword->validatedAt->toDateString(),
+                'validated_at' => $this->resetPassword->validated_at->toDateString(),
             ]);
     }
 }

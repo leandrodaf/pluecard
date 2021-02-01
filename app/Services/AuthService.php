@@ -61,7 +61,7 @@ class AuthService extends Services
 
         $newHash = [
             'hash' => mt_rand(1000000000, 9999999999),
-            'validatedAt' => Carbon::now()->addDays(1),
+            'validated_at' => Carbon::now()->addDays(1),
         ];
 
         if ($user->confirmationAccount === null) {
@@ -84,10 +84,10 @@ class AuthService extends Services
 
         $confirmationAccount = $this->confirmationAccount
             ->where('hash', $hash)
-            ->whereDate('validatedAt', '>', $dateNow)
+            ->whereDate('validated_at', '>', $dateNow)
             ->with('user')->firstOrFail();
 
-        $confirmationAccount->update(['validatedAt' => $dateNow]);
+        $confirmationAccount->update(['validated_at' => $dateNow]);
 
         $user = $confirmationAccount->user;
 

@@ -12,7 +12,7 @@ class ConfirmationAccount extends Model
     protected $fillable = [
         'user_id',
         'hash',
-        'validatedAt',
+        'validated_at',
     ];
 
     protected $casts = [
