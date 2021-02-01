@@ -15,9 +15,6 @@ class ModelStyleService
 
     public function create(array $data)
     {
-        dd(
-            $data
-        );
         $this->modelStyle->create($data);
     }
 }

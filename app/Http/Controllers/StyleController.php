@@ -23,7 +23,7 @@ class StyleController extends Controller
     {
         $data = $this->validate($request, [
             'name' => 'required|string|max:60',
-            'background' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'background' => 'required|base64_image:jpg, jpeg, png',
         ]);
 
         $this->modelStyleService->create($data);
