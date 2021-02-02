@@ -42,8 +42,8 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
 
     // Styles
     $router->post('/models/styles', 'ModelStyleController@create');
-    $router->put('/models/styles', 'ModelStyleController@update');
-    $router->get('/models/styles/{id}', 'ModelStyleController@show');
     $router->get('/models/styles', 'ModelStyleController@index');
+    $router->get('/models/styles/{id}', 'ModelStyleController@show');
+    $router->put('/models/styles/{id}', 'ModelStyleController@update');
     $router->delete('/models/styles/{id}', 'ModelStyleController@destroy');
 });
