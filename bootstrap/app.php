@@ -67,6 +67,7 @@ $app->configure('logging');
 $app->configure('cors');
 $app->configure('deploy');
 $app->configure('permission');
+$app->configure('filesystems');
 
 /*
 |--------------------------------------------------------------------------

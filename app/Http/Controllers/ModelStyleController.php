@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
-class StyleController extends Controller
+class ModelStyleController extends Controller
 {
     private $modelStyleService;
 
@@ -22,8 +22,8 @@ class StyleController extends Controller
     public function create(Request $request): Response
     {
         $data = $this->validate($request, [
-            'name' => 'required|string|max:60',
-            'background' => 'required|base64_image:jpg, jpeg, png',
+            'name' => 'required|string|max:60|unique:model_styles',
+            'background' => 'required|base64_image',
         ]);
 
         $this->modelStyleService->create($data);

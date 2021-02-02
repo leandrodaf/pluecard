@@ -41,9 +41,9 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->delete('/users/{id}', 'UserController@destroy');
 
     // Styles
-    $router->post('/models/styles', 'StyleController@create');
-    $router->put('/models/styles', 'StyleController@update');
-    $router->get('/models/styles/{id}', 'StyleController@show');
-    $router->get('/models/styles', 'StyleController@index');
-    $router->delete('/models/styles/{id}', 'StyleController@destroy');
+    $router->post('/models/styles', 'ModelStyleController@create');
+    $router->put('/models/styles', 'ModelStyleController@update');
+    $router->get('/models/styles/{id}', 'ModelStyleController@show');
+    $router->get('/models/styles', 'ModelStyleController@index');
+    $router->delete('/models/styles/{id}', 'ModelStyleController@destroy');
 });

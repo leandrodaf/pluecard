@@ -8,13 +8,21 @@ class ModelStyleService
 {
     private $modelStyle;
 
+    /**
+     * @param ModelStyle $modelStyle
+     * @return void
+     */
     public function __construct(ModelStyle $modelStyle)
     {
         $this->modelStyle = $modelStyle;
     }
 
-    public function create(array $data)
+    /**
+     * @param array $data
+     * @return ModelStyle
+     */
+    public function create(array $data): ModelStyle
     {
-        $this->modelStyle->create($data);
+        return $this->modelStyle->create($data);
     }
 }
