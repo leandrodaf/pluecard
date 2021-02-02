@@ -19,7 +19,7 @@ class ModelStyle extends Model
 
         $fileName = rand(10, 100).time();
 
-        $fileUrl = $uploadFile->uploadBase64File('/models/styles/background', $fileName, $value);
+        $fileUrl = $uploadFile->uploadBase64File('models/styles/background', $fileName, $value);
 
         $this->attributes['background'] = $fileUrl;
     }
