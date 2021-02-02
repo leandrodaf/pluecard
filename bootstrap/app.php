@@ -67,6 +67,7 @@ $app->configure('logging');
 $app->configure('cors');
 $app->configure('deploy');
 $app->configure('permission');
+$app->configure('filesystems');
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +108,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\FractalServiceProviderque::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\ValidationServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(MarvinLabs\DiscordLogger\ServiceProvider::class);
 $app->alias('cache', Illuminate\Cache\CacheManager::class); 

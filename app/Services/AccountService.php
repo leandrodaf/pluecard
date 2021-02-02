@@ -8,6 +8,10 @@ use App\Exceptions\ValidatorException;
 use App\Models\ResetPassword;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\MassAssignmentException;
+use Throwable;
 
 class AccountService
 {
@@ -15,6 +19,11 @@ class AccountService
 
     private $resetPassword;
 
+    /**
+     * @param User $user
+     * @param ResetPassword $resetPassword
+     * @return void
+     */
     public function __construct(User $user, ResetPassword $resetPassword)
     {
         $this->user = $user;
@@ -22,6 +31,11 @@ class AccountService
         $this->resetPassword = $resetPassword;
     }
 
+    /**
+     * @param array $attributes
+     * @return User
+     * @throws BindingResolutionException
+     */
     public function create(array $attributes): User
     {
         $user = $this->user->create($attributes);
@@ -31,6 +45,13 @@ class AccountService
         return $user;
     }
 
+    /**
+     * @param User $user
+     * @param array $attributes
+     * @return void
+     * @throws InvalidFormatException
+     * @throws MassAssignmentException
+     */
     public function resetPasswordUpdate(User $user, array $attributes): void
     {
         $hash = $this->resetPassword->where('user_id', $user->id)
@@ -44,6 +65,13 @@ class AccountService
         $user->update(['password' => $attributes['password']]);
     }
 
+    /**
+     * @param User $user
+     * @return void
+     * @throws InvalidFormatException
+     * @throws Throwable
+     * @throws BindingResolutionException
+     */
     public function resetPassword(User $user): void
     {
         $quantity = $this->resetPassword->where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
@@ -61,6 +89,13 @@ class AccountService
         event(new CreateResetPassword($user, $reset_passwords));
     }
 
+    /**
+     * @param string $email
+     * @return void
+     * @throws InvalidFormatException
+     * @throws Throwable
+     * @throws BindingResolutionException
+     */
     public function forgotPassword(string $email): void
     {
         $user = $this->user->where('email', $email)->firstOrFail();
@@ -68,6 +103,13 @@ class AccountService
         $this->resetPassword($user);
     }
 
+    /**
+     * @param string $hash
+     * @param string $password
+     * @return void
+     * @throws InvalidFormatException
+     * @throws MassAssignmentException
+     */
     public function forgotPasswordConfirmation(string $hash, string $password): void
     {
         $resetPassword = $this->resetPassword->where('hash', $hash)->with('user')->firstOrFail();
