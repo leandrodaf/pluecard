@@ -28,57 +28,57 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Cria um usuário.
+      description: Cria um usuário
       requestBody:
         content:
           application/json:
             schema:
-              description: Schema do payload de integração.
+              description: Schema do payload de integração
               type: object
               properties:
                 name:
                   type: string
                   minLength: 1
-                  description: Nome do usuário.
+                  description: Nome do usuário
                 email:
                   type: string
                   minLength: 1
-                  description: Email do usuário.
-                accept_terms:
+                  description: Email do usuário
+                acceptTerms:
                   type: boolean
-                  description: Validação dos termos de uso.
+                  description: Validação dos termos de uso
                 password:
                   type: string
                   minLength: 1
-                  description: Senha do usuário.
+                  description: Senha do usuário
                 password_confirmation:
                   type: string
                   minLength: 1
-                  description: Confirmação da senha.
+                  description: Confirmação da senha
                 newsletter:
                   type: boolean
-                  description: Confirmação do usuário para receber notificações de atualização da aplicação.
-                discount_coupons:
+                  description: Confirmação do usuário para receber notificações de atualização da aplicação
+                discountCoupons:
                   type: boolean
-                  description: Confirmação do usuário para receber cupons de descontos.
+                  description: Confirmação do usuário para receber cupons de descontos
               required:
                 - name
                 - email
-                - accept_terms
+                - acceptTerms
                 - password
                 - password_confirmation
                 - newsletter
-                - discount_coupons
+                - discountCoupons
             examples:
               Criação de usuário:
                 value:
-                  name: Leandro Ferreira
+                  name: Igor Bruno Monteiro
                   email: foo@gmail.com
-                  accept_terms: true
+                  acceptTerms: true
                   password: foo-bar-123456789
                   password_confirmation: foo-bar-123456789
                   newsletter: true
-                  discount_coupons: true
+                  discountCoupons: true
         description: Criação de usuário
       security: []
       tags:
@@ -93,33 +93,33 @@ paths:
           content:
             application/json:
               schema:
-                description: Schema do response de autenticação.
+                description: Schema do response de autenticação
                 type: object
                 properties:
                   data:
                     type: object
-                    description: Nó principal do retorno da API.
+                    description: Nó principal do retorno da API
                     required:
-                      - access_token
-                      - token_type
-                      - expires_in
+                      - accessToken
+                      - tokenType
+                      - expiresIn
                     properties:
-                      access_token:
+                      accessToken:
                         type: string
                         minLength: 1
-                        description: Token de acesso.
+                        description: Token de acesso
                         example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
                         readOnly: true
-                      token_type:
+                      tokenType:
                         type: string
                         minLength: 1
-                        description: Tipo do token.
+                        description: Tipo do token
                         example: bearer
                         readOnly: true
-                      expires_in:
+                      expiresIn:
                         type: string
                         example: '2021-01-28T15:06:41.534407Z'
-                        description: Tempo de vida do token.
+                        description: Tempo de vida do token
                         format: date-time
                         readOnly: true
                     readOnly: true
@@ -129,9 +129,9 @@ paths:
                 Exemplo de retorno.:
                   value:
                     data:
-                      access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
-                      token_type: bearer
-                      expires_in: '2021-01-28T15:06:41.534407Z'
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                      tokenType: bearer
+                      expiresIn: '2021-01-28T15:06:41.534407Z'
         '400':
           description: Bad Request
         '401':
@@ -142,22 +142,22 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Autentica um usuário.
+      description: Autentica um usuário
       requestBody:
         content:
           application/json:
             schema:
-              description: Schema do payload de integração.
+              description: Schema do payload de integração
               type: object
               properties:
                 password:
                   type: string
                   minLength: 12
-                  description: Senha do usuário.
+                  description: Senha do usuário
                 email:
                   type: string
                   format: email
-                  description: Email de autenticação do usuário.
+                  description: Email de autenticação do usuário
               required:
                 - password
                 - email
@@ -166,7 +166,7 @@ paths:
                 value:
                   email: foo@gmail.com
                   password: foo-bar-123456789
-        description: Autenticação de usuário.
+        description: Autenticação de usuário
       security: []
       tags:
         - Autenticação
@@ -181,30 +181,30 @@ paths:
           content:
             application/json:
               schema:
-                description: Schema do response de atualização de autenticação.
+                description: Schema do response de atualização de autenticação
                 type: object
                 properties:
                   data:
                     type: object
-                    description: Nó principal do retorno da API.
+                    description: Nó principal do retorno da API
                     required:
-                      - access_token
-                      - token_type
-                      - expires_in
+                      - accessToken
+                      - tokenType
+                      - expiresIn
                     properties:
-                      access_token:
+                      accessToken:
                         type: string
                         minLength: 1
-                        description: Token de acesso.
+                        description: Token de acesso
                         readOnly: true
-                      token_type:
+                      tokenType:
                         type: string
                         minLength: 1
-                        description: Tipo do token.
+                        description: Tipo do token
                         readOnly: true
-                      expires_in:
+                      expiresIn:
                         type: string
-                        description: Tempo de vida do token.
+                        description: Tempo de vida do token
                         example: '2021-01-28T15:08:02.486877Z'
                         format: date-time
                         readOnly: true
@@ -215,9 +215,9 @@ paths:
                 Exemplo de retorno.:
                   value:
                     data:
-                      access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
-                      token_type: bearer
-                      expires_in: '2021-01-28T15:29:24.017877Z'
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
+                      tokenType: bearer
+                      expiresIn: '2021-01-28T15:29:24.017877Z'
         '400':
           description: Bad Request
         '401':
@@ -228,7 +228,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Esse endpoint gera um novo token de acesso sem a necessidade de informar o nome de usuário e senha.
+      description: Esse endpoint gera um novo token de acesso sem a necessidade de informar o nome de usuário e senha
       tags:
         - Autenticação
   /auth/logout:
@@ -248,7 +248,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Faz o logout do usuário.
+      description: Faz o logout do usuário
       tags:
         - Autenticação
   /account/confirmation:
@@ -267,25 +267,25 @@ paths:
                   data:
                     type: object
                     required:
-                      - access_token
-                      - token_type
-                      - expires_in
-                    description: Nó principal do retorno da API.
+                      - accessToken
+                      - tokenType
+                      - expiresIn
+                    description: Nó principal do retorno da API
                     properties:
-                      access_token:
+                      accessToken:
                         type: string
                         minLength: 1
-                        description: Token de acesso.
+                        description: Token de acesso
                         readOnly: true
-                      token_type:
+                      tokenType:
                         type: string
                         minLength: 1
-                        description: Tipo do token.
+                        description: Tipo do token
                         readOnly: true
-                      expires_in:
+                      expiresIn:
                         type: string
                         minLength: 1
-                        description: Tempo de vida do token.
+                        description: Tempo de vida do token
                         format: date-time
                         readOnly: true
                 required:
@@ -294,9 +294,9 @@ paths:
                 Conta confirmada com sucesso.:
                   value:
                     data:
-                      access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnBsdWVjYXJkLmNvbVwvYWNjb3VudFwvY29uZmlybWF0aW9uIiwiaWF0IjoxNjExODQzMTgxLCJleHAiOjE2MTE4NDY3ODEsIm5iZiI6MTYxMTg0MzE4MSwianRpIjoiOWM4d0hXclZocElRcmpmOCIsInN1YiI6MTAsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sKtfzqIB8JKKAh47wmWYT3a4aqXAoRMI_cEklsh4DVI
-                      token_type: bearer
-                      expires_in: '2021-01-28T15:13:01.152812Z'
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnBsdWVjYXJkLmNvbVwvYWNjb3VudFwvY29uZmlybWF0aW9uIiwiaWF0IjoxNjExODQzMTgxLCJleHAiOjE2MTE4NDY3ODEsIm5iZiI6MTYxMTg0MzE4MSwianRpIjoiOWM4d0hXclZocElRcmpmOCIsInN1YiI6MTAsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sKtfzqIB8JKKAh47wmWYT3a4aqXAoRMI_cEklsh4DVI
+                      tokenType: bearer
+                      expiresIn: '2021-01-28T15:13:01.152812Z'
         '400':
           description: Bad Request
         '401':
@@ -307,7 +307,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Esse endpoint faz a validação da conta do usuário utilizando a hash que foi notificada no email do mesmo.
+      description: Esse endpoint faz a validação da conta do usuário utilizando a hash que foi notificada no email do mesmo
       requestBody:
         content:
           application/json:
@@ -318,7 +318,7 @@ paths:
                 hash:
                   type: string
                   minLength: 1
-                  description: Hash recebida no e-mail do usuário.
+                  description: Hash recebida no e-mail do usuário
                   example: '5687618537'
                   writeOnly: true
               required:
@@ -348,7 +348,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Esse endpoint renotifica o email do usuário com uma nova hash de confirmação de email.
+      description: Esse endpoint renotifica o email do usuário com uma nova hash de confirmação de email
       requestBody:
         content:
           application/json:
@@ -360,7 +360,7 @@ paths:
                   type: string
                   minLength: 1
                   format: email
-                  description: E-mail do usuário.
+                  description: E-mail do usuário
               required:
                 - email
             examples:
@@ -388,7 +388,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Esse endpoint notifica o email do usuário com uma hash para a troca de senha.
+      description: Esse endpoint notifica o email do usuário com uma hash para a troca de senha
       tags:
         - Conta de usuário
   /account/password:
@@ -421,17 +421,17 @@ paths:
                 hash:
                   type: string
                   minLength: 1
-                  description: Hash de troca de senha enviada no email do usuário.
+                  description: Hash de troca de senha enviada no email do usuário
                   writeOnly: true
                 password:
                   type: string
                   minLength: 1
-                  description: Nova senha.
+                  description: Nova senha
                   writeOnly: true
                 password_confirmation:
                   type: string
                   minLength: 1
-                  description: Confirmação da senha.
+                  description: Confirmação da senha
                   writeOnly: true
               required:
                 - hash
@@ -450,6 +450,8 @@ paths:
       summary: Lista todos os usuários do sistema
       tags:
         - Usuario
+      parameters:
+        - $ref: '#/components/parameters/include'
       responses:
         '200':
           description: OK
@@ -463,7 +465,7 @@ paths:
                     type: array
                     uniqueItems: true
                     minItems: 1
-                    description: Listagem de usuários.
+                    description: Listagem de usuários
                     items:
                       $ref: '#/components/schemas/User'
                   meta:
@@ -476,12 +478,12 @@ paths:
                   value:
                     data:
                       - id: 1
-                        name: Leandro Ferreira
-                        email: leandro.daf4@gmail.com
-                        accept_terms: true
+                        name: Igor Bruno Monteiro
+                        email: iigorbrunomonteiro@acquire.com.br
+                        acceptTerms: true
                         newsletter: true
-                        discount_coupons: true
-                        confirmation_email: true
+                        discountCoupons: true
+                        confirmationEmail: true
                         created_at: '2021-01-28T17:20:40.000000Z'
                         updated_at: '2021-01-28T21:25:53.000000Z'
                     meta:
@@ -503,14 +505,14 @@ paths:
         '500':
           description: Internal Server Error
       operationId: get-users
-      description: Lista todos os usuários do sistema.
+      description: Lista todos os usuários do sistema
     put:
       summary: Atualiza o usuário autenticado
       operationId: put-users
       responses:
         '200':
           description: OK
-      description: Atualização do usuário logado.
+      description: Atualização do usuário logado
       requestBody:
         content:
           application/json:
@@ -521,23 +523,23 @@ paths:
                 name:
                   type: string
                   minLength: 1
-                  description: Nome do usuário.
+                  description: Nome do usuário
                 newsletter:
                   type: boolean
-                  description: Confirmação do usuário para receber notificações de atualização da aplicação.
-                discount_coupons:
+                  description: Confirmação do usuário para receber notificações de atualização da aplicação
+                discountCoupons:
                   type: boolean
-                  description: Confirmação do usuário para receber cupons de descontos.
+                  description: Confirmação do usuário para receber cupons de descontos
               required:
                 - name
                 - newsletter
-                - discount_coupons
+                - discountCoupons
             examples:
               Exemplo de atualização:
                 value:
-                  name: Leandro Ferreira
+                  name: Igor Bruno Monteiro
                   newsletter: true
-                  discount_coupons: true
+                  discountCoupons: true
       tags:
         - Usuario
     delete:
@@ -556,7 +558,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Deletar completamente do sistema o usuário autenticado.
+      description: Deletar completamente do sistema o usuário autenticado
       tags:
         - Usuario
   '/users/{id}':
@@ -571,6 +573,8 @@ paths:
       summary: Retorna o contexto de um usuário específico
       tags:
         - Usuario - Administração
+      parameters:
+        - $ref: '#/components/parameters/include'
       responses:
         '200':
           description: OK
@@ -589,12 +593,12 @@ paths:
                   value:
                     data:
                       id: 1
-                      name: Leandro Ferreira
-                      email: leandro.daf4@gmail.com
-                      accept_terms: true
+                      name: Igor Bruno Monteiro
+                      email: iigorbrunomonteiro@acquire.com.br
+                      acceptTerms: true
                       newsletter: true
-                      discount_coupons: true
-                      confirmation_email: true
+                      discountCoupons: true
+                      confirmationEmail: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
         '400':
@@ -608,7 +612,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: get-users-id
-      description: Retorna o contexto de um usuário específico.
+      description: Retorna o contexto de um usuário específico
     put:
       summary: Atualização de um usuário específico
       operationId: put-users-id
@@ -624,23 +628,23 @@ paths:
                   name:
                     type: string
                     minLength: 1
-                    description: Nome do usuário.
+                    description: Nome do usuário
                   newsletter:
                     type: boolean
-                    description: Confirmação do usuário para receber notificações de atualização da aplicação.
-                  discount_coupons:
+                    description: Confirmação do usuário para receber notificações de atualização da aplicação
+                  discountCoupons:
                     type: boolean
-                    description: Confirmação do usuário para receber cupons de descontos.
+                    description: Confirmação do usuário para receber cupons de descontos
                 required:
                   - name
                   - newsletter
-                  - discount_coupons
+                  - discountCoupons
               examples:
                 Exemplo de atualização:
                   value:
-                    name: Leandro Ferreira
+                    name: Igor Bruno Monteiro
                     newsletter: true
-                    discount_coupons: true
+                    discountCoupons: true
         '400':
           description: Bad Request
         '401':
@@ -651,7 +655,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Atualiza um usuário específico.
+      description: Atualiza um usuário específico
       tags:
         - Usuario - Administração
     delete:
@@ -672,27 +676,15 @@ paths:
           description: Internal Server Error
       tags:
         - Usuario - Administração
-      description: Deletar completamente do sistema um usuário específico.
-  /users/me:
+      description: Deletar completamente do sistema um usuário específico
+  '/users/me':
     get:
       summary: Retorna o contexto do usuário logado
       operationId: get-users-me
-      description: Retorna o contexto do usuário logado.
+      description: Retorna o contexto do usuário logado
       responses:
         '200':
           description: OK
-        '201':
-          description: Created
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -705,16 +697,30 @@ paths:
                   value:
                     data:
                       id: 1
-                      name: Leandro Ferreira
-                      email: leandro.daf4@gmail.com
-                      accept_terms: true
+                      name: Igor Bruno Monteiro
+                      email: iigorbrunomonteiro@acquire.com.br
+                      acceptTerms: true
                       newsletter: true
-                      discount_coupons: true
-                      confirmation_email: true
+                      discountCoupons: true
+                      confirmationEmail: true
                       created_at: '2021-01-28T17:20:40.000000Z'
                       updated_at: '2021-01-28T21:25:53.000000Z'
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
       tags:
         - Usuario
+    parameters:
+      - $ref: '#/components/parameters/include'
   /account/password/forgot:
     post:
       summary: Solicitação de recuperação de senha
@@ -732,7 +738,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Envie uma hash para reset de senha no e-mail do usuário.
+      description: Envie uma hash para reset de senha no e-mail do usuário
       security: []
       requestBody:
         content:
@@ -744,7 +750,7 @@ paths:
                 email:
                   type: string
                   minLength: 1
-                  description: E-mail do usuário.
+                  description: E-mail do usuário
                   format: email
                   writeOnly: true
               required:
@@ -763,7 +769,7 @@ paths:
         '200':
           description: OK
       security: []
-      description: Realiza a troca de senha usando o token enviado no email do usuário.
+      description: Realiza a troca de senha usando o token enviado no email do usuário
       requestBody:
         content:
           application/json:
@@ -774,7 +780,7 @@ paths:
                 hash:
                   type: string
                   minLength: 1
-                  description: Hash de troca de senha enviada no email do usuário.
+                  description: Hash de troca de senha enviada no email do usuário
                   writeOnly: true
                 password:
                   type: string
@@ -804,49 +810,60 @@ components:
       type: object
       x-examples:
         Exemplo de usuário:
-          name: Leandro Ferreira
-          email: leandro.daf4@gmail.com
-          accept_terms: true
+          name: Igor Bruno Monteiro
+          email: iigorbrunomonteiro@acquire.com.br
+          acceptTerms: true
           newsletter: true
-          discount_coupons: true
-          confirmation_email: true
+          discountCoupons: true
+          confirmationEmail: true
           created_at: '2021-01-28T17:20:40.000000Z'
           updated_at: '2021-01-28T21:25:53.000000Z'
+      title: User
       properties:
         name:
           type: string
           minLength: 1
-          description: Nome do usuário.
+          description: Nome do usuário
         email:
           type: string
           minLength: 1
-          description: Email do usuário.
-        accept_terms:
+          description: Email do usuário
+          readOnly: true
+        acceptTerms:
           type: boolean
-          description: Validação dos termos de uso.
+          description: Validação dos termos de uso
         newsletter:
           type: boolean
-          description: Confirmação do usuário para receber notificações de atualização da aplicação.
-        discount_coupons:
+          description: Confirmação do usuário para receber notificações de atualização da aplicação
+        discountCoupons:
           type: boolean
-          description: Confirmação do usuário para receber cupons de descontos.
-        confirmation_email:
+          description: Confirmação do usuário para receber cupons de descontos
+        confirmationEmail:
           type: boolean
-          description: Confirmação do email do usuário.
+          description: Confirmação do email do usuário
         created_at:
           type: string
           minLength: 1
-          description: Data de criação.
+          description: Data de criação
+          readOnly: true
         updated_at:
           type: string
           minLength: 1
-          description: Data da última atualização.
+          description: Data da última atualização
+          readOnly: true
         id:
           type: integer
-          description: Identificador do usuário.
-      title: User
+          description: Identificador do usuário
+          readOnly: true
+        rules:
+          type: object
+          description: Listagem de regas de permissionamento do usuário
+          properties:
+            data:
+              $ref: '#/components/schemas/Rules'
+          readOnly: true
     MetaPaginate:
-      description: Metadados do modelo de paginação.
+      description: Metadados do modelo de paginação
       type: object
       properties:
         pagination:
@@ -861,32 +878,56 @@ components:
           properties:
             total:
               type: number
-              description: Total de páginas para integração.
+              description: Total de páginas para integração
               deprecated: true
             count:
               type: number
-              description: Quantidade de itens retornados.
+              description: Quantidade de itens retornados
             per_page:
               type: number
-              description: Quantidade por página.
+              description: Quantidade por página
             current_page:
               type: number
-              description: Página atual.
+              description: Página atual
             total_pages:
               type: number
-              description: Quantidade de páginas iteradas.
+              description: Quantidade de páginas iteradas
             links:
               type: object
               deprecated: true
-              description: Link para a próxima iteração.
+              description: Link para a próxima iteração
       required:
         - pagination
       title: Meta Paginate
+    Rules:
+      type: array
+      description: Lista das regras de permissionamento
+      items:
+        type: string
+        example: Administrator
+      readOnly: true
+      title: Rules
+      x-examples:
+        Exemplo de listagem de regas:
+          - Administrator
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+  examples: {}
+  parameters:
+    include:
+      name: include
+      in: query
+      required: false
+      description: Inclusão de entidades conforme os relacionamentos do modelo
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - rules
 tags:
   - name: Autenticação
   - name: Conta de usuário
