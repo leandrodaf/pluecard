@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Services\Helpers\UploadFile;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModelStyle extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'model_styles';
 
     protected $fillable = [
