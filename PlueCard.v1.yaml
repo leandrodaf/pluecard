@@ -5,10 +5,12 @@ info:
   description: Documentação da interface de integração dos servidores REST da aplicação PlueCard.
   contact:
     name: Leandro Ferreira
-    url: 'https://github.com/leandroferreirra'
+    url: 'https://github.com/leandrodaf'
     email: leandro.daf4@gmail.com
 servers:
   - url: 'https://api.pluecard.com'
+    description: Produção
+  - url: 'http://localhost'
     description: Desenvolvimento
 paths:
   /account/create:
@@ -507,7 +509,7 @@ paths:
       operationId: get-users
       description: Lista todos os usuários do sistema
     put:
-      summary: Atualiza o usuário autenticado
+      summary: Atualizar usuário autenticado
       operationId: put-users
       responses:
         '200':
@@ -541,9 +543,9 @@ paths:
                   newsletter: true
                   discountCoupons: true
       tags:
-        - Usuario
+        - Usuário
     delete:
-      summary: Deleta o usuário autenticado
+      summary: Deletar usuário autenticado
       operationId: delete-users
       responses:
         '200':
@@ -560,7 +562,7 @@ paths:
           description: Internal Server Error
       description: Deletar completamente do sistema o usuário autenticado
       tags:
-        - Usuario
+        - Usuário
   '/users/{id}':
     parameters:
       - schema:
@@ -570,7 +572,7 @@ paths:
         required: true
         description: Identificado do usuário
     get:
-      summary: Retorna o contexto de um usuário específico
+      summary: Retornar contexto de usuário específico
       tags:
         - Usuario - Administração
       parameters:
@@ -614,7 +616,7 @@ paths:
       operationId: get-users-id
       description: Retorna o contexto de um usuário específico
     put:
-      summary: Atualização de um usuário específico
+      summary: Atualiza usuário específico
       operationId: put-users-id
       responses:
         '200':
@@ -657,9 +659,9 @@ paths:
           description: Internal Server Error
       description: Atualiza um usuário específico
       tags:
-        - Usuario - Administração
+        - Usuário - Administração
     delete:
-      summary: Deleta de um usuário específico
+      summary: Deletar usuário específico
       operationId: delete-users-id
       responses:
         '200':
@@ -803,6 +805,205 @@ paths:
                   password_confirmation: foo-password-12345
       tags:
         - Recuperação de senha
+  /models/styles:
+    get:
+      summary: Listagem de Estilos de modelos
+      tags:
+        - Modelo - Administração
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Listagem de estilo de modelos
+                    items:
+                      $ref: '#/components/schemas/ModelStyle'
+                  meta:
+                    $ref: '#/components/schemas/MetaPaginate'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Paisagem
+                        background: 'data:image/jpeg;base64,...'
+                        created_at: '2021-01-28T18:11:23.000000Z'
+                        updated_at: '2021-01-28T18:11:23.000000Z'
+                        deleted_at: '2021-01-28T18:11:23.000000Z'
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 0
+                        per_page: 0
+                        current_page: 0
+                        total_pages: 0
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-models-styles
+      description: Lista todos os modelos do sistema
+    post:
+      summary: Criação de novo Estilos de modelos
+      operationId: post-models-styles
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Criação de estilo de modelos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  example: Escritório
+                  description: Nome do estilo
+                  writeOnly: true
+                background:
+                  type: string
+                  minLength: 1
+                  format: string
+                  example: 'data:image/jpeg;base64,,...'
+                  description: Imagem de fundo em formato base64
+                  writeOnly: true
+              required:
+                - name
+                - background
+            examples:
+              Exemplo de integração:
+                value:
+                  name: escritorio
+                  background: 'data:image/jpeg;base64,,...'
+        description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
+      tags:
+        - Modelo - Administração
+    parameters: []
+  '/models/styles/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificado do estilo de modelo
+    get:
+      summary: Retornar estilo de modelo específico
+      tags:
+        - Modelo - Administração
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ModelStyle'
+                required:
+                  - data
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-models-styles-id
+      description: Retorna um estilo de modelo específico
+    put:
+      summary: Atualizar estilo de modelo específico
+      operationId: put-models-styles
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Atualização de estilo de modelos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome do estilo
+                  example: Plumas
+                  minLength: 1
+                  maxLength: 150
+                  writeOnly: true
+                background:
+                  type: string
+                  description: Imagem de fundo em formato base64
+                  example: 'data:image/jpeg;base64,,...'
+                  format: string
+                  writeOnly: true
+            examples:
+              Exemplo de integração:
+                value:
+                  name: Plumas
+                  background: 'data:image/jpeg;base64,...'
+        description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
+      tags:
+        - Modelo - Administração
+    delete:
+      summary: Inativar estilo de modelo específico
+      operationId: delete-models-styles-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Inativa o estilo de modelo
+      tags:
+        - Modelo - Administração
 components:
   schemas:
     User:
@@ -931,8 +1132,9 @@ components:
 tags:
   - name: Autenticação
   - name: Conta de usuário
-  - name: Usuario - Administração
-  - name: Usuario
+  - name: Usuário - Administração
+  - name: Usuário
   - name: Recuperação de senha
+  - name: Modelo - Administração
 security:
   - bearerAuth: []
