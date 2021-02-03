@@ -9,6 +9,7 @@ class UserServiceTest extends TestCase
     public function testTestedPaginate()
     {
         $this->mockDependence(User::class, function (User $user) {
+            $user->shouldReceive('search')->with(null)->once()->andReturnSelf();
             $user->shouldReceive('simplePaginate')->with(15)->once()->andReturn(Mockery::mock(Paginator::class));
 
             return $user;
