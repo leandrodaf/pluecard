@@ -15,7 +15,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
-    use Authenticatable, Authorizable, HasFactory, HasRoles;
+    use Authenticatable, Authorizable, HasFactory, HasRoles, FullTextSearch;
 
     protected $fillable = [
         'name',
@@ -36,6 +36,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'newsletter' => 'boolean',
         'discount_coupons' => 'boolean',
         'confirmation_email' => 'boolean',
+    ];
+
+    protected $searchable = [
+        'name',
+        'email',
     ];
 
     public function getJWTIdentifier()

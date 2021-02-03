@@ -22,11 +22,13 @@ class UserController extends Controller
         $this->auth = $auth;
     }
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
         Gate::authorize('admin', $this->auth->user());
 
-        $list = $this->userService->listUsersPaginate();
+        $search = $request->input('search') ?? null;
+
+        $list = $this->userService->listUsersPaginate($search);
 
         return $this->paginateResponse($list, new UserTransformer, 200);
     }

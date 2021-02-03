@@ -21,9 +21,9 @@ class UserService extends Services
     }
 
     /** @return Paginator  */
-    public function listUsersPaginate(): Paginator
+    public function listUsersPaginate(string $search = null): Paginator
     {
-        return $this->user->simplePaginate(15);
+        return $this->user->search($search)->simplePaginate(15);
     }
 
     /**
