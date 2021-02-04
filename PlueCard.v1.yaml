@@ -1010,6 +1010,95 @@ paths:
       description: Inativa o estilo de modelo
       tags:
         - Modelo - Administração
+  '/auth/login/social/{driver}':
+    parameters:
+      - schema:
+          type: string
+          example: google
+        name: driver
+        in: path
+        required: true
+        description: Driver social que esta sendo integrado
+    post:
+      summary: Autenticação usando token social
+      operationId: post-auth-login-social-driver
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Schema do response de autenticação
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: Nó principal do retorno da API
+                    required:
+                      - accessToken
+                      - tokenType
+                      - expiresIn
+                    properties:
+                      accessToken:
+                        type: string
+                        minLength: 1
+                        description: Token de acesso
+                        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                        readOnly: true
+                      tokenType:
+                        type: string
+                        minLength: 1
+                        description: Tipo do token
+                        example: bearer
+                        readOnly: true
+                      expiresIn:
+                        type: string
+                        example: '2021-01-28T15:06:41.534407Z'
+                        description: Tempo de vida do token
+                        format: date-time
+                        readOnly: true
+                    readOnly: true
+                required:
+                  - data
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
+                      tokenType: bearer
+                      expiresIn: '2021-01-28T15:06:41.534407Z'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Fazer a autenticação usando os tokens sociais
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Autenticação modelo Google:
+                value:
+                  token_type: Bearer
+                  access_token: ya29.a0AfH6SMCz8aSk6KcR1hNENY_xGSbo1vIHpT-pgaZ9avg6MsByml0sSUs3WNkTbuUFOQWjOhfLt__Os5EiWnETt4vI85_7PKKL2b_wQWWQBdJ9LdtKAemrnJ7P6umT1zD2M5vEdea-zBKO7BNolVl8JYr3azSx3GlEX5olJXm2QVw
+                  scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+                  login_hint: AJDLj6JUa8yxXrhHdWRHIV0S13cATs_fEsP0qZryg3SEy8EZfDsnYJfwSd5l6aTd4GcTM4RMOiXm3M39wcjZRG9ctd82IfQJHA
+                  expires_in: 3599
+                  id_token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjAzYjJkMjJjMmZlY2Y4NzNlZDE5ZTViOGNmNzA0YWZiN2UyZWQ0YmUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiOTg0NDQ2Mjg1ODUxLXAxOGo3aGlsZ3NjMXFocHYxOG1lNmUyNnMwNnBsYmhwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiOTg0NDQ2Mjg1ODUxLXAxOGo3aGlsZ3NjMXFocHYxOG1lNmUyNnMwNnBsYmhwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE3NTA3MzYwOTkyNzA1NjAyMTgzIiwiZW1haWwiOiJsZWFuZHJvLmRhZjRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJadnc4VmdUZEpicG8wVWtXeGxnYW53IiwibmFtZSI6IkxlYW5kcm8gRmVycmVpcmEiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2pIalhZOHJudlJLaUdNelB5S2Q1aUJGQkdWN1Q5S2trUHllNTZRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkxlYW5kcm8iLCJmYW1pbHlfbmFtZSI6IkZlcnJlaXJhIiwibG9jYWxlIjoicHQtQlIiLCJpYXQiOjE2MTI0MTAwMjcsImV4cCI6MTYxMjQxMzYyNywianRpIjoiNjdkYzg4ZGE0NWU1OGQwZGRmNWM5ZTQ0ZGFhM2Q4NTRiNzllZjEzZCJ9.bfFEIwY3o_9Ms75oAlvWHRoDdeW5N6-OZbfPCPmY0UGWC_PdOfQkiEFN6f8n5j7F8twqqmqsgonZbGAUfdtsb65ptxH2zyKCX6NaggH2MqAqHIY65MyIK2flI-ZCXWmSbHJfGp1i4c8WtfWUvvzSqfJgyE9qmZGlD0avHKFkBUJEkwHRAmAvZ4fSP0TjS5psuHxNm54Uy1OESKHituXbnG9LYixB0vlEM1hEOYtCkSEoPd7oQpQksAEPS3y_oacVLMQZ4y-RHxze2tk2ft_nM8yLUojSm5LffspdrkLAgoZIpjDZhd2ng9xLTUitWg05ekn0gXUrwJx0kAdYYYAhig
+                  session_state:
+                    extraQueryParams:
+                      authuser: '0'
+        description: Os payload de integração sofrem varições conforme a rede social que esta sendo integrada
+      tags:
+        - Autenticação
 components:
   schemas:
     User:
