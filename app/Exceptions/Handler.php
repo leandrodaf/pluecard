@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use App\Http\Controllers\FractalTrait;
 use App\Http\Transformers\ExceptionTransformer;
 use Exception;
+use Google\Service\Exception as GoogleException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -76,7 +77,7 @@ class Handler extends ExceptionHandler
             'message' => (string) $exception->getMessage(),
         ];
 
-        if ($exception instanceof AuthorizationException) {
+        if ($exception instanceof AuthorizationException || $exception instanceof GoogleException) {
             $response['code'] = $this->getStatusText(Response::HTTP_UNAUTHORIZED);
             $response['status'] = Response::HTTP_UNAUTHORIZED;
         } elseif ($exception instanceof HttpException) {

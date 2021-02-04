@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 
 class AuthService extends Services
@@ -17,16 +18,45 @@ class AuthService extends Services
 
     private $confirmationAccount;
 
+    private $socialAuthService;
+
     /**
      * @param User $user
      * @param ConfirmationAccount $confirmationAccount
      * @return void
      */
-    public function __construct(User $user, ConfirmationAccount $confirmationAccount)
+    public function __construct(User $user, ConfirmationAccount $confirmationAccount, SocialAuthService $socialAuthService)
     {
         $this->user = $user;
 
         $this->confirmationAccount = $confirmationAccount;
+
+        $this->socialAuthService = $socialAuthService;
+    }
+
+    public function social(string $channel, array $authToken): string
+    {
+        $driver = $this->socialAuthService->getDriver($channel, $authToken);
+
+        $socialUser = $driver->getUserinfo();
+
+        $user = $this->user->where('email', $socialUser['email'])->first();
+
+        throw_if($user === null, ModelNotFoundException::class, 'The user does not yet have an account.');
+
+        $socialRegistred = $user->socialAuths->firstWhere('channel_id', $channel);
+
+        if (! $socialRegistred) {
+            $user->socialAuths()->create(['channel_id' => $channel, 'social_id' => $socialUser['id']]);
+        }
+
+        throw_unless(
+            $socialRegistred->social_id === $socialUser['id'],
+            AuthorizationException::class,
+            'The social identification does not correspond with the registered user.'
+        );
+
+        return auth()->login($user);
     }
 
     /**

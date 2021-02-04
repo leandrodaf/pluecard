@@ -23,6 +23,8 @@ $router->post('/account/confirmation/refresh', 'AccountController@refreshConfirm
 $router->post('/account/password/forgot', 'AccountController@forgotPassword');
 $router->put('/account/password/forgot/reset', 'AccountController@forgotPasswordConfirmation');
 
+$router->post('/auth/login/social/{channel}', 'AuthController@socialLogin');
+
 $router->post('/auth/login', 'AuthController@login');
 
 $router->group(['middleware' => 'auth.jwt'], function () use ($router) {

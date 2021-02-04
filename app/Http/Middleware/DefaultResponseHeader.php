@@ -11,7 +11,7 @@ class DefaultResponseHeader
     {
         $response = $next($request);
 
-        $response->header('Content-Type', 'application/json');
+        // $response->header('Content-Type', 'application/json');
 
         return $response;
     }
