@@ -22,7 +22,6 @@ class GoogleService implements SocialAuthInterface
         'session_state' => 'required|array',
         'session_state.extraQueryParams' => 'required|array',
         'session_state.extraQueryParams.authuser' => 'required|string',
-
     ];
 
     public function __construct(Client $googleClient)

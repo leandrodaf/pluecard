@@ -8,7 +8,7 @@ class SocialAuthService
         'google' => GoogleService::class,
     ];
 
-    private function getChannel(string $channelId, array $authToken)
+    private function getChannel(string $channelId, array $authToken): SocialAuthInterface
     {
         throw_unless(array_key_exists($channelId, $this->avaliableChanels), ValidatorException::class, 'The requested driver does not exist');
 
