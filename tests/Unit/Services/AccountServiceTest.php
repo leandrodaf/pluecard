@@ -110,7 +110,7 @@ class AccountServiceTest extends TestCase
             return $data === $expected;
         }))->once()->andReturn(new ResetPassword());
 
-        $user->shouldReceive('reset_passwords')->once()->andReturn($reset_passwords);
+        $user->shouldReceive('resetPasswords')->once()->andReturn($reset_passwords);
 
         $this->app->make(AccountService::class)->resetPassword($user);
     }
