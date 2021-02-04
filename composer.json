@@ -1,11 +1,16 @@
 {
     "name": "laravel/lumen",
     "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "keywords": [
+        "framework",
+        "laravel",
+        "lumen"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "google/apiclient": "^2.9",
         "guzzlehttp/guzzle": "^7.2",
         "illuminate/mail": "^8.24",
         "laravel/lumen-framework": "^8.0",
@@ -27,7 +32,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "classmap": [
+            "vendor/google/apiclient-services/src/Google"
+        ]
     },
     "autoload-dev": {
         "classmap": [

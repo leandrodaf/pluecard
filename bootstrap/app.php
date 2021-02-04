@@ -67,6 +67,7 @@ $app->configure('logging');
 $app->configure('cors');
 $app->configure('permission');
 $app->configure('filesystems');
+$app->configure('services');
 
 /*
 |--------------------------------------------------------------------------
@@ -111,7 +112,6 @@ $app->register(App\Providers\ValidationServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(MarvinLabs\DiscordLogger\ServiceProvider::class);
 $app->alias('cache', Illuminate\Cache\CacheManager::class);
-$app->register(Spatie\Permission\PermissionServiceProvider::class);
 
 if (app()->environment('local')) {
     $app->configure('deploy');
