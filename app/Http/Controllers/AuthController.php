@@ -28,10 +28,6 @@ class AuthController extends Controller
         return $this->itemResponse($token, new AuthenticationTransformer, 200);
     }
 
-    public function callbackSocialLogin()
-    {
-    }
-
     public function login(Request $request): Response
     {
         $data = $this->validate($request, [
