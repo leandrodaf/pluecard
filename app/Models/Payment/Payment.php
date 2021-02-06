@@ -78,13 +78,13 @@ class Payment extends Model
         'payment_type_id' => 'string', //account_money, ticket, bank_transfer, atm, credit_card, debit_card, prepaid_card
 
         'transaction_details' => 'json',
-        'transaction_details.financial_institution' => 'String',
-        'transaction_details.net_received_amount' => 'Float',
-        'transaction_details.total_paid_amount' => 'Float',
-        'transaction_details.installment_amount' => 'Float',
-        'transaction_details.overpaid_amount' => 'Float',
-        'transaction_details.external_resource_url' => 'String',
-        'transaction_details.payment_method_reference_id' => 'String',
+        'transaction_details.financial_institution' => 'string',
+        'transaction_details.net_received_amount' => 'float',
+        'transaction_details.total_paid_amount' => 'float',
+        'transaction_details.installment_amount' => 'float',
+        'transaction_details.overpaid_amount' => 'float',
+        'transaction_details.external_resource_url' => 'string',
+        'transaction_details.payment_method_reference_id' => 'string',
 
         'fee_details' => 'json',
         'differential_pricing_id' => 'integer',

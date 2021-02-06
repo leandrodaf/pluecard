@@ -17,12 +17,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/payment/tests', function () use ($router) {
-    return view('Payment');
-});
-
-$router->post('/payments/{gateway}', 'PaymentController@payment');
-
 $router->post('/account/create', 'AccountController@register');
 $router->post('/account/confirmation', 'AccountController@confirmation_email');
 $router->post('/account/confirmation/refresh', 'AccountController@refreshConfirmationEmail');
@@ -55,5 +49,19 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->put('/models/styles/{id}', 'ModelStyleController@update');
     $router->delete('/models/styles/{id}', 'ModelStyleController@destroy');
 
+    // Payment Items
+
+    $router->post('/payments/items', 'PaymentItemController@create');
+    $router->get('/payments/items', 'PaymentItemController@index');
+    $router->get('/payments/items/{id}', 'PaymentItemController@show');
+    $router->put('/payments/items/{id}', 'PaymentItemController@update');
+    $router->delete('/payments/items/{id}', 'PaymentItemController@destroy');
+
     // Payment
 });
+
+$router->get('/payment/tests', function () use ($router) {
+    return view('Payment');
+});
+
+$router->post('/payments/{gateway}', 'PaymentController@payment');
