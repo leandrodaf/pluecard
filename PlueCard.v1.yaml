@@ -1322,7 +1322,7 @@ paths:
       description: Exemplo de delete
       tags:
         - Payment - Items
-  '/payments/items/{item_id}/gateways/{gateways}':
+  '/payments/items/{id}/gateways/{gateways}':
     parameters:
       - schema:
           type: string
@@ -1334,7 +1334,7 @@ paths:
         description: Identificador do meio de pagamento
       - schema:
           type: string
-        name: item_id
+        name: id
         in: path
         required: true
         description: Identificador do item
