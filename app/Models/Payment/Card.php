@@ -3,6 +3,8 @@
 namespace App\Models\Payment;
 
 use App\Models\Model;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Card extends Model
 {
@@ -56,4 +58,14 @@ class Card extends Model
         'date_created' => 'datetime',
         'date_last_updated' => 'datetime',
     ];
+
+    public function payment(): BelongsTo
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

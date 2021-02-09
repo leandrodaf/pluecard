@@ -3,6 +3,8 @@
 namespace App\Models\Payment;
 
 use App\Models\Model;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payer extends Model
 {
@@ -47,4 +49,14 @@ class Payer extends Model
         'address.street_name' => 'string',
         'address.street_number' => 'integer',
     ];
+
+    public function payment(): BelongsTo
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

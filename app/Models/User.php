@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Payment\Card;
+use App\Models\Payment\Payer;
 use App\Models\Payment\Payment;
+use App\Models\Payment\PaymentTransactions;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -77,6 +80,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class, 'user_id', 'id');
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(PaymentTransactions::class, 'user_id', 'id');
+    }
+
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'user_id', 'id');
+    }
+
+    public function payers(): HasMany
+    {
+        return $this->hasMany(Payer::class, 'user_id', 'id');
     }
 
     public function isAdmin(): bool

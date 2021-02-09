@@ -3,6 +3,9 @@
 namespace App\Models\Payment;
 
 use App\Models\Model;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Payment extends Model
 {
@@ -106,4 +109,24 @@ class Payment extends Model
         'callback_url' => 'string',
         'coupon_code' => 'string',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function transactions(): HasOne
+    {
+        return $this->hasOne(PaymentTransactions::class, 'payment_id', 'id');
+    }
+
+    public function card(): HasOne
+    {
+        return $this->hasOne(Card::class, 'payment_id', 'id');
+    }
+
+    public function payer(): HasOne
+    {
+        return $this->hasOne(Payer::class, 'payment_id', 'id');
+    }
 }

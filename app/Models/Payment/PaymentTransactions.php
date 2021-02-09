@@ -3,6 +3,8 @@
 namespace App\Models\Payment;
 
 use App\Models\Model;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaymentTransactions extends Model
 {
@@ -28,4 +30,29 @@ class PaymentTransactions extends Model
         'quantity' => 'integer',
         'status' => 'string',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(PaymentItem::class, 'payments_item_id', 'id');
+    }
+
+    public function payment(): BelongsTo
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'id');
+    }
+
+    public function card(): BelongsTo
+    {
+        return $this->belongsTo(Card::class, 'payments_card_id', 'id');
+    }
+
+    public function payer(): BelongsTo
+    {
+        return $this->belongsTo(Payer::class, 'payments_payer_id', 'id');
+    }
 }
