@@ -2,6 +2,7 @@
 
 namespace App\Services\Payments;
 
+use App\Exceptions\ValidatorException;
 use App\Models\Payment\PaymentItem;
 use MercadoPago\Payer as MercadoPagoPayer;
 use MercadoPago\Payment as MercadoPagoPayment;
@@ -38,6 +39,8 @@ class MercadoPagoGateway extends Gateway implements GatewayInterface
         $payment->binary_mode = true;
 
         $payment->save();
+
+        throw_unless(empty($payment->error), ValidatorException::class, [$payment->error->message], $payment->error->status);
 
         return  $payment;
     }

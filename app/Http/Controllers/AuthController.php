@@ -16,11 +16,6 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function teste()
-    {
-        return view('loginGoogle');
-    }
-
     public function socialLogin(Request $request, string $channel): Response
     {
         $token = $this->authService->social($channel, $request->all());

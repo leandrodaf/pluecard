@@ -96,6 +96,8 @@ class UserController extends Controller
 
         Gate::authorize('adminOrSimpleUser', $user);
 
+        throw_if($user->isAdmin(), ValidatorException::class, ['user' => 'Não é possível deletar um usuário administrador']);
+
         $this->userService->delete($user);
 
         return response(null, 200);

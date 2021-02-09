@@ -7,7 +7,6 @@ use App\Services\AccountService;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {

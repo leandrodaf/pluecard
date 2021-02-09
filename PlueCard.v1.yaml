@@ -458,7 +458,7 @@ paths:
             type: string
             example: Cleyton Rasta
           in: query
-          name: serach
+          name: search
           description: Filtra os resultado pelo nome e email
       responses:
         '200':
