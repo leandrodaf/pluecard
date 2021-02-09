@@ -2,16 +2,16 @@
 
 namespace App\Http\Transformers;
 
-use App\Models\Payment\PaymentTransactions;
+use App\Models\Payment\Transactions;
 use League\Fractal\TransformerAbstract;
 
-class PaymentTransactionTransformer extends TransformerAbstract
+class TransactionTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'user', 'item', 'payment', 'card', 'payer',
     ];
 
-    public function transform(PaymentTransactions $transaction)
+    public function transform(Transactions $transaction)
     {
         return [
             'id' => $transaction->id,
@@ -25,27 +25,27 @@ class PaymentTransactionTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeUser(PaymentTransactions $ptransaction)
+    public function includeUser(Transactions $ptransaction)
     {
         return $this->item($ptransaction->user, new UserTransformer);
     }
 
-    public function includeItem(PaymentTransactions $ptransaction)
+    public function includeItem(Transactions $ptransaction)
     {
         return $this->item($ptransaction->item, new ItemTransformer);
     }
 
-    public function includePayment(PaymentTransactions $ptransaction)
+    public function includePayment(Transactions $ptransaction)
     {
         return $this->item($ptransaction->payment, new PaymentTransformer);
     }
 
-    public function includeCard(PaymentTransactions $ptransaction)
+    public function includeCard(Transactions $ptransaction)
     {
         return $this->item($ptransaction->card, new CardTransformer);
     }
 
-    public function includePayer(PaymentTransactions $ptransaction)
+    public function includePayer(Transactions $ptransaction)
     {
         return $this->item($ptransaction->payer, new PayerTransformer);
     }

@@ -117,7 +117,7 @@ class Payment extends Model
 
     public function transactions(): HasOne
     {
-        return $this->hasOne(PaymentTransactions::class, 'payment_id', 'id');
+        return $this->hasOne(Transactions::class, 'payment_id', 'id');
     }
 
     public function card(): HasOne

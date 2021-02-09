@@ -42,6 +42,6 @@ class PaymentItem extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(PaymentTransactions::class, 'payments_item_id', 'id');
+        return $this->hasMany(Transactions::class, 'payments_item_id', 'id');
     }
 }

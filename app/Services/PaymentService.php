@@ -7,7 +7,7 @@ use App\Models\Payment\Card;
 use App\Models\Payment\Payer;
 use App\Models\Payment\Payment;
 use App\Models\Payment\PaymentItem;
-use App\Models\Payment\PaymentTransactions;
+use App\Models\Payment\Transactions;
 use App\Services\Payments\GatewayInterface;
 use App\Services\Payments\MercadoPagoGateway;
 use Illuminate\Auth\AuthManager;
@@ -23,7 +23,7 @@ class PaymentService
 
     private $payer;
 
-    private $paymentTransactions;
+    private $transactions;
 
     private $gatewayList = [
         'mercado-pago' => MercadoPagoGateway::class,
@@ -41,7 +41,7 @@ class PaymentService
         Payment $payment,
         Card $card,
         Payer $payer,
-        PaymentTransactions $paymentTransactions
+        Transactions $transactions
     ) {
         $this->authManager = $auth;
 
@@ -51,7 +51,7 @@ class PaymentService
 
         $this->payer = $payer;
 
-        $this->paymentTransactions = $paymentTransactions;
+        $this->transactions = $transactions;
     }
 
     /**
@@ -112,7 +112,7 @@ class PaymentService
             $this->mergeUser($driverPayment->card->toArray(), $payment)
         );
 
-        $this->paymentTransactions->create([
+        $this->transactions->create([
             'currency_id' => 'BRL',
             'amount' => $paymentItem->unit_price,
             'quantity' => 1,

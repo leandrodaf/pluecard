@@ -38,7 +38,7 @@ class UserTransformer extends TransformerAbstract
 
     public function includeTransactions(User $user)
     {
-        return $this->collection($user->transactions, new PaymentTransactionTransformer);
+        return $this->collection($user->transactions, new TransactionTransformer);
     }
 
     public function includePayers(User $user)

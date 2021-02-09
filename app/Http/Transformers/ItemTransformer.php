@@ -28,6 +28,6 @@ class ItemTransformer extends TransformerAbstract
 
     public function includeTransactions(PaymentItem $item)
     {
-        return $this->collection($item->transactions, new PaymentTransactionTransformer);
+        return $this->collection($item->transactions, new TransactionTransformer);
     }
 }

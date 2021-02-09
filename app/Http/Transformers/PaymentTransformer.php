@@ -78,6 +78,6 @@ class PaymentTransformer extends TransformerAbstract
 
     public function includeTransactions(Payment $payment)
     {
-        return $this->collection($payment->transactions, new PaymentTransactionTransformer);
+        return $this->collection($payment->transactions, new TransactionTransformer);
     }
 }
