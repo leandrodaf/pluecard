@@ -31,8 +31,6 @@ class CardTransformer extends TransformerAbstract
             'error' => $card->error,
             'pagination_params' => $card->pagination_params,
             'empty' => $card->empty,
-            'user_id' => $card->user_id,
-            'payment_id' => $card->payment_id,
             'created_at' => $card->created_at,
             'updated_at' => $card->updated_at,
         ];

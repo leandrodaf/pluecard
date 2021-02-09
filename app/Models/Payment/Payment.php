@@ -5,6 +5,7 @@ namespace App\Models\Payment;
 use App\Models\Model;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Payment extends Model
@@ -115,9 +116,9 @@ class Payment extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function transactions(): HasOne
+    public function transactions(): HasMany
     {
-        return $this->hasOne(Transactions::class, 'payment_id', 'id');
+        return $this->hasMany(Transactions::class, 'payment_id', 'id');
     }
 
     public function card(): HasOne

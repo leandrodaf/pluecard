@@ -26,8 +26,6 @@ class PayerTransformer extends TransformerAbstract
             'phone' => $payer->phone,
             'identification' => $payer->identification,
             'address' => $payer->address,
-            'user_id' => $payer->user_id,
-            'payment_id' => $payer->payment_id,
             'created_at' => $payer->created_at,
             'updated_at' => $payer->updated_at,
         ];

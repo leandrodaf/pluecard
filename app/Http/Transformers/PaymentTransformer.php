@@ -55,7 +55,6 @@ class PaymentTransformer extends TransformerAbstract
             'metadata' => $payment->metadata,
             'callback_url' => $payment->callback_url,
             'coupon_code' => $payment->coupon_code,
-            'user_id' => $payment->user_id,
             'created_at' => $payment->created_at,
             'updated_at' => $payment->updated_at,
         ];
