@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Payment\Item;
+use App\Models\Item;
 use Exception;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Pagination\Paginator;

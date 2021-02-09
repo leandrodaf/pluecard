@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Models\Payment\Item;
+use App\Models\Item;
 use League\Fractal\TransformerAbstract;
 
 class ItemTransformer extends TransformerAbstract

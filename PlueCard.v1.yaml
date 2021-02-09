@@ -1099,7 +1099,7 @@ paths:
         description: Os payload de integração sofrem varições conforme a rede social que esta sendo integrada
       tags:
         - Autenticação
-  /payments/items:
+  /items:
     get:
       summary: Listagem de items de pagamento
       tags:
@@ -1135,7 +1135,7 @@ paths:
                     data:
                       - title: Point Mini
                         description: Producto Point para cobros con tarjetas mediante bluetooth
-                        picture_url: /storage/payments/items/821612643073.jpeg
+                        picture_url: /storage/items/821612643073.jpeg
                         category_id: cards
                         unit_price: 58.8
                         created_at: '2021-02-06T20:24:33.000000Z'
@@ -1222,7 +1222,7 @@ paths:
         description: ''
       tags:
         - Payment - Items
-  '/payments/items/{id}':
+  '/items/{id}':
     parameters:
       - schema:
           type: string
@@ -1253,7 +1253,7 @@ paths:
                     data:
                       title: Point Mini
                       description: Producto Point para cobros con tarjetas mediante bluetooth
-                      picture_url: /storage/payments/items/821612643073.jpeg
+                      picture_url: /storage/items/821612643073.jpeg
                       category_id: cards
                       unit_price: 58.8
                       created_at: '2021-02-06T20:24:33.000000Z'
@@ -1322,7 +1322,7 @@ paths:
       description: Exemplo de delete
       tags:
         - Payment - Items
-  '/payments/items/{id}/gateways/{gateways}':
+  '/items/{id}/gateways/{gateways}':
     parameters:
       - schema:
           type: string

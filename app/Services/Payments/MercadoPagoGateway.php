@@ -3,7 +3,7 @@
 namespace App\Services\Payments;
 
 use App\Exceptions\ValidatorException;
-use App\Models\Payment\Item;
+use App\Models\Item;
 use MercadoPago\Payer as MercadoPagoPayer;
 use MercadoPago\Payment as MercadoPagoPayment;
 use MercadoPago\SDK as MercadoPagoSDK;

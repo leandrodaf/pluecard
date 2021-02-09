@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\Payment;
+namespace App\Models;
 
-use App\Models\Model;
 use App\Services\Helpers\UploadFile;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;

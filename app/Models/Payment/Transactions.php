@@ -2,6 +2,7 @@
 
 namespace App\Models\Payment;
 
+use App\Models\Item;
 use App\Models\Model;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

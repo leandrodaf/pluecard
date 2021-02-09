@@ -2,7 +2,7 @@
 
 namespace App\Services\Payments;
 
-use App\Models\Payment\Item;
+use App\Models\Item;
 
 interface GatewayInterface
 {
