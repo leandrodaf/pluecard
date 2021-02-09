@@ -456,7 +456,7 @@ paths:
         - $ref: '#/components/parameters/include'
         - schema:
             type: string
-            example: Cleyton Rasta
+            example: Cleiton Rasta
           in: query
           name: search
           description: Filtra os resultado pelo nome e email
@@ -1018,7 +1018,7 @@ paths:
         name: driver
         in: path
         required: true
-        description: Driver social que esta sendo integrado
+        description: Driver social que está sendo integrado
     post:
       summary: Autenticação usando token social
       operationId: post-auth-login-social-driver
@@ -1096,14 +1096,12 @@ paths:
                   session_state:
                     extraQueryParams:
                       authuser: '0'
-        description: Os payload de integração sofrem varições conforme a rede social que esta sendo integrada
+        description: Os payload de integração sofrem variações conforme a rede social que está sendo integrada
       tags:
         - Autenticação
-  /payments/items:
+  /items:
     get:
-      summary: Listagem de items de pagamento
-      tags:
-        - Payment - Items
+      summary: Listagem de itens de pagamento
       responses:
         '200':
           description: OK
@@ -1118,7 +1116,7 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      $ref: '#/components/schemas/PaymentItem'
+                      $ref: '#/components/schemas/Item'
                   meta:
                     type: object
                     required:
@@ -1130,12 +1128,12 @@ paths:
                   - data
                   - meta
               examples:
-                Retorno de listagem páginado:
+                Retorno de listagem paginado:
                   value:
                     data:
                       - title: Point Mini
                         description: Producto Point para cobros con tarjetas mediante bluetooth
-                        picture_url: /storage/payments/items/821612643073.jpeg
+                        picture_url: /storage/items/821612643073.jpeg
                         category_id: cards
                         unit_price: 58.8
                         created_at: '2021-02-06T20:24:33.000000Z'
@@ -1161,7 +1159,9 @@ paths:
         '500':
           description: Internal Server Error
       operationId: get-payments-items
-      description: Listagem dos items de pyament item
+      description: Listagem dos itens de payment item
+      tags:
+        - Itens
     post:
       summary: Criação de item de pagamento
       operationId: post-payments-items
@@ -1189,7 +1189,7 @@ paths:
                 title:
                   type: string
                   minLength: 1
-                  description: Titulo do item
+                  description: Título do item
                 description:
                   type: string
                   minLength: 1
@@ -1221,8 +1221,8 @@ paths:
                   unit_price: 58.8
         description: ''
       tags:
-        - Payment - Items
-  '/payments/items/{id}':
+        - Itens
+  '/items/{id}':
     parameters:
       - schema:
           type: string
@@ -1231,9 +1231,7 @@ paths:
         required: true
         description: Identificador do item
     get:
-      summary: Retorna um Item de pagamento especifico
-      tags:
-        - Payment - Items
+      summary: Retorna um Item de pagamento específico
       responses:
         '200':
           description: OK
@@ -1244,7 +1242,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/PaymentItem'
+                    $ref: '#/components/schemas/Item'
                 required:
                   - data
               examples:
@@ -1253,7 +1251,7 @@ paths:
                     data:
                       title: Point Mini
                       description: Producto Point para cobros con tarjetas mediante bluetooth
-                      picture_url: /storage/payments/items/821612643073.jpeg
+                      picture_url: /storage/items/821612643073.jpeg
                       category_id: cards
                       unit_price: 58.8
                       created_at: '2021-02-06T20:24:33.000000Z'
@@ -1270,9 +1268,11 @@ paths:
         '500':
           description: Internal Server Error
       operationId: get-payments-items-id
-      description: Retorna um item de pagamento especifico.
+      description: Retorna um item de pagamento específico.
+      tags:
+        - Itens
     put:
-      summary: Atualiza um item de pagamento especifico
+      summary: Atualiza um item de pagamento específico
       operationId: put-payments-items-id
       responses:
         '200':
@@ -1287,14 +1287,12 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      tags:
-        - Payment - Items
-      description: Atualiza um item de pagamento especifico.
+      description: Atualiza um item de pagamento específico.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PaymentItem'
+              $ref: '#/components/schemas/Item'
             examples:
               example-1:
                 value:
@@ -1303,8 +1301,10 @@ paths:
                   category_id: cards
                   unit_price: 100
         description: Exemplo de payload para atualizar um item de pagamento
+      tags:
+        - Itens
     delete:
-      summary: Deletar um item de pagamento especifico
+      summary: Deletar um item de pagamento específico
       operationId: delete-payments-items-id
       responses:
         '200':
@@ -1321,8 +1321,8 @@ paths:
           description: Internal Server Error
       description: Exemplo de delete
       tags:
-        - Payment - Items
-  '/payments/items/{item_id}/gateways/{gateways}':
+        - Itens
+  '/items/{id}/gateways/{gateways}':
     parameters:
       - schema:
           type: string
@@ -1334,7 +1334,7 @@ paths:
         description: Identificador do meio de pagamento
       - schema:
           type: string
-        name: item_id
+        name: id
         in: path
         required: true
         description: Identificador do item
@@ -1417,7 +1417,7 @@ paths:
                   installments:
                     type: string
                     minLength: 1
-                    description: Quantidade de parecelas
+                    description: Quantidade de parcelas
                   payment_method_id:
                     type: string
                     minLength: 1
@@ -1464,13 +1464,16 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      tags:
-        - Payment - Items
       description: Cria o pagamento de um item
+      tags:
+        - Pagamento
 components:
   schemas:
     User:
-      description: Modelo do usuário
+      description: |-
+        Modelo do usuário.
+
+        Possíveis inclusões no modelo de usuário: `rules, payments, transactions, payers, cards`
       type: object
       x-examples:
         Exemplo de usuário:
@@ -1521,24 +1524,62 @@ components:
           readOnly: true
         rules:
           type: object
-          description: Listagem de regas de permissionamento do usuário
+          description: Listagem de regras de permissionamento do usuário
           properties:
             data:
               $ref: '#/components/schemas/Rules'
           readOnly: true
+        payments:
+          type: object
+          description: Listagem de pagamentos
+          properties:
+            data:
+              type: array
+              description: Dados do relacionamento
+              items:
+                $ref: '#/components/schemas/Payments'
+              readOnly: true
+          readOnly: true
+        transactions:
+          description: Listagem de transações
+          type: object
+          properties:
+            data:
+              type: array
+              description: Dados do relacionamento
+              items:
+                $ref: '#/components/schemas/Transaction'
+              readOnly: true
+          readOnly: true
+        payers:
+          description: Listagem de pagadores
+          type: object
+          properties:
+            data:
+              type: array
+              description: Dados do relacionamento
+              items:
+                $ref: '#/components/schemas/Payers'
+              readOnly: true
+          readOnly: true
+        cards:
+          description: Listagem de cartões
+          type: object
+          properties:
+            data:
+              type: array
+              description: Dados do relacionamento
+              items:
+                $ref: '#/components/schemas/Cards'
+              readOnly: true
+          readOnly: true
     MetaPaginate:
       description: Metadados do modelo de paginação
       type: object
+      title: Meta Paginate
       properties:
         pagination:
           type: object
-          required:
-            - total
-            - count
-            - per_page
-            - current_page
-            - total_pages
-            - links
           properties:
             total:
               type: number
@@ -1560,9 +1601,6 @@ components:
               type: object
               deprecated: true
               description: Link para a próxima iteração
-      required:
-        - pagination
-      title: Meta Paginate
     Rules:
       type: array
       description: Lista das regras de permissionamento
@@ -1572,8 +1610,10 @@ components:
       readOnly: true
       title: Rules
       x-examples:
-        Exemplo de listagem de regas:
+        Exemplo de listagem de regras:
           - Administrator
+      x-tags:
+        - Usuário
     ModelStyle:
       description: Estilo de modelos
       type: object
@@ -1589,7 +1629,7 @@ components:
       properties:
         id:
           type: number
-          description: Identificador unico do Estilo de modelo
+          description: Identificador único do Estilo de modelo
         name:
           type: string
           minLength: 1
@@ -1615,22 +1655,18 @@ components:
           format: date-time
           description: Data de inativação do estilo de modelo
           readOnly: true
-      required:
-        - id
-        - name
-        - background
-        - created_at
-        - updated_at
-        - deleted_at
-    PaymentItem:
-      description: Item de pagamentos
+    Item:
+      description: |-
+        Modelo do Item.
+
+        Possíveis inclusões no modelo de usuário: `transactions`
       type: object
-      title: PaymentItem
+      title: Item
       properties:
         title:
           type: string
           minLength: 1
-          description: Titulo do item
+          description: Título do item
         description:
           type: string
           minLength: 1
@@ -1664,6 +1700,543 @@ components:
           description: Data de inativação.
           format: date-time
           readOnly: true
+        transactions:
+          type: object
+          description: Transações relacionadas
+          properties:
+            data:
+              type: array
+              description: Dados do relacionamento
+              items:
+                $ref: '#/components/schemas/Transaction'
+        id:
+          type: integer
+          description: Identificador único do item
+    Payments:
+      description: |-
+        Modelo de Transação.
+
+        Possíveis inclusões no modelo de usuário: `user, transactions, card, payer`
+      type: object
+      title: Payment
+      x-examples: {}
+      properties:
+        id:
+          type: number
+          description: Identificador da transação
+        external_id:
+          type: string
+          minLength: 1
+          description: Identificador externo
+          example: '1233540725'
+          readOnly: true
+        operation_type:
+          type: string
+          minLength: 1
+          description: Tipo de dados da operação
+          example: regular_payment
+        order:
+          description: Ordem de compra relacionada
+          type: object
+        binary_mode:
+          type: boolean
+          description: 'Quando definido como true, o pagamento só pode ter os status approved ou rejected. Caso contrário, o status in_process é adicionado.'
+        external_reference:
+          type: string
+          description: Referência que pode sincronizar com seu sistema de pagamentos.
+        status:
+          type: string
+          minLength: 1
+          description: Status do pagamento
+          example: approved
+        status_detail:
+          type: string
+          minLength: 1
+          description: Detalhes relacionados a status
+          example: accredited
+        date_created:
+          type: string
+          minLength: 1
+          description: Data de criação
+          format: date-time
+          example: '2021-02-06T15:10:38.000000Z'
+        last_modified: {}
+        live_mode:
+          type: boolean
+        date_last_updated:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          example: '2021-02-06T15:10:38.000000Z'
+        date_of_expiration:
+          type: string
+          format: date-time
+          example: '2021-02-06T15:10:38.000000Z'
+          description: Data de expiração
+        date_approved:
+          type: string
+          minLength: 1
+          format: date-time
+          example: '2021-02-06T15:10:38.000000Z'
+          description: Data da aprovação
+        money_release_date:
+          type: string
+          minLength: 1
+          description: O valor é referente a cotação do dia
+          format: date-time
+          example: '2021-02-06T15:10:38.000000Z'
+        currency_id:
+          type: string
+          minLength: 1
+          description: Identificador de moeda em formato ISO 4217.
+          example: BRL
+          enum:
+            - BRL
+            - AUD
+            - USD
+        transaction_amount:
+          type: number
+          description: Valor da transação
+          example: 10.2
+          format: float
+        transaction_amount_refunded:
+          type: number
+          description: Valor de devolução
+          example: 5.1
+        collector_id:
+          type: number
+          description: Sua identificação como um vendedor no Mercado Pago.
+          example: 205648376
+        payment_method_id:
+          type: string
+          minLength: 1
+          description: Banco processador do pagamento
+          example: master
+        payment_type_id:
+          type: string
+          minLength: 1
+          description: Tipo de pagamento
+          example: credit_card
+        transaction_details:
+          type: object
+          description: Detalhes da transação
+          properties:
+            overpaid_amount:
+              type: number
+              example: 0
+            total_paid_amount:
+              type: number
+              example: 100
+            acquirer_reference: {}
+            installment_amount:
+              type: number
+              example: 100
+            net_received_amount:
+              type: number
+              example: 95.01
+            external_resource_url: {}
+            financial_institution: {}
+            payable_deferral_period: {}
+            payment_method_reference_id: {}
+        fee_details:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                minLength: 1
+                example: mercadopago_fee
+              amount:
+                type: number
+                example: 4.99
+              fee_payer:
+                type: string
+                minLength: 1
+                example: collector
+            required:
+              - type
+              - amount
+              - fee_payer
+        differential_pricing_id: {}
+        application_fee: {}
+        capture: {}
+        captured:
+          type: boolean
+        call_for_authorize_id: {}
+        statement_descriptor:
+          type: string
+          minLength: 1
+          description: 'Como aparecerá o pagamento no extrato do cartão (ex: o MERCADOPAGO).'
+        refunds: {}
+        additional_info:
+          type: object
+          properties:
+            nsu_processadora: {}
+            available_balance: {}
+        campaign_id: {}
+        coupon_amount: {}
+        installments:
+          type: integer
+          description: Quantidade de parcelas
+          example: 12
+        token:
+          type: string
+          minLength: 1
+          description: Token autenticador da transação
+          example: c36c372ad7196366a1cce8b92e8c8ce6
+        description: {}
+        notification_url: {}
+        issuer_id:
+          type: string
+          minLength: 1
+          example: '12'
+        metadata: {}
+        callback_url: {}
+        coupon_code: {}
+        created_at:
+          type: string
+          minLength: 1
+          description: Data de criação
+          format: date-time
+          example: '2021-02-06T19:31:30.000000Z'
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          example: '2021-02-06T19:31:30.000000Z'
+        user:
+          type: object
+          description: Usuário vinculado ao pagamento
+          properties:
+            data:
+              $ref: '#/components/schemas/User'
+        transactions:
+          type: object
+          description: Transações relacionadas
+          properties:
+            data:
+              description: Dados do relacionamento
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
+        card:
+          type: object
+          description: Cartão utilizado no pagamento
+          properties:
+            data:
+              $ref: '#/components/schemas/Cards'
+        payer:
+          type: object
+          description: Pagador responsável
+          properties:
+            data:
+              $ref: '#/components/schemas/Payers'
+    Transaction:
+      description: |-
+        Modelo de Transação.
+
+        Possíveis inclusões no modelo de usuário: `user, item, payment, card, payer`
+      type: object
+      title: Transaction
+      properties:
+        id:
+          type: number
+          description: Identificador da transação
+          readOnly: true
+        currency_id:
+          type: string
+          minLength: 1
+          description: Identificador de moeda em formato ISO 4217.
+          example: BRL
+          enum:
+            - BRL
+            - AUD
+            - USD
+        amount:
+          type: number
+          description: Valor total pago
+          example: 102.98
+        quantity:
+          type: number
+          description: Quantidade compradas do item
+          example: 1
+        status:
+          type: string
+          description: Status da transação do cartão
+          example: WAITING
+        installments:
+          type: integer
+          description: Quantidade de parcelas
+          example: 12
+        created_at:
+          type: string
+          minLength: 1
+          description: Data de criação
+          format: date-time
+          example: '2021-02-09T00:39:30.000000Z'
+          readOnly: true
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          example: '2021-02-09T00:39:30.000000Z'
+          readOnly: true
+        user:
+          type: object
+          description: Usuário vinculado
+          properties:
+            data:
+              $ref: '#/components/schemas/User'
+        item:
+          type: object
+          description: Itens consumidos na transação
+          properties:
+            data:
+              $ref: '#/components/schemas/Item'
+        payment:
+          type: object
+          description: Dados do pagamento da transação
+          properties:
+            data:
+              $ref: '#/components/schemas/Payments'
+        card:
+          type: object
+          description: 'Cartão usado na transação '
+          properties:
+            data:
+              $ref: '#/components/schemas/Cards'
+        payer:
+          type: object
+          description: Pagador da transação
+          properties:
+            data:
+              $ref: '#/components/schemas/Payers'
+      x-tags:
+        - Pagamento
+    Payers:
+      description: |-
+        Modelo do Pagador.
+
+        Possíveis inclusões no modelo de usuário: `payment, user`
+      type: object
+      x-tags:
+        - Pagamento
+      title: Payer
+      properties:
+        id:
+          type: number
+          description: Identificador do Pagador
+          example: 1
+        external_id:
+          type: number
+          description: Identificador externo do pagador
+          example: 192528586
+        type:
+          type: string
+          minLength: 1
+          description: Tipo pagador
+          example: registered
+        name:
+          description: Nome do pagador
+        surname:
+          description: Sobrenome do pagador
+        first_name:
+          type: string
+          minLength: 1
+          description: Primeiro nome do pagador
+          example: Test
+        last_name:
+          type: string
+          minLength: 1
+          description: Último nome do pagador
+          example: Test
+        email:
+          type: string
+          minLength: 1
+          description: Email do pagador
+          example: test_user_80507629@testuser.com
+        date_created:
+          type: string
+          format: date-time
+          description: Data de criação
+        phone:
+          type: object
+          description: Dados do telefone do pagador
+          required:
+            - number
+            - area_code
+            - extension
+          properties:
+            number:
+              type: string
+              minLength: 1
+              description: Número do telefone do pagador
+              example: 1111-1111
+            area_code:
+              type: string
+              minLength: 1
+              description: DDD do telefone
+              example: '01'
+            extension:
+              type: string
+              description: Campo extra para mais detalhes
+        identification:
+          type: object
+          description: Dados do documento do pagador
+          required:
+            - type
+            - number
+          properties:
+            type:
+              type: string
+              minLength: 1
+              description: Tipo de documento
+              enum:
+                - CPF
+                - DNI
+              example: DNI
+            number:
+              type: string
+              minLength: 1
+              description: Número do documento
+              example: '32659430'
+        address:
+          description: Dados do endereço do pagador
+          type: object
+        created_at:
+          type: string
+          minLength: 1
+          description: Data de criação
+          format: date-time
+          example: '2021-02-09T00:39:30.000000Z'
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          example: '2021-02-09T00:39:30.000000Z'
+        payment:
+          type: object
+          description: Pagamento relacionado
+          properties:
+            data:
+              $ref: '#/components/schemas/Payments'
+        user:
+          type: object
+          description: Usuário relacionado
+          properties:
+            data:
+              $ref: '#/components/schemas/User'
+    Cards:
+      description: |-
+        Modelo do Cartão.
+
+        Possíveis inclusões no modelo de usuário: `payment, user`
+      type: object
+      title: Card
+      properties:
+        id:
+          type: number
+          description: Identificador único do Cartão
+          example: 14
+        external_id:
+          description: Identificador externo do cartão
+        customer_id:
+          description: Usuário relacionado ao cartão
+        expiration_month:
+          type: integer
+          description: Data de expiração do cartão
+          example: 11
+        expiration_year:
+          type: integer
+          description: Ano de expiração do cartão
+          example: 2025
+        first_six_digits:
+          type: string
+          minLength: 1
+          description: Primeiros 6 dígitos do cartão
+          example: '503143'
+        last_four_digits:
+          type: string
+          minLength: 1
+          description: Ultimos 4 digitos do cartão
+          example: '6351'
+        payment_method:
+          description: Método de pagamento
+        security_code:
+          description: Código de segurança
+        issuer: {}
+        cardholder:
+          type: object
+          description: Dono do cartão
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: Nome do dono do cartão
+              example: Jozaozito Fonstes
+            identification:
+              type: object
+              description: Documentos do dono do cartão
+              properties:
+                type:
+                  type: string
+                  minLength: 1
+                  description: Tipo de documento
+                  enum:
+                    - CPF
+                  example: CPF
+                number:
+                  type: string
+                  minLength: 1
+                  description: Número do documento
+                  example: '48989553040'
+        date_created:
+          type: string
+          minLength: 1
+          description: Data de criação
+          format: date-time
+          example: '2021-02-08T20:39:28.000000Z'
+        date_last_updated:
+          type: string
+          minLength: 1
+          description: Data da última alteração
+          format: date-time
+          example: '2021-02-08T20:39:28.000000Z'
+        last: {}
+        error: {}
+        pagination_params: {}
+        empty: {}
+        created_at:
+          type: string
+          minLength: 1
+          description: Data de criação
+          format: date-time
+          example: '2021-02-09T00:39:30.000000Z'
+        updated_at:
+          type: string
+          minLength: 1
+          description: Identificador do usuário
+          format: date-time
+          example: '2021-02-09T00:39:30.000000Z'
+        payment:
+          type: object
+          description: Pagamento relacionado
+          properties:
+            data:
+              $ref: '#/components/schemas/Payments'
+        user:
+          type: object
+          description: Usuário associado
+          properties:
+            data:
+              $ref: '#/components/schemas/User'
   securitySchemes:
     bearerAuth:
       type: http
@@ -1689,6 +2262,7 @@ tags:
   - name: Usuário
   - name: Recuperação de senha
   - name: Modelo - Administração
-  - name: Payment - Items
+  - name: Itens
+  - name: Pagamento
 security:
   - bearerAuth: []
