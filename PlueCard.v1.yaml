@@ -1018,7 +1018,7 @@ paths:
         name: driver
         in: path
         required: true
-        description: Driver social que esta sendo integrado
+        description: Driver social que está sendo integrado
     post:
       summary: Autenticação usando token social
       operationId: post-auth-login-social-driver
@@ -1096,9 +1096,232 @@ paths:
                   session_state:
                     extraQueryParams:
                       authuser: '0'
-        description: Os payload de integração sofrem varições conforme a rede social que esta sendo integrada
+        description: Os payload de integração sofrem variações conforme a rede social que está sendo integrada
       tags:
         - Autenticação
+  /payments/items:
+    get:
+      summary: Listagem de itens de pagamento
+      tags:
+        - Payment - Items
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: '#/components/schemas/PaymentItem'
+                  meta:
+                    type: object
+                    required:
+                      - pagination
+                    properties:
+                      pagination:
+                        $ref: ./reference/pluecard.v1.yaml#/components/schemas/MetaPaginate
+                required:
+                  - data
+                  - meta
+              examples:
+                Retorno de listagem paginado:
+                  value:
+                    data:
+                      - title: Point Mini
+                        description: Producto Point para cobros con tarjetas mediante bluetooth
+                        picture_url: /storage/payments/items/821612643073.jpeg
+                        category_id: cards
+                        unit_price: 58.8
+                        created_at: '2021-02-06T20:24:33.000000Z'
+                        updated_at: '2021-02-06T20:24:33.000000Z'
+                        deleted_at: '2021-02-06T20:24:33.000000Z'
+                    meta:
+                      pagination:
+                        pagination:
+                          total: 0
+                          count: 0
+                          per_page: 0
+                          current_page: 0
+                          total_pages: 0
+                          links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-payments-items
+      description: Listagem dos items de pyament item
+    post:
+      summary: Criação de item de pagamento
+      operationId: post-payments-items
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Cria um novo item de pagamento
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 1
+                  description: Título do item
+                description:
+                  type: string
+                  minLength: 1
+                  description: Descrição do item
+                picture_url:
+                  type: string
+                  minLength: 1
+                  description: Imagem representativa em formato base64
+                category_id:
+                  type: string
+                  minLength: 1
+                  description: Categorização
+                unit_price:
+                  type: number
+                  description: Preço unitário
+              required:
+                - title
+                - description
+                - picture_url
+                - category_id
+                - unit_price
+            examples:
+              Exemplo de criação de item:
+                value:
+                  title: Point Mini
+                  description: Producto Point para cobros con tarjetas mediante bluetooth
+                  picture_url: 'data:image/jpeg;base64,...'
+                  category_id: cards
+                  unit_price: 58.8
+        description: ''
+      tags:
+        - Payment - Items
+  '/payments/items/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificador do item
+    get:
+      summary: Retorna um Item de pagamento específico
+      tags:
+        - Payment - Items
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PaymentItem'
+                required:
+                  - data
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      title: Point Mini
+                      description: Producto Point para cobros con tarjetas mediante bluetooth
+                      picture_url: /storage/payments/items/821612643073.jpeg
+                      category_id: cards
+                      unit_price: 58.8
+                      created_at: '2021-02-06T20:24:33.000000Z'
+                      updated_at: '2021-02-06T20:24:33.000000Z'
+                      deleted_at: '2019-08-24T14:15:22Z'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-payments-items-id
+      description: Retorna um item de pagamento específico.
+    put:
+      summary: Atualiza um item de pagamento específico
+      operationId: put-payments-items-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      tags:
+        - Payment - Items
+      description: Atualiza um item de pagamento específico.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentItem'
+            examples:
+              example-1:
+                value:
+                  title: Point Mini 2
+                  description: Producto Point para cobros con tarjetas mediante bluetooth
+                  category_id: cards
+                  unit_price: 100
+        description: Exemplo de payload para atualizar um item de pagamento
+    delete:
+      summary: Deletar um item de pagamento específico
+      operationId: delete-payments-items-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Exemplo de delete
+      tags:
+        - Payment - Items
 components:
   schemas:
     User:
@@ -1153,7 +1376,7 @@ components:
           readOnly: true
         rules:
           type: object
-          description: Listagem de regas de permissionamento do usuário
+          description: Listagem de regras de permissionamento do usuário
           properties:
             data:
               $ref: '#/components/schemas/Rules'
@@ -1204,7 +1427,7 @@ components:
       readOnly: true
       title: Rules
       x-examples:
-        Exemplo de listagem de regas:
+        Exemplo de listagem de regras:
           - Administrator
     ModelStyle:
       description: Estilo de modelos
@@ -1221,7 +1444,7 @@ components:
       properties:
         id:
           type: number
-          description: Identificador unico do Estilo de modelo
+          description: Identificador único do Estilo de modelo
         name:
           type: string
           minLength: 1
@@ -1254,6 +1477,48 @@ components:
         - created_at
         - updated_at
         - deleted_at
+    PaymentItem:
+      description: Item de pagamentos
+      type: object
+      title: PaymentItem
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Título do item
+        description:
+          type: string
+          minLength: 1
+          description: Descrição do item
+        picture_url:
+          type: string
+          minLength: 1
+          description: Imagem representativa em formato base64
+        category_id:
+          type: string
+          minLength: 1
+          description: Categorização
+        unit_price:
+          type: number
+          description: Preço unitário
+          example: 10.2
+        created_at:
+          type: string
+          minLength: 0
+          description: Data de criação
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type: string
+          description: Data de inativação.
+          format: date-time
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
@@ -1279,5 +1544,8 @@ tags:
   - name: Usuário
   - name: Recuperação de senha
   - name: Modelo - Administração
+  - name: Payment - Items
 security:
   - bearerAuth: []
+
+
