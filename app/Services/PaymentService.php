@@ -7,7 +7,7 @@ use App\Models\Item;
 use App\Models\Payment\Card;
 use App\Models\Payment\Payer;
 use App\Models\Payment\Payment;
-use App\Models\Payment\Transactions;
+use App\Models\Payment\Transaction;
 use App\Services\Payments\GatewayInterface;
 use App\Services\Payments\MercadoPagoGateway;
 use Illuminate\Auth\AuthManager;
@@ -41,7 +41,7 @@ class PaymentService
         Payment $payment,
         Card $card,
         Payer $payer,
-        Transactions $transactions
+        Transaction $transactions
     ) {
         $this->authManager = $auth;
 

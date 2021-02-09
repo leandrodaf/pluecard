@@ -41,6 +41,6 @@ class Item extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transactions::class, 'payments_item_id', 'id');
+        return $this->hasMany(Transaction::class, 'payments_item_id', 'id');
     }
 }

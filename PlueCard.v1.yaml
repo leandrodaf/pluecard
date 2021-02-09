@@ -1548,7 +1548,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Transactions'
+                $ref: '#/components/schemas/Transaction'
               readOnly: true
           readOnly: true
         payers:
@@ -1708,7 +1708,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Transactions'
+                $ref: '#/components/schemas/Transaction'
         id:
           type: integer
           description: Identificador único do item
@@ -1923,7 +1923,7 @@ components:
               description: Dados do relacionamento
               type: array
               items:
-                $ref: '#/components/schemas/Transactions'
+                $ref: '#/components/schemas/Transaction'
         card:
           type: object
           description: Cartão utilizado no pagamento
@@ -1936,7 +1936,7 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/Payers'
-    Transactions:
+    Transaction:
       description: |-
         Modelo de Transação.
 

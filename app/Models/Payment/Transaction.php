@@ -7,7 +7,7 @@ use App\Models\Model;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Transactions extends Model
+class Transaction extends Model
 {
     protected $table = 'payments_transactions';
 

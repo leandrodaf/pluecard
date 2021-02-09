@@ -46,7 +46,7 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->delete('/users', 'UserController@meDestroy');
     $router->delete('/users/{id}', 'UserController@destroy');
 
-    // Users Transactions
+    // Users Transaction
 
     // Styles
     $router->post('/models/styles', 'ModelStyleController@create');
