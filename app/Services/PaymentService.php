@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Exceptions\ValidatorException;
+use App\Models\Item;
 use App\Models\Payment\Card;
 use App\Models\Payment\Payer;
 use App\Models\Payment\Payment;
-use App\Models\Payment\PaymentItem;
-use App\Models\Payment\PaymentTransactions;
+use App\Models\Payment\Transaction;
 use App\Services\Payments\GatewayInterface;
 use App\Services\Payments\MercadoPagoGateway;
 use Illuminate\Auth\AuthManager;
@@ -23,7 +23,7 @@ class PaymentService
 
     private $payer;
 
-    private $paymentTransactions;
+    private $transactions;
 
     private $gatewayList = [
         'mercado-pago' => MercadoPagoGateway::class,
@@ -41,7 +41,7 @@ class PaymentService
         Payment $payment,
         Card $card,
         Payer $payer,
-        PaymentTransactions $paymentTransactions
+        Transaction $transactions
     ) {
         $this->authManager = $auth;
 
@@ -51,21 +51,21 @@ class PaymentService
 
         $this->payer = $payer;
 
-        $this->paymentTransactions = $paymentTransactions;
+        $this->transactions = $transactions;
     }
 
     /**
      * @param string $gateway
-     * @param PaymentItem $paymentItem
+     * @param Item $item
      * @param array $data
      * @return GatewayInterface
      * @throws Throwable
      */
-    private function getGateway(string $gateway, PaymentItem $paymentItem, array $data): GatewayInterface
+    private function getGateway(string $gateway, Item $item, array $data): GatewayInterface
     {
         throw_unless(array_key_exists($gateway, $this->gatewayList), ValidatorException::class, ['gateway' => "Notfound  gateway $gateway"]);
 
-        return new $this->gatewayList[$gateway]($paymentItem, $data);
+        return new $this->gatewayList[$gateway]($item, $data);
     }
 
     /**
@@ -86,15 +86,15 @@ class PaymentService
     }
 
     /**
-     * @param PaymentItem $paymentItem
+     * @param Item $item
      * @param string $gateway
      * @param array $data
      * @return void
      * @throws Throwable
      */
-    public function payment(PaymentItem $paymentItem, string $gateway, array $data)
+    public function payment(Item $item, string $gateway, array $data)
     {
-        $gatewayMethod = $this->getGateway($gateway, $paymentItem, $data);
+        $gatewayMethod = $this->getGateway($gateway, $item, $data);
 
         $driverPayment = $gatewayMethod->payment();
 
@@ -112,13 +112,13 @@ class PaymentService
             $this->mergeUser($driverPayment->card->toArray(), $payment)
         );
 
-        $this->paymentTransactions->create([
+        $this->transactions->create([
             'currency_id' => 'BRL',
-            'amount' => $paymentItem->unit_price,
+            'amount' => $item->unit_price,
             'quantity' => 1,
             'installments' => $payment->installments,
             'user_id' => $this->authManager->user()->id,
-            'payments_item_id' => $paymentItem->id,
+            'payments_item_id' => $item->id,
             'payment_id' => $payment->id,
             'payments_payer_id' => $payer->id,
             'payments_card_id' => $card->id,

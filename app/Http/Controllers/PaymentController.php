@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PaymentItemService;
+use App\Services\ItemService;
 use App\Services\PaymentService;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PaymentController extends Controller
 {
     private $paymentService;
 
-    private $paymentItemService;
+    private $itemService;
 
-    public function __construct(PaymentService $paymentService, PaymentItemService $paymentItemService, AuthManager $auth)
+    public function __construct(PaymentService $paymentService, ItemService $itemService, AuthManager $auth)
     {
         $this->paymentService = $paymentService;
-        $this->paymentItemService = $paymentItemService;
+        $this->itemService = $itemService;
 
-        // Gate::authorize('adminOrSimpleUser', $auth->user());
+        Gate::authorize('adminOrSimpleUser', $auth->user());
     }
 
     public function payment(Request $request, string $itemId, string $gateway)
@@ -52,12 +53,12 @@ class PaymentController extends Controller
             'token' => 'required|string',
         ]);
 
-        $paymentItem = $this->paymentItemService->show($itemId);
+        $item = $this->itemService->show($itemId);
 
         try {
             DB::beginTransaction();
 
-            $this->paymentService->payment($paymentItem, $gateway, $data);
+            $this->paymentService->payment($item, $gateway, $data);
 
             DB::commit();
         } catch (Exception $exec) {

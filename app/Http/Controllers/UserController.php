@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\UserService;
-use Illuminate\Http\Response;
-use Illuminate\Auth\AuthManager;
-use Illuminate\Support\Facades\Gate;
 use App\Exceptions\ValidatorException;
 use App\Http\Transformers\UserTransformer;
+use App\Services\UserService;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {

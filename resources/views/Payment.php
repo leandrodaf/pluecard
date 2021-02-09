@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <form action="http://localhost/payments/items/1/gateways/mercado-pago" method="post" id="paymentForm">
+    <form action="http://localhost/items/1/gateways/mercado-pago" method="post" id="paymentForm">
         <h3>Detalhe do comprador</h3>
         <div>
             <div>

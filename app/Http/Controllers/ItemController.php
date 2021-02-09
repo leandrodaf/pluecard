@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Transformers\PaymentItemsTransformer;
-use App\Services\PaymentItemService;
+use App\Http\Transformers\ItemsTransformer;
+use App\Services\ItemService;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -13,18 +13,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
-class PaymentItemController extends Controller
+class ItemController extends Controller
 {
-    private $paymentItemService;
+    private $itemService;
 
     /**
-     * @param PaymentItemService $paymentItemService
+     * @param ItemService $itemService
      * @param AuthManager $auth
      * @return void
      */
-    public function __construct(PaymentItemService $paymentItemService, AuthManager $auth)
+    public function __construct(ItemService $itemService, AuthManager $auth)
     {
-        $this->paymentItemService = $paymentItemService;
+        $this->itemService = $itemService;
 
         Gate::authorize('admin', $auth->user());
     }
@@ -44,7 +44,7 @@ class PaymentItemController extends Controller
             'unit_price' => 'required|numeric',
         ]);
 
-        $this->paymentItemService->create($data);
+        $this->itemService->create($data);
 
         return response(null, 201);
     }
@@ -66,9 +66,9 @@ class PaymentItemController extends Controller
             'unit_price' => 'numeric',
         ]);
 
-        $modelStyle = $this->paymentItemService->show($id);
+        $modelStyle = $this->itemService->show($id);
 
-        $this->paymentItemService->update($modelStyle, $data);
+        $this->itemService->update($modelStyle, $data);
 
         return response(null, 200);
     }
@@ -80,9 +80,9 @@ class PaymentItemController extends Controller
      */
     public function show(string $id): Response
     {
-        $paymentItem = $this->paymentItemService->show($id);
+        $item = $this->itemService->show($id);
 
-        return $this->itemResponse($paymentItem, new PaymentItemsTransformer, 200);
+        return $this->itemResponse($item, new ItemsTransformer, 200);
     }
 
     /**
@@ -91,9 +91,9 @@ class PaymentItemController extends Controller
      */
     public function index(): Response
     {
-        $list = $this->paymentItemService->listPaymentItemsPaginate();
+        $list = $this->itemService->listItemsPaginate();
 
-        return $this->paginateResponse($list, new PaymentItemsTransformer, 200);
+        return $this->paginateResponse($list, new ItemsTransformer, 200);
     }
 
     /**
@@ -103,9 +103,9 @@ class PaymentItemController extends Controller
      */
     public function destroy(string $id): Response
     {
-        $paymentItem = $this->paymentItemService->show($id);
+        $item = $this->itemService->show($id);
 
-        $this->paymentItemService->destroy($paymentItem);
+        $this->itemService->destroy($item);
 
         return response(null, 200);
     }

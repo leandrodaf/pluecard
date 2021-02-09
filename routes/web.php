@@ -46,7 +46,7 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->delete('/users', 'UserController@meDestroy');
     $router->delete('/users/{id}', 'UserController@destroy');
 
-    // Users Transactions
+    // Users Transaction
 
     // Styles
     $router->post('/models/styles', 'ModelStyleController@create');
@@ -55,12 +55,12 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->put('/models/styles/{id}', 'ModelStyleController@update');
     $router->delete('/models/styles/{id}', 'ModelStyleController@destroy');
 
-    // Payment Items
-    $router->post('/payments/items', 'PaymentItemController@create');
-    $router->get('/payments/items', 'PaymentItemController@index');
-    $router->get('/payments/items/{id}', 'PaymentItemController@show');
-    $router->put('/payments/items/{id}', 'PaymentItemController@update');
-    $router->delete('/payments/items/{id}', 'PaymentItemController@destroy');
+    // Items
+    $router->post('/items', 'ItemController@create');
+    $router->get('/items', 'ItemController@index');
+    $router->get('/items/{id}', 'ItemController@show');
+    $router->put('/items/{id}', 'ItemController@update');
+    $router->delete('/items/{id}', 'ItemController@destroy');
 
     // Payment
     $router->post('/payments/items/{itemId}/gateways/{gateway}', 'PaymentController@payment');

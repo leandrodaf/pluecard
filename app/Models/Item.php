@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Payment;
+namespace App\Models;
 
-use App\Models\Model;
 use App\Services\Helpers\UploadFile;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentItem extends Model
+class Item extends Model
 {
     use SoftDeletes;
 
@@ -37,5 +37,10 @@ class PaymentItem extends Model
         $fileUrl = $uploadFile->uploadBase64File('payments/items', $fileName, $value);
 
         $this->attributes['picture_url'] = $fileUrl;
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'payments_item_id', 'id');
     }
 }

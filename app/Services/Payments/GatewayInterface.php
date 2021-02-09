@@ -2,11 +2,11 @@
 
 namespace App\Services\Payments;
 
-use App\Models\Payment\PaymentItem;
+use App\Models\Item;
 
 interface GatewayInterface
 {
     public function payment();
 
-    public function getItem(): PaymentItem;
+    public function getItem(): Item;
 }

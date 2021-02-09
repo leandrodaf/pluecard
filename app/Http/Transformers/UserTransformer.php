@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'rules',
+        'rules', 'payments', 'transactions', 'payers', 'cards',
     ];
 
     public function transform(User $user)
@@ -29,5 +29,25 @@ class UserTransformer extends TransformerAbstract
     public function includeRules(User $user)
     {
         return $this->item($user->getRoleNames(), new RulesTransformer);
+    }
+
+    public function includePayments(User $user)
+    {
+        return $this->collection($user->payments, new PaymentTransformer);
+    }
+
+    public function includeTransactions(User $user)
+    {
+        return $this->collection($user->transactions, new TransactionTransformer);
+    }
+
+    public function includePayers(User $user)
+    {
+        return $this->collection($user->payers, new PayerTransformer);
+    }
+
+    public function includeCards(User $user)
+    {
+        return $this->collection($user->cards, new CardTransformer);
     }
 }
