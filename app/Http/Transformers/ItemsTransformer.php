@@ -5,16 +5,11 @@ namespace App\Http\Transformers;
 use App\Models\Payment\Item;
 use League\Fractal\TransformerAbstract;
 
-class ItemTransformer extends TransformerAbstract
+class ItemsTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = [
-        'transactions',
-    ];
-
     public function transform(Item $item)
     {
         return [
-            'id' => $item->id,
             'title' => $item->title,
             'description' => $item->description,
             'picture_url' => $item->picture_url,
@@ -22,12 +17,7 @@ class ItemTransformer extends TransformerAbstract
             'unit_price' => $item->unit_price,
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
-            'deleted_at' => $item->updated_at,
+            'deleted_at' => $item->deleted_at,
         ];
-    }
-
-    public function includeTransactions(Item $item)
-    {
-        return $this->collection($item->transactions, new TransactionTransformer);
     }
 }

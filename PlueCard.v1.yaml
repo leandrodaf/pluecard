@@ -1118,7 +1118,7 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      $ref: '#/components/schemas/PaymentItem'
+                      $ref: '#/components/schemas/Item'
                   meta:
                     type: object
                     required:
@@ -1244,7 +1244,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/PaymentItem'
+                    $ref: '#/components/schemas/Item'
                 required:
                   - data
               examples:
@@ -1294,7 +1294,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PaymentItem'
+              $ref: '#/components/schemas/Item'
             examples:
               example-1:
                 value:
@@ -1622,10 +1622,10 @@ components:
         - created_at
         - updated_at
         - deleted_at
-    PaymentItem:
+    Item:
       description: Item de pagamentos
       type: object
-      title: PaymentItem
+      title: Item
       properties:
         title:
           type: string

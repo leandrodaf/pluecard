@@ -7,7 +7,7 @@ use App\Services\Helpers\UploadFile;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentItem extends Model
+class Item extends Model
 {
     use SoftDeletes;
 

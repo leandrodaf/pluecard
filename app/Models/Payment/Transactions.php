@@ -38,7 +38,7 @@ class Transactions extends Model
 
     public function item(): BelongsTo
     {
-        return $this->belongsTo(PaymentItem::class, 'payments_item_id', 'id');
+        return $this->belongsTo(Item::class, 'payments_item_id', 'id');
     }
 
     public function payment(): BelongsTo

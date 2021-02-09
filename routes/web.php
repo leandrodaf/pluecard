@@ -56,11 +56,11 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->delete('/models/styles/{id}', 'ModelStyleController@destroy');
 
     // Payment Items
-    $router->post('/payments/items', 'PaymentItemController@create');
-    $router->get('/payments/items', 'PaymentItemController@index');
-    $router->get('/payments/items/{id}', 'PaymentItemController@show');
-    $router->put('/payments/items/{id}', 'PaymentItemController@update');
-    $router->delete('/payments/items/{id}', 'PaymentItemController@destroy');
+    $router->post('/payments/items', 'ItemController@create');
+    $router->get('/payments/items', 'ItemController@index');
+    $router->get('/payments/items/{id}', 'ItemController@show');
+    $router->put('/payments/items/{id}', 'ItemController@update');
+    $router->delete('/payments/items/{id}', 'ItemController@destroy');
 
     // Payment
     $router->post('/payments/items/{itemId}/gateways/{gateway}', 'PaymentController@payment');
