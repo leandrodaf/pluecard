@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Payment\Payment;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -71,6 +72,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function socialAuths(): HasMany
     {
         return $this->hasMany(SocialAuths::class, 'user_id', 'id');
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'user_id', 'id');
     }
 
     public function isAdmin(): bool

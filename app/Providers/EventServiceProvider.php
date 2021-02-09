@@ -24,5 +24,8 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\ResetPassword::class,
         ],
 
+        \App\Events\PaymentCreated::class => [
+            \App\Listeners\AssociateToUser::class,
+        ],
     ];
 }
