@@ -80,9 +80,9 @@ class PaymentItemController extends Controller
      */
     public function show(string $id): Response
     {
-        $item = $this->paymentItemService->show($id);
+        $paymentItem = $this->paymentItemService->show($id);
 
-        return $this->itemResponse($item, new PaymentItemsTransformer, 200);
+        return $this->itemResponse($paymentItem, new PaymentItemsTransformer, 200);
     }
 
     /**
@@ -103,9 +103,9 @@ class PaymentItemController extends Controller
      */
     public function destroy(string $id): Response
     {
-        $item = $this->paymentItemService->show($id);
+        $paymentItem = $this->paymentItemService->show($id);
 
-        $this->paymentItemService->destroy($item);
+        $this->paymentItemService->destroy($paymentItem);
 
         return response(null, 200);
     }

@@ -2,34 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PaymentItemService;
 use App\Services\PaymentService;
+use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
     private $paymentService;
 
-    public function __construct(PaymentService $paymentService, AuthManager $auth)
+    private $paymentItemService;
+
+    public function __construct(PaymentService $paymentService, PaymentItemService $paymentItemService, AuthManager $auth)
     {
         $this->paymentService = $paymentService;
+        $this->paymentItemService = $paymentItemService;
 
         // Gate::authorize('adminOrSimpleUser', $auth->user());
     }
 
-    public function payment(Request $request, string $gateway)
+    public function payment(Request $request, string $itemId, string $gateway)
     {
         $data = $this->validate($request, [
             'payer' => 'required|array',
-            'payer.name' => 'required|string',
-            'payer.surname' => 'required|string',
+            'payer.first_name' => 'required|string',
+            'payer.last_name' => 'required|string',
 
             'payer.email' => 'required|email',
 
-            'payer.phone' => 'required|array',
-            'payer.phone.area_code' => 'required|string',
-            'payer.phone.number' => 'required|string',
+            'payer.phone' => 'array',
+            'payer.phone.area_code' => 'string',
+            'payer.phone.number' => 'string',
 
             'payer.identification' => 'required|array',
             'payer.identification.type' => 'required|string',
@@ -40,17 +45,27 @@ class PaymentController extends Controller
             'payer.address.street_number' => 'required|string',
             'payer.address.zip_code' => 'required|string',
 
-            'issuer' => 'required|integer',
+            'issuer_id' => 'required|integer',
             'installments' => 'required|integer',
-            'transaction_amount' => 'required|numeric',
             'payment_method_id' => 'required|string',
             'description' => 'string|max:254',
             'token' => 'required|string',
-
         ]);
 
-        $data = $request->all();
+        $paymentItem = $this->paymentItemService->show($itemId);
 
-        $this->paymentService->payment($gateway, $data);
+        try {
+            DB::beginTransaction();
+
+            $this->paymentService->payment($paymentItem, $gateway, $data);
+
+            DB::commit();
+        } catch (Exception $exec) {
+            DB::rollBack();
+
+            throw $exec;
+        }
+
+        return response(null, 201);
     }
 }

@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <form action="http://localhost/payments/mercado-pago" method="post" id="paymentForm">
+    <form action="http://localhost/payments/items/1/gateways/mercado-pago" method="post" id="paymentForm">
         <h3>Detalhe do comprador</h3>
         <div>
             <div>
@@ -18,7 +18,42 @@
             </div>
             <div>
                 <label for="docNumber">Número do documento</label>
-                <input id="docNumber" name="payer[identification][number]" data-checkout="docNumber" type="text" value="48989553040"/>
+                <input id="docNumber" name="payer[identification][number]" data-checkout="docNumber" type="text" value="48989553040" />
+            </div>
+
+            <div>
+                <label for="name">Nome:</label>
+                <input id="name" name="payer[first_name]" type="text" value="Raul" />
+            </div>
+
+            <div>
+                <label for="surname">Sobrenome:</label>
+                <input id="surname" name="payer[last_name]" type="text" value="Alves" />
+            </div>
+
+            <!-- <div>
+                <label for="area_code">DDD:</label>
+                <input id="area_code" name="payer[phone][area_code]" type="text" value="011" />
+            </div>
+
+            <div>
+                <label for="number">Número do telefone:</label>
+                <input id="number" name="payer[phone][number]" type="text" value="995447361" />
+            </div> -->
+
+            <div>
+                <label for="street_name">Rua:</label>
+                <input id="street_name" name="payer[address][street_name]" type="text" value="Rua Santa Bernadete" />
+            </div>
+
+            <div>
+                <label for="street_number">Número da rua:</label>
+                <input id="street_number" name="payer[address][street_number]" type="text" value="654" />
+            </div>
+
+            <div>
+                <label for="zip_code">CEP</label>
+                <input id="zip_code" name="payer[address][zip_code]" type="text" value="09941300" />
             </div>
         </div>
         <h3>Detalhes do cartão</h3>
@@ -30,38 +65,30 @@
             <div>
                 <label for="">Data de vencimento</label>
                 <div>
-                    <input type="text" placeholder="MM" id="cardExpirationMonth" data-checkout="cardExpirationMonth"
-                        onselectstart="return false" onpaste="return false" oncopy="return false" oncut="return false"
-                        ondrag="return false" ondrop="return false" autocomplete=off value="11">
+                    <input type="text" placeholder="MM" id="cardExpirationMonth" data-checkout="cardExpirationMonth" onselectstart="return false" onpaste="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete=off value="11">
                     <span class="date-separator">/</span>
-                    <input type="text" placeholder="YY" id="cardExpirationYear" data-checkout="cardExpirationYear"
-                        onselectstart="return false" onpaste="return false" oncopy="return false" oncut="return false"
-                        ondrag="return false" ondrop="return false" autocomplete=off value="25">
+                    <input type="text" placeholder="YY" id="cardExpirationYear" data-checkout="cardExpirationYear" onselectstart="return false" onpaste="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete=off value="25">
                 </div>
             </div>
             <div>
                 <label for="cardNumber">Número do cartão</label>
-                <input type="text" id="cardNumber" data-checkout="cardNumber" onselectstart="return false"
-                    onpaste="return false" oncopy="return false" oncut="return false" ondrag="return false"
-                    ondrop="return false" autocomplete=off value="5031433215406351">
+                <input type="text" id="cardNumber" data-checkout="cardNumber" onselectstart="return false" onpaste="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete=off value="5031433215406351">
             </div>
             <div>
                 <label for="securityCode">Código de segurança</label>
-                <input id="securityCode" data-checkout="securityCode" type="text" onselectstart="return false"
-                    onpaste="return false" oncopy="return false" oncut="return false" ondrag="return false"
-                    ondrop="return false" autocomplete=off value="123">
+                <input id="securityCode" data-checkout="securityCode" type="text" onselectstart="return false" onpaste="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete=off value="123">
             </div>
             <div id="issuerInput">
                 <label for="issuer">Banco emissor</label>
-                <select id="issuer" name="issuer" data-checkout="issuer"></select>
+                <select id="issuer" name="issuer_id" data-checkout="issuer"></select>
             </div>
             <div>
                 <label for="installments">Parcelas</label>
                 <select type="text" id="installments" name="installments"></select>
             </div>
             <div>
-                <input type="hidden" name="transactionAmount" id="transactionAmount" value="100" />
-                <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
+                <input type="hidden" name="transaction_amount" id="transaction_amount" value="100" />
+                <input type="hidden" name="payment_method_id" id="payment_method_id" />
                 <input type="hidden" name="description" id="description" />
                 <br>
                 <button type="submit">Pagar</button>
@@ -77,8 +104,8 @@
 
 
     window.Mercadopago.getPaymentMethod({
-                "bin": 503143
-            }, setPaymentMethod);
+        "bin": 503143
+    }, setPaymentMethod);
 
     // document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
 
@@ -96,7 +123,7 @@
     function setPaymentMethod(status, response) {
         if (status == 200) {
             let paymentMethod = response[0];
-            document.getElementById('paymentMethodId').value = paymentMethod.id;
+            document.getElementById('payment_method_id').value = paymentMethod.id;
 
             getIssuers(paymentMethod.id);
         } else {
@@ -104,9 +131,9 @@
         }
     }
 
-    function getIssuers(paymentMethodId) {
+    function getIssuers(payment_method_id) {
         window.Mercadopago.getIssuers(
-            paymentMethodId,
+            payment_method_id,
             setIssuers
         );
     }
@@ -122,8 +149,8 @@
             });
 
             getInstallments(
-                document.getElementById('paymentMethodId').value,
-                document.getElementById('transactionAmount').value,
+                document.getElementById('payment_method_id').value,
+                document.getElementById('transaction_amount').value,
                 issuerSelect.value
             );
         } else {
@@ -131,10 +158,10 @@
         }
     }
 
-    function getInstallments(paymentMethodId, transactionAmount, issuerId) {
+    function getInstallments(payment_method_id, transaction_amount, issuerId) {
         window.Mercadopago.getInstallments({
-            "payment_method_id": paymentMethodId,
-            "amount": parseFloat(transactionAmount),
+            "payment_method_id": payment_method_id,
+            "amount": parseFloat(transaction_amount),
             "issuer_id": parseInt(issuerId)
         }, setInstallments);
     }
@@ -155,6 +182,7 @@
 
     doSubmit = false;
     document.getElementById('paymentForm').addEventListener('submit', getCardToken);
+
     function getCardToken(event) {
         event.preventDefault();
         if (!doSubmit) {

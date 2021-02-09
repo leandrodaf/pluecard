@@ -11,7 +11,7 @@ abstract class Gateway
 
     protected $validate = [];
 
-    protected function validate(): void
+    protected function validation(): void
     {
         $validator = Validator::make($this->data, $this->validate);
 
