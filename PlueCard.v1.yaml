@@ -1018,7 +1018,7 @@ paths:
         name: driver
         in: path
         required: true
-        description: Driver social que está sendo integrado
+        description: Driver social que esta sendo integrado
     post:
       summary: Autenticação usando token social
       operationId: post-auth-login-social-driver
@@ -1096,12 +1096,12 @@ paths:
                   session_state:
                     extraQueryParams:
                       authuser: '0'
-        description: Os payload de integração sofrem variações conforme a rede social que está sendo integrada
+        description: Os payload de integração sofrem varições conforme a rede social que esta sendo integrada
       tags:
         - Autenticação
   /payments/items:
     get:
-      summary: Listagem de itens de pagamento
+      summary: Listagem de items de pagamento
       tags:
         - Payment - Items
       responses:
@@ -1130,7 +1130,7 @@ paths:
                   - data
                   - meta
               examples:
-                Retorno de listagem paginado:
+                Retorno de listagem páginado:
                   value:
                     data:
                       - title: Point Mini
@@ -1189,7 +1189,7 @@ paths:
                 title:
                   type: string
                   minLength: 1
-                  description: Título do item
+                  description: Titulo do item
                 description:
                   type: string
                   minLength: 1
@@ -1231,7 +1231,7 @@ paths:
         required: true
         description: Identificador do item
     get:
-      summary: Retorna um Item de pagamento específico
+      summary: Retorna um Item de pagamento especifico
       tags:
         - Payment - Items
       responses:
@@ -1270,9 +1270,9 @@ paths:
         '500':
           description: Internal Server Error
       operationId: get-payments-items-id
-      description: Retorna um item de pagamento específico.
+      description: Retorna um item de pagamento especifico.
     put:
-      summary: Atualiza um item de pagamento específico
+      summary: Atualiza um item de pagamento especifico
       operationId: put-payments-items-id
       responses:
         '200':
@@ -1289,7 +1289,7 @@ paths:
           description: Internal Server Error
       tags:
         - Payment - Items
-      description: Atualiza um item de pagamento específico.
+      description: Atualiza um item de pagamento especifico.
       requestBody:
         content:
           application/json:
@@ -1304,7 +1304,7 @@ paths:
                   unit_price: 100
         description: Exemplo de payload para atualizar um item de pagamento
     delete:
-      summary: Deletar um item de pagamento específico
+      summary: Deletar um item de pagamento especifico
       operationId: delete-payments-items-id
       responses:
         '200':
@@ -1322,6 +1322,151 @@ paths:
       description: Exemplo de delete
       tags:
         - Payment - Items
+  '/payments/items/{item_id}/gateways/{gateways}':
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - mercado-pago
+        name: gateways
+        in: path
+        required: true
+        description: Identificador do meio de pagamento
+      - schema:
+          type: string
+        name: item_id
+        in: path
+        required: true
+        description: Identificador do item
+    post:
+      summary: Criação de pagamento
+      operationId: post-payments-items-item_id-gateways-gateways
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  payer:
+                    type: object
+                    required:
+                      - first_name
+                      - last_name
+                      - email
+                      - identification
+                      - address
+                    description: Identificação do pagador
+                    properties:
+                      first_name:
+                        type: string
+                        minLength: 1
+                        description: Primeiro Nome
+                      last_name:
+                        type: string
+                        minLength: 1
+                        description: Sobrenome
+                      email:
+                        type: string
+                        minLength: 1
+                        description: Email do pagador
+                      identification:
+                        type: object
+                        required:
+                          - type
+                          - number
+                        description: Identificação do documento
+                        properties:
+                          type:
+                            type: string
+                            minLength: 1
+                            description: |
+                              Tipo do documento
+                            enum:
+                              - CPF
+                          number:
+                            type: string
+                            minLength: 1
+                            description: Número do documento
+                      address:
+                        type: object
+                        required:
+                          - street_name
+                          - street_number
+                          - zip_code
+                        description: Endereço do pagador
+                        properties:
+                          street_name:
+                            type: string
+                            minLength: 1
+                            description: Nome da Rua/AV
+                          street_number:
+                            type: string
+                            minLength: 1
+                            description: Número da rua
+                          zip_code:
+                            type: string
+                            minLength: 1
+                            description: CEP
+                  issuer_id:
+                    type: string
+                    minLength: 1
+                    description: Criado através do SDK do Mercado Pago
+                  installments:
+                    type: string
+                    minLength: 1
+                    description: Quantidade de parecelas
+                  payment_method_id:
+                    type: string
+                    minLength: 1
+                    description: Identificador do método de pagamento
+                  description:
+                    type: string
+                    description: Descrição do pagamento.
+                  token:
+                    type: string
+                    minLength: 1
+                    description: Token de autenticação do SDK do Mercado Pago
+                required:
+                  - payer
+                  - issuer_id
+                  - installments
+                  - payment_method_id
+                  - token
+              examples:
+                Exemplo de integração:
+                  value:
+                    payer:
+                      first_name: Raul
+                      last_name: Alves
+                      email: rraulkauealves@serteccontabil.com.br
+                      identification:
+                        type: CPF
+                        number: '78730291828'
+                      address:
+                        street_name: Rua Santa Bernadete
+                        street_number: '654'
+                        zip_code: '09941300'
+                    issuer_id: '24'
+                    installments: '12'
+                    payment_method_id: master
+                    description: ''
+                    token: 3b86a3259af5ece0d241b74a698e28e2
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      tags:
+        - Payment - Items
+      description: Cria o pagamento de um item
 components:
   schemas:
     User:
@@ -1376,7 +1521,7 @@ components:
           readOnly: true
         rules:
           type: object
-          description: Listagem de regras de permissionamento do usuário
+          description: Listagem de regas de permissionamento do usuário
           properties:
             data:
               $ref: '#/components/schemas/Rules'
@@ -1427,7 +1572,7 @@ components:
       readOnly: true
       title: Rules
       x-examples:
-        Exemplo de listagem de regras:
+        Exemplo de listagem de regas:
           - Administrator
     ModelStyle:
       description: Estilo de modelos
@@ -1444,7 +1589,7 @@ components:
       properties:
         id:
           type: number
-          description: Identificador único do Estilo de modelo
+          description: Identificador unico do Estilo de modelo
         name:
           type: string
           minLength: 1
@@ -1485,7 +1630,7 @@ components:
         title:
           type: string
           minLength: 1
-          description: Título do item
+          description: Titulo do item
         description:
           type: string
           minLength: 1
@@ -1547,5 +1692,3 @@ tags:
   - name: Payment - Items
 security:
   - bearerAuth: []
-
-
