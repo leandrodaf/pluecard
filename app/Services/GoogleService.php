@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Google\Client;
-use Google_Service_Oauth2;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -11,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 class GoogleService implements SocialAuthInterface
 {
     private $client;
+
+    private $googleOauuth2Service;
 
     private $tokenValidator = [
         'token_type' => 'required|string',
@@ -24,9 +25,11 @@ class GoogleService implements SocialAuthInterface
         'session_state.extraQueryParams.authuser' => 'required|string',
     ];
 
-    public function __construct(Client $googleClient)
+    public function __construct(Client $googleClient, GoogleOauuth2Service $googleOauuth2Service)
     {
         $this->client = $googleClient;
+
+        $this->googleOauuth2Service = $googleOauuth2Service;
 
         $this->configurationClient();
     }
@@ -45,7 +48,7 @@ class GoogleService implements SocialAuthInterface
         $this->client->setAccessToken($googleToken);
     }
 
-    private function configurationClient()
+    private function configurationClient(): void
     {
         $this->client->setClientId(config('services.google.clientId'));
         $this->client->setClientSecret(config('services.google.clientSecret'));
@@ -58,8 +61,7 @@ class GoogleService implements SocialAuthInterface
     {
         throw_if($this->client->isAccessTokenExpired(), AuthorizationException::class);
 
-        $google_oauth = new Google_Service_Oauth2($this->client);
-        $google_account_info = $google_oauth->userinfo->get();
+        $google_account_info = $this->googleOauuth2Service->getGoogleOauth2($this->client)->userinfo->get();
 
         return [
             'email' => $google_account_info->email,
