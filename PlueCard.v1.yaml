@@ -453,13 +453,24 @@ paths:
       tags:
         - Usuário
       parameters:
-        - $ref: '#/components/parameters/include'
         - schema:
             type: string
             example: Cleiton Rasta
           in: query
           name: search
           description: Filtra os resultado pelo nome e email
+        - schema:
+            type: string
+            enum:
+              - rules
+              - payments
+              - transactions
+              - payers
+              - cards
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+        - $ref: '#/components/parameters/page'
       responses:
         '200':
           description: OK
@@ -478,9 +489,6 @@ paths:
                       $ref: '#/components/schemas/User'
                   meta:
                     $ref: '#/components/schemas/MetaPaginate'
-                required:
-                  - data
-                  - meta
               examples:
                 Exemplo de retorno:
                   value:
@@ -582,7 +590,18 @@ paths:
       tags:
         - Usuário - Administração
       parameters:
-        - $ref: '#/components/parameters/include'
+        - schema:
+            type: string
+            enum:
+              - rules
+              - payments
+              - transactions
+              - payers
+              - cards
+            example: cards
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
       responses:
         '200':
           description: OK
@@ -594,8 +613,6 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/User'
-                required:
-                  - data
               examples:
                 Exemplo de retorno:
                   value:
@@ -727,8 +744,19 @@ paths:
           description: Internal Server Error
       tags:
         - Usuário
-    parameters:
-      - $ref: '#/components/parameters/include'
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - rules
+              - payments
+              - transactions
+              - payers
+              - cards
+            example: cards
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
   /account/password/forgot:
     post:
       summary: Solicitação de recuperação de senha
@@ -861,6 +889,8 @@ paths:
           description: Internal Server Error
       operationId: get-models-styles
       description: Lista todos os modelos do sistema
+      parameters:
+        - $ref: '#/components/parameters/page'
     post:
       summary: Criação de novo Estilos de modelos
       operationId: post-models-styles
@@ -933,8 +963,6 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/ModelStyle'
-                required:
-                  - data
         '400':
           description: Bad Request
         '401':
@@ -947,6 +975,7 @@ paths:
           description: Internal Server Error
       operationId: get-models-styles-id
       description: Retorna um estilo de modelo específico
+      parameters: []
     put:
       summary: Atualizar estilo de modelo específico
       operationId: put-models-styles
@@ -1119,14 +1148,9 @@ paths:
                       $ref: '#/components/schemas/Item'
                   meta:
                     type: object
-                    required:
-                      - pagination
                     properties:
                       pagination:
-                        $ref: ./reference/pluecard.v1.yaml#/components/schemas/MetaPaginate
-                required:
-                  - data
-                  - meta
+                        $ref: '#/components/schemas/MetaPaginate'
               examples:
                 Retorno de listagem paginado:
                   value:
@@ -1162,6 +1186,16 @@ paths:
       description: Listagem dos itens de payment item
       tags:
         - Itens
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - transactions
+            example: transactions
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+        - $ref: '#/components/parameters/page'
     post:
       summary: Criação de item de pagamento
       operationId: post-payments-items
@@ -1243,8 +1277,6 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/Item'
-                required:
-                  - data
               examples:
                 Exemplo de retorno:
                   value:
@@ -1271,6 +1303,15 @@ paths:
       description: Retorna um item de pagamento específico.
       tags:
         - Itens
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - transactions
+            example: transactions
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
     put:
       summary: Atualiza um item de pagamento específico
       operationId: put-payments-items-id
@@ -1467,6 +1508,257 @@ paths:
       description: Cria o pagamento de um item
       tags:
         - Pagamento
+  /users/transactions:
+    get:
+      summary: Listagens de transações do usuário autenticado
+      tags:
+        - Pagamento
+        - Usuário
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Listagem de transações
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+                  meta:
+                    $ref: '#/components/schemas/MetaPaginate'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        currency_id: BRL
+                        amount: 58.8
+                        quantity: 1
+                        status: null
+                        installments: 11
+                        created_at: '2021-02-09T00:39:30.000000Z'
+                        updated_at: '2021-02-09T00:39:30.000000Z'
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 1
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-users-transactions
+      description: Lista todas as transações feitas pelo usuário
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - user
+              - item
+              - payment
+              - card
+              - payer
+            example: user
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+        - $ref: '#/components/parameters/page'
+    parameters: []
+  '/users/transactions/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificador único da transação
+    get:
+      summary: Retorna uma transação específica do usuário logado
+      tags:
+        - Pagamento
+        - Usuário
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Transaction'
+                required:
+                  - data
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-users-transactions-id
+      description: Retorna uma transação específica do usuário logado
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - payer
+              - user
+              - item
+              - payment
+              - card
+            example: payer
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+  '/users/{userId}/transactions/{id}':
+    parameters:
+      - schema:
+          type: integer
+          example: 1
+        name: userId
+        in: path
+        required: true
+        description: Identificador único do usuário
+      - schema:
+          type: integer
+          example: 1
+        name: id
+        in: path
+        required: true
+        description: Identificador único da transação
+    get:
+      summary: Retorna uma transação específica de um usuário
+      tags:
+        - Pagamento
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Transaction'
+                required:
+                  - data
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      id: 1
+                      currency_id: BRL
+                      amount: 58.8
+                      quantity: 1
+                      status: null
+                      installments: 11
+                      created_at: '2021-02-09T00:39:30.000000Z'
+                      updated_at: '2021-02-09T00:39:30.000000Z'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-users-userId-transactions-id
+      description: Retorna uma transação específica com base no usuário fornecido
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - payer
+              - user
+              - item
+              - payment
+              - card
+            example: payer
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+  '/users/{userId}/transactions':
+    parameters:
+      - schema:
+          type: integer
+          example: 1
+        name: userId
+        in: path
+        description: Identificador único do usuário
+        required: true
+    get:
+      summary: Listagens de transações do usuário especificado
+      tags:
+        - Pagamento
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+                  meta:
+                    $ref: '#/components/schemas/MetaPaginate'
+                required:
+                  - data
+                  - meta
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-users-userId-transactions
+      description: Lista todas as transações do usuário especificado
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - payer
+              - user
+              - item
+              - payment
+              - card
+            example: user
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+        - $ref: '#/components/parameters/page'
 components:
   schemas:
     User:
@@ -2244,17 +2536,14 @@ components:
       bearerFormat: JWT
   examples: {}
   parameters:
-    include:
-      name: include
+    page:
+      name: page
       in: query
       required: false
-      description: Inclusão de entidades conforme os relacionamentos do modelo
       schema:
-        type: array
-        items:
-          type: string
-          enum:
-            - rules
+        type: integer
+        example: 1
+      description: Especificação da página que será carregada na paginação
 tags:
   - name: Autenticação
   - name: Conta de usuário

@@ -37,6 +37,12 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->post('/account/password/reset', 'AccountController@resetPassword');
     $router->put('/account/password', 'AccountController@updatePassword');
 
+    // Users Transaction
+    $router->get('/users/transactions/{id}', 'TransactionController@show');
+    $router->get('/users/transactions', 'TransactionController@index');
+    $router->get('/users/{userId}/transactions/{id}', 'TransactionController@showByUser');
+    $router->get('/users/{userId}/transactions', 'TransactionController@listByUser');
+
     // Users
     $router->get('/users', 'UserController@index');
     $router->put('/users', 'UserController@meUpdate');
@@ -45,8 +51,6 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->get('/users/{id}', 'UserController@show');
     $router->delete('/users', 'UserController@meDestroy');
     $router->delete('/users/{id}', 'UserController@destroy');
-
-    // Users Transaction
 
     // Styles
     $router->post('/models/styles', 'ModelStyleController@create');
