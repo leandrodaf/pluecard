@@ -1,6 +1,6 @@
 <?php
-namespace App\Models\Card;
 
+namespace App\Models\Card;
 
 use App\Models\Model;
 use App\Services\Helpers\UploadFile;

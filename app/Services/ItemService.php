@@ -11,16 +11,14 @@ class ItemService
 {
     private $item;
 
-    /**
-     * @param Item $item
-     * @return void
-     */
     public function __construct(Item $item)
     {
         $this->item = $item;
     }
 
     /**
+     * Create new item.
+     *
      * @param array $data
      * @return Item
      */
@@ -29,13 +27,19 @@ class ItemService
         return $this->item->create($data);
     }
 
-    /** @return Paginator  */
+    /**
+     * List All items with paginator.
+     *
+     * @return Paginator
+     */
     public function listItemsPaginate(): Paginator
     {
         return $this->item->simplePaginate(15);
     }
 
     /**
+     * Update item.
+     *
      * @param Item $item
      * @param array $data
      * @return bool
@@ -47,6 +51,8 @@ class ItemService
     }
 
     /**
+     * Show single item.
+     *
      * @param string $id
      * @return Item
      */
