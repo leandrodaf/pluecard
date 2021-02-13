@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payer extends Model
 {
-    protected $table = 'payments_payers';
+    protected $table = 'payers';
 
     protected $fillable = [
         'external_id',

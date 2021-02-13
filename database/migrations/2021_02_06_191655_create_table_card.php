@@ -13,7 +13,7 @@ class CreateTableCard extends Migration
      */
     public function up()
     {
-        Schema::create('payments_cards', function (Blueprint $table) {
+        Schema::create('cards', function (Blueprint $table) {
             $table->id();
 
             $table->string('external_id')->nullable();
@@ -43,6 +43,6 @@ class CreateTableCard extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments_cards');
+        Schema::dropIfExists('cards');
     }
 }

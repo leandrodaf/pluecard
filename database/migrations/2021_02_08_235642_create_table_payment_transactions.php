@@ -24,10 +24,10 @@ class CreateTablePaymentTransactions extends Migration
             $table->string('status')->nullable();
 
             $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedInteger('payments_item_id')->foreign('payments_item_id')->references('id')->on('payments_items')->onDelete('cascade');
+            $table->unsignedInteger('item_id')->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->unsignedInteger('payment_id')->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
-            $table->unsignedInteger('payments_payer_id')->foreign('payments_payer_id')->references('id')->on('payments_payers')->onDelete('cascade');
-            $table->unsignedInteger('payments_card_id')->foreign('payments_card_id')->references('id')->on('payments_cards')->onDelete('cascade');
+            $table->unsignedInteger('payer_id')->foreign('payer_id')->references('id')->on('payers')->onDelete('cascade');
+            $table->unsignedInteger('card_id')->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
 
             $table->timestamps();
         });

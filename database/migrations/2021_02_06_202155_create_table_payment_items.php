@@ -13,7 +13,7 @@ class CreateTableItems extends Migration
      */
     public function up()
     {
-        Schema::create('payments_items', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('description');
@@ -32,6 +32,6 @@ class CreateTableItems extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments_items');
+        Schema::dropIfExists('items');
     }
 }

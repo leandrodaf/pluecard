@@ -11,7 +11,7 @@ class Item extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected $table = 'payments_items';
+    protected $table = 'items';
 
     protected $fillable = [
         'title',
@@ -42,6 +42,6 @@ class Item extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'payments_item_id', 'id');
+        return $this->hasMany(Transaction::class, 'item_id', 'id');
     }
 }

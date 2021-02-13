@@ -13,7 +13,7 @@ class CreateTablePayer extends Migration
      */
     public function up()
     {
-        Schema::create('payments_payers', function (Blueprint $table) {
+        Schema::create('payers', function (Blueprint $table) {
             $table->id();
 
             $table->bigInteger('external_id');
@@ -42,6 +42,6 @@ class CreateTablePayer extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments_payers');
+        Schema::dropIfExists('payers');
     }
 }
