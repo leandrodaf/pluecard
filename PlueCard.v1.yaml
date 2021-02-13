@@ -839,11 +839,11 @@ paths:
                   password_confirmation: foo-password-12345
       tags:
         - Recuperação de senha
-  /models/styles:
+  /cards/styles:
     get:
       summary: Listagem de Estilos de modelos
       tags:
-        - Modelo - Administração
+        - Cartão - Administração
       responses:
         '200':
           description: OK
@@ -856,7 +856,7 @@ paths:
                     type: array
                     description: Listagem de estilo de modelos
                     items:
-                      $ref: '#/components/schemas/ModelStyle'
+                      $ref: '#/components/schemas/Style'
                   meta:
                     $ref: '#/components/schemas/MetaPaginate'
               examples:
@@ -938,9 +938,9 @@ paths:
                   background: 'data:image/jpeg;base64,,...'
         description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
       tags:
-        - Modelo - Administração
+        - Cartão - Administração
     parameters: []
-  '/models/styles/{id}':
+  '/cards/styles/{id}':
     parameters:
       - schema:
           type: string
@@ -951,7 +951,7 @@ paths:
     get:
       summary: Retornar estilo de modelo específico
       tags:
-        - Modelo - Administração
+        - Cartão - Administração
       responses:
         '200':
           description: OK
@@ -962,7 +962,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/ModelStyle'
+                    $ref: '#/components/schemas/Style'
         '400':
           description: Bad Request
         '401':
@@ -1019,7 +1019,7 @@ paths:
                   background: 'data:image/jpeg;base64,...'
         description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
       tags:
-        - Modelo - Administração
+        - Cartão - Administração
     delete:
       summary: Inativar estilo de modelo específico
       operationId: delete-models-styles-id
@@ -1038,7 +1038,7 @@ paths:
           description: Internal Server Error
       description: Inativa o estilo de modelo
       tags:
-        - Modelo - Administração
+        - Cartão - Administração
   '/auth/login/social/{driver}':
     parameters:
       - schema:
@@ -1906,18 +1906,18 @@ components:
           - Administrator
       x-tags:
         - Usuário
-    ModelStyle:
+    Style:
       description: Estilo de modelos
       type: object
       x-examples:
         'Exemplo ':
           id: 2
           name: escritorio
-          background: 'https://s3.amazonaws.com/asset.api.pluecard.com//models/styles/background/771612272026.png'
+          background: 'https://s3.amazonaws.com/asset.api.pluecard.com//cards/styles/background/771612272026.png'
           created_at: '2021-02-02T13:20:27.000000Z'
           updated_at: '2021-02-02T13:20:27.000000Z'
           deleted_at: '2021-02-02T13:20:27.000000Z'
-      title: ModelStyle
+      title: Style
       properties:
         id:
           type: number
@@ -2550,7 +2550,7 @@ tags:
   - name: Usuário - Administração
   - name: Usuário
   - name: Recuperação de senha
-  - name: Modelo - Administração
+  - name: Cartão - Administração
   - name: Itens
   - name: Pagamento
 security:
