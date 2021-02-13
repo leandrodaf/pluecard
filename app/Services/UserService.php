@@ -20,13 +20,19 @@ class UserService extends Services
         $this->user = $user;
     }
 
-    /** @return Paginator  */
+    /**
+     * List all user with options for search using email or name.
+     * @param string|null $search
+     * @return Paginator
+     */
     public function listUsersPaginate(string $search = null): Paginator
     {
         return $this->user->search($search)->simplePaginate(15);
     }
 
     /**
+     * Update user.
+     *
      * @param User $user
      * @param array $data
      * @return bool
@@ -38,6 +44,8 @@ class UserService extends Services
     }
 
     /**
+     * Show Single User by id.
+     *
      * @param string $id
      * @return User
      */
@@ -47,6 +55,8 @@ class UserService extends Services
     }
 
     /**
+     * Delete user.
+     *
      * @param User $user
      * @return bool
      * @throws Exception

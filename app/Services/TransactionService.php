@@ -20,6 +20,8 @@ class TransactionService
     }
 
     /**
+     * List all Transaction for specific user with paginate.
+     *
      * @param User $user
      * @return Paginator
      */
@@ -29,6 +31,8 @@ class TransactionService
     }
 
     /**
+     * Show Single User.
+     *
      * @param User $user
      * @param string $id
      * @return Transaction

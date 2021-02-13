@@ -29,13 +29,6 @@ class PaymentService
         'mercado-pago' => MercadoPagoGateway::class,
     ];
 
-    /**
-     * @param AuthManager $auth
-     * @param Payment $payment
-     * @param Card $card
-     * @param Payer $payer
-     * @return void
-     */
     public function __construct(
         AuthManager $auth,
         Payment $payment,
@@ -55,6 +48,8 @@ class PaymentService
     }
 
     /**
+     * Select specific payment dateway.
+     *
      * @param string $gateway
      * @param Item $item
      * @param array $data
@@ -69,6 +64,8 @@ class PaymentService
     }
 
     /**
+     * Merge relationals attribute in all entities.
+     *
      * @param array $data
      * @param Payment|null $payment
      * @return array
@@ -86,6 +83,8 @@ class PaymentService
     }
 
     /**
+     * Create new payment.
+     *
      * @param Item $item
      * @param string $gateway
      * @param array $data

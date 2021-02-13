@@ -2,13 +2,25 @@
 
 namespace App\Services;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Throwable;
+
 class SocialAuthService
 {
     private $avaliableChanels = [
         'google' => GoogleService::class,
     ];
 
-    private function getChannel(string $channelId, array $authToken): SocialAuthInterface
+    /**
+     * Select payment driver in avaliable chanels.
+     *
+     * @param string $channelId
+     * @param array $authToken
+     * @return SocialAuthInterface
+     * @throws Throwable
+     * @throws BindingResolutionException
+     */
+    public function getDriver(string $channelId, array $authToken): SocialAuthInterface
     {
         throw_unless(array_key_exists($channelId, $this->avaliableChanels), ValidatorException::class, 'The requested driver does not exist');
 
@@ -17,10 +29,5 @@ class SocialAuthService
         $driver->setToken($authToken);
 
         return $driver;
-    }
-
-    public function getDriver(string $channel, array $authToken): SocialAuthInterface
-    {
-        return $this->getChannel($channel, $authToken);
     }
 }
