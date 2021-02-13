@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableModelStyle extends Migration
+class CreateTableStyle extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableModelStyle extends Migration
      */
     public function up()
     {
-        Schema::create('model_styles', function (Blueprint $table) {
+        Schema::create('card_styles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 150)->unique();
             $table->string('background', 255);
@@ -29,6 +29,6 @@ class CreateTableModelStyle extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('model_styles');
+        Schema::dropIfExists('card_styles');
     }
 }

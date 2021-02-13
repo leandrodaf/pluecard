@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Transformers\ModelStyleTransformer;
-use App\Services\ModelStyleService;
+use App\Http\Transformers\StyleTransformer;
+use App\Services\StyleService;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -13,18 +13,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
-class ModelStyleController extends Controller
+class StyleController extends Controller
 {
-    private $modelStyleService;
+    private $styleService;
 
     /**
-     * @param ModelStyleService $modelStyleService
+     * @param StyleService $styleService
      * @param AuthManager $auth
      * @return void
      */
-    public function __construct(ModelStyleService $modelStyleService, AuthManager $auth)
+    public function __construct(StyleService $styleService, AuthManager $auth)
     {
-        $this->modelStyleService = $modelStyleService;
+        $this->styleService = $styleService;
 
         Gate::authorize('admin', $auth->user());
     }
@@ -37,11 +37,11 @@ class ModelStyleController extends Controller
     public function create(Request $request): Response
     {
         $data = $this->validate($request, [
-            'name' => 'required|string|max:60|unique:model_styles',
+            'name' => 'required|string|max:60|unique:card_styles',
             'background' => 'required|base64_image',
         ]);
 
-        $this->modelStyleService->create($data);
+        $this->styleService->create($data);
 
         return response(null, 201);
     }
@@ -56,13 +56,13 @@ class ModelStyleController extends Controller
     public function update(Request $request, string $id): Response
     {
         $data = $this->validate($request, [
-            'name' => 'string|max:60|unique:model_styles'.',id,'.$id,
+            'name' => 'string|max:60|unique:card_styles'.',id,'.$id,
             'background' => 'base64_image',
         ]);
 
-        $modelStyle = $this->modelStyleService->show($id);
+        $style = $this->styleService->show($id);
 
-        $this->modelStyleService->update($modelStyle, $data);
+        $this->styleService->update($style, $data);
 
         return response(null, 200);
     }
@@ -74,9 +74,9 @@ class ModelStyleController extends Controller
      */
     public function show(string $id): Response
     {
-        $item = $this->modelStyleService->show($id);
+        $item = $this->styleService->show($id);
 
-        return $this->itemResponse($item, new ModelStyleTransformer, 200);
+        return $this->itemResponse($item, new StyleTransformer, 200);
     }
 
     /**
@@ -85,9 +85,9 @@ class ModelStyleController extends Controller
      */
     public function index(): Response
     {
-        $list = $this->modelStyleService->listModelStylePaginate();
+        $list = $this->styleService->listStylePaginate();
 
-        return $this->paginateResponse($list, new ModelStyleTransformer, 200);
+        return $this->paginateResponse($list, new StyleTransformer, 200);
     }
 
     /**
@@ -97,9 +97,9 @@ class ModelStyleController extends Controller
      */
     public function destroy(string $id): Response
     {
-        $item = $this->modelStyleService->show($id);
+        $item = $this->styleService->show($id);
 
-        $this->modelStyleService->destroy($item);
+        $this->styleService->destroy($item);
 
         return response(null, 200);
     }

@@ -2,20 +2,20 @@
 
 namespace App\Http\Transformers;
 
-use App\Models\ModelStyle;
+use App\Models\Card\Style;
 use League\Fractal\TransformerAbstract;
 
-class ModelStyleTransformer extends TransformerAbstract
+class StyleTransformer extends TransformerAbstract
 {
-    public function transform(ModelStyle $modelStyle)
+    public function transform(Style $style)
     {
         return [
-            'id' => $modelStyle->id,
-            'name' => $modelStyle->name,
-            'background' => $modelStyle->background,
-            'created_at' => $modelStyle->created_at,
-            'updated_at' => $modelStyle->updated_at,
-            'deleted_at' => $modelStyle->deleted_at,
+            'id' => $style->id,
+            'name' => $style->name,
+            'background' => $style->background,
+            'created_at' => $style->created_at,
+            'updated_at' => $style->updated_at,
+            'deleted_at' => $style->deleted_at,
         ];
     }
 }

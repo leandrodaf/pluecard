@@ -1,15 +1,16 @@
 <?php
+namespace App\Models\Card;
 
-namespace App\Models;
 
+use App\Models\Model;
 use App\Services\Helpers\UploadFile;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ModelStyle extends Model
+class Style extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'model_styles';
+    protected $table = 'card_styles';
 
     protected $fillable = [
         'name',

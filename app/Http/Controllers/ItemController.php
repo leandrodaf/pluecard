@@ -66,9 +66,9 @@ class ItemController extends Controller
             'unit_price' => 'numeric',
         ]);
 
-        $modelStyle = $this->itemService->show($id);
+        $style = $this->itemService->show($id);
 
-        $this->itemService->update($modelStyle, $data);
+        $this->itemService->update($style, $data);
 
         return response(null, 200);
     }
