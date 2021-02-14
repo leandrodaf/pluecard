@@ -53,3 +53,14 @@ compose-cm:
 .PHONY: deploy
 deploy:
 	docker-compose run --rm artisan deploy
+
+.PHONY:
+codeclimate: |
+	rm -rf storage/app/codeclimate/codeclimate-result.html 
+	docker run \
+  --interactive --tty --rm \
+  --env CODECLIMATE_CODE="$PWD" \
+  --volume "$PWD":/code \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
+  --volume /tmp/cc:/tmp/cc \
+  codeclimate/codeclimate analyze -f html app/ >> storage/app/codeclimate/codeclimate-result.html
