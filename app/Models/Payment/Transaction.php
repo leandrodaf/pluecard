@@ -18,10 +18,10 @@ class Transaction extends Model
         'status',
         'installments',
         'user_id',
-        'payments_item_id',
+        'item_id',
         'payment_id',
-        'payments_card_id',
-        'payments_payer_id',
+        'card_id',
+        'payer_id',
     ];
 
     protected $casts = [
@@ -39,7 +39,7 @@ class Transaction extends Model
 
     public function item(): BelongsTo
     {
-        return $this->belongsTo(Item::class, 'payments_item_id', 'id');
+        return $this->belongsTo(Item::class, 'item_id', 'id');
     }
 
     public function payment(): BelongsTo
@@ -49,11 +49,11 @@ class Transaction extends Model
 
     public function card(): BelongsTo
     {
-        return $this->belongsTo(Card::class, 'payments_card_id', 'id');
+        return $this->belongsTo(Card::class, 'card_id', 'id');
     }
 
     public function payer(): BelongsTo
     {
-        return $this->belongsTo(Payer::class, 'payments_payer_id', 'id');
+        return $this->belongsTo(Payer::class, 'payer_id', 'id');
     }
 }

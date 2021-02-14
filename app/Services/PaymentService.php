@@ -2,125 +2,77 @@
 
 namespace App\Services;
 
-use App\Exceptions\ValidatorException;
 use App\Models\Item;
-use App\Models\Payment\Card;
-use App\Models\Payment\Payer;
 use App\Models\Payment\Payment;
 use App\Models\Payment\Transaction;
-use App\Services\Payments\GatewayInterface;
-use App\Services\Payments\MercadoPagoGateway;
-use Illuminate\Auth\AuthManager;
-use Throwable;
+use App\Models\User;
+use App\Services\Payments\GatewayMethod;
 
 class PaymentService
 {
-    private $authManager;
-
     private $payment;
 
-    private $card;
+    private $gatewayMethod;
 
-    private $payer;
+    private $payerService;
 
-    private $transactions;
+    private $cardService;
 
-    private $gatewayList = [
-        'mercado-pago' => MercadoPagoGateway::class,
-    ];
+    private $transactionService;
 
     public function __construct(
-        AuthManager $auth,
         Payment $payment,
-        Card $card,
-        Payer $payer,
-        Transaction $transactions
+        GatewayMethod $gatewayMethod,
+        PayerService $payerService,
+        CardService $cardService,
+        TransactionService $transactionService
     ) {
-        $this->authManager = $auth;
-
         $this->payment = $payment;
 
-        $this->card = $card;
+        $this->gatewayMethod = $gatewayMethod;
 
-        $this->payer = $payer;
+        $this->payerService = $payerService;
 
-        $this->transactions = $transactions;
-    }
+        $this->cardService = $cardService;
 
-    /**
-     * Select specific payment dateway.
-     *
-     * @param string $gateway
-     * @param Item $item
-     * @param array $data
-     * @return GatewayInterface
-     * @throws Throwable
-     */
-    private function getGateway(string $gateway, Item $item, array $data): GatewayInterface
-    {
-        throw_unless(array_key_exists($gateway, $this->gatewayList), ValidatorException::class, ['gateway' => "Notfound  gateway $gateway"]);
-
-        return new $this->gatewayList[$gateway]($item, $data);
-    }
-
-    /**
-     * Merge relationals attribute in all entities.
-     *
-     * @param array $data
-     * @param Payment|null $payment
-     * @return array
-     */
-    private function mergeUser(array $data, Payment $payment = null): array
-    {
-        if ($payment !== null) {
-            $data['payment_id'] = $payment->id;
-        }
-
-        $data['user_id'] = $this->authManager->user()->id;
-        $data['external_id'] = $data['id'] ?? null;
-
-        return $data;
+        $this->transactionService = $transactionService;
     }
 
     /**
      * Create new payment.
      *
+     * @param User $user
      * @param Item $item
      * @param string $gateway
      * @param array $data
-     * @return void
-     * @throws Throwable
+     * @return Transaction
      */
-    public function payment(Item $item, string $gateway, array $data)
+    public function payment(User $user, Item $item, string $gateway, array $data): void
     {
-        $gatewayMethod = $this->getGateway($gateway, $item, $data);
+        $gatewayMethod = $this->gatewayMethod->get($gateway, $item, $data);
 
         $driverPayment = $gatewayMethod->payment();
 
         $paymentData = $driverPayment->toArray();
 
-        $payment = $this->payment->create(
-            $this->mergeUser($paymentData)
-        );
+        $paymentData['user_id'] = $user->id;
+        $paymentData['external_id'] = $paymentData['id'] ?? null;
 
-        $payer = $this->payer->create(
-            $this->mergeUser($driverPayment->payer->toArray(), $payment)
-        );
+        $payment = $this->payment->create($paymentData);
 
-        $card = $this->card->create(
-            $this->mergeUser($driverPayment->card->toArray(), $payment)
-        );
+        $payerData = $driverPayment->payer->toArray();
+        $payerData['external_id'] = $payerData['id'];
+        $payer = $this->payerService->createByPayment($payment, $payerData);
 
-        $this->transactions->create([
+        $cardData = $driverPayment->card->toArray();
+        $cardData['external_id'] = $cardData['id'];
+        $card = $this->cardService->createByPayment($payment, $cardData);
+
+        $this->transactionService->createByPayment($payment, $payer, $card, $item, [
             'currency_id' => 'BRL',
             'amount' => $item->unit_price,
             'quantity' => 1,
             'installments' => $payment->installments,
-            'user_id' => $this->authManager->user()->id,
-            'payments_item_id' => $item->id,
-            'payment_id' => $payment->id,
-            'payments_payer_id' => $payer->id,
-            'payments_card_id' => $card->id,
         ]);
     }
 }

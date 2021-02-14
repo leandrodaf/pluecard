@@ -16,16 +16,20 @@ class PaymentController extends Controller
 
     private $itemService;
 
-    public function __construct(PaymentService $paymentService, ItemService $itemService, AuthManager $auth)
-    {
+    public function __construct(
+        PaymentService $paymentService,
+        ItemService $itemService,
+        AuthManager $authManager
+    ) {
         $this->paymentService = $paymentService;
         $this->itemService = $itemService;
-
-        Gate::authorize('adminOrSimpleUser', $auth->user());
+        $this->authManager = $authManager;
     }
 
     public function payment(Request $request, string $itemId, string $gateway)
     {
+        Gate::authorize('adminOrSimpleUser', $this->authManager->user());
+
         $data = $this->validate($request, [
             'payer' => 'required|array',
             'payer.first_name' => 'required|string',
@@ -58,7 +62,7 @@ class PaymentController extends Controller
         try {
             DB::beginTransaction();
 
-            $this->paymentService->payment($item, $gateway, $data);
+            $this->paymentService->payment($this->authManager->user(), $item, $gateway, $data);
 
             DB::commit();
         } catch (Exception $exec) {
