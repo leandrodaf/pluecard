@@ -10,7 +10,7 @@ class Style extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'card_styles';
+    protected $table = 'styles';
 
     protected $fillable = [
         'name',
@@ -23,7 +23,7 @@ class Style extends Model
 
         $fileName = rand(10, 100).time();
 
-        $fileUrl = $uploadFile->uploadBase64File('models/styles/background', $fileName, $value);
+        $fileUrl = $uploadFile->uploadBase64File('cards/styles/background', $fileName, $value);
 
         $this->attributes['background'] = $fileUrl;
     }

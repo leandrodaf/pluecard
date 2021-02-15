@@ -37,7 +37,7 @@ class StyleController extends Controller
     public function create(Request $request): Response
     {
         $data = $this->validate($request, [
-            'name' => 'required|string|max:60|unique:card_styles',
+            'name' => 'required|string|max:60|unique:styles',
             'background' => 'required|base64_image',
         ]);
 
@@ -56,7 +56,7 @@ class StyleController extends Controller
     public function update(Request $request, string $id): Response
     {
         $data = $this->validate($request, [
-            'name' => 'string|max:60|unique:card_styles'.',id,'.$id,
+            'name' => 'string|max:60|unique:styles'.',id,'.$id,
             'background' => 'base64_image',
         ]);
 

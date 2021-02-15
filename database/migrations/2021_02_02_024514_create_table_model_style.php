@@ -13,7 +13,7 @@ class CreateTableStyle extends Migration
      */
     public function up()
     {
-        Schema::create('card_styles', function (Blueprint $table) {
+        Schema::create('styles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 150)->unique();
             $table->string('background', 255);
@@ -29,6 +29,6 @@ class CreateTableStyle extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('card_styles');
+        Schema::dropIfExists('styles');
     }
 }
