@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-    protected $table = 'payments_transactions';
+    protected $table = 'transactions';
 
     protected $fillable = [
         'currency_id',
