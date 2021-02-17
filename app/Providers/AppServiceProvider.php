@@ -34,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
      */
     private function databaseDebug(): void
     {
+        if (!config('logging.DB_DEBUG_QUERY', false)) {
+            return;
+        }
+
         DB::listen(function ($query) use (&$time) {
             $time += $query->time;
             Log::debug('DATABASE_QUERY', ['sql' => $query->sql, 'values' => $query->bindings, 'time' => $query->time . 'ms']);

@@ -19,6 +19,8 @@ return [
 
     'default' => env('LOG_CHANNEL', 'stack'),
 
+    'DB_DEBUG_QUERY' => env('DB_DEBUG_QUERY', false),
+
     /*
     |--------------------------------------------------------------------------
     | Log Channels
