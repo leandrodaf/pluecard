@@ -22,6 +22,7 @@ class UserService extends Services
 
     /**
      * List all user with options for search using email or name.
+     *
      * @param string|null $search
      * @return Paginator
      */

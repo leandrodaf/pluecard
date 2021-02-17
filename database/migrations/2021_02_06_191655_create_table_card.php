@@ -29,8 +29,10 @@ class CreateTableCard extends Migration
             $table->datetime('date_created');
             $table->datetime('date_last_updated');
 
-            $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedInteger('payment_id')->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('payment_id');
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
 
             $table->timestamps();
         });

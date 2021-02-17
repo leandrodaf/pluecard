@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Transformers\StyleTransformer;
-use App\Services\StyleService;
+use App\Http\Transformers\ColorTransformer;
+use App\Services\ColorCardService;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -13,18 +13,13 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
-class StyleController extends Controller
+class ColorCardController extends Controller
 {
-    private $styleService;
+    private $colorCardService;
 
-    /**
-     * @param StyleService $styleService
-     * @param AuthManager $auth
-     * @return void
-     */
-    public function __construct(StyleService $styleService, AuthManager $auth)
+    public function __construct(ColorCardService $colorCardService, AuthManager $auth)
     {
-        $this->styleService = $styleService;
+        $this->colorCardService = $colorCardService;
 
         Gate::authorize('admin', $auth->user());
     }
@@ -37,11 +32,11 @@ class StyleController extends Controller
     public function create(Request $request): Response
     {
         $data = $this->validate($request, [
-            'name' => 'required|string|max:60|unique:styles_cards',
-            'background' => 'required|base64_image',
+            'name' => 'required|string',
+            'matrix' => ['required', 'unique:colors_cards', 'regex: /#[a-zA-Z0-9]{6}|rgb\((?:\s*\d+\s*,){2}\s*[\d]+\)|rgba\((\s*\d+\s*,){3}[\d\.]+\)|hsl\(\s*\d+\s*(\s*\,\s*\d+\%){2}\)|hsla\(\s*\d+(\s*,\s*\d+\s*\%){2}\s*\,\s*[\d\.]+\)/'],
         ]);
 
-        $this->styleService->create($data);
+        $this->colorCardService->create($data);
 
         return response(null, 201);
     }
@@ -56,13 +51,13 @@ class StyleController extends Controller
     public function update(Request $request, string $id): Response
     {
         $data = $this->validate($request, [
-            'name' => 'string|max:60|unique:styles_cards'.',id,'.$id,
-            'background' => 'base64_image',
+            'name' => 'string',
+            'matrix' => ['unique:colors_cards'.',id,'.$id, 'regex: /#[a-zA-Z0-9]{6}|rgb\((?:\s*\d+\s*,){2}\s*[\d]+\)|rgba\((\s*\d+\s*,){3}[\d\.]+\)|hsl\(\s*\d+\s*(\s*\,\s*\d+\%){2}\)|hsla\(\s*\d+(\s*,\s*\d+\s*\%){2}\s*\,\s*[\d\.]+\)/'],
         ]);
 
-        $style = $this->styleService->show($id);
+        $colorsCards = $this->colorCardService->show($id);
 
-        $this->styleService->update($style, $data);
+        $this->colorCardService->update($colorsCards, $data);
 
         return response(null, 200);
     }
@@ -74,9 +69,9 @@ class StyleController extends Controller
      */
     public function show(string $id): Response
     {
-        $item = $this->styleService->show($id);
+        $item = $this->colorCardService->show($id);
 
-        return $this->itemResponse($item, new StyleTransformer, 200);
+        return $this->itemResponse($item, new ColorTransformer, 200);
     }
 
     /**
@@ -85,9 +80,9 @@ class StyleController extends Controller
      */
     public function index(): Response
     {
-        $list = $this->styleService->listStylePaginate();
+        $list = $this->colorCardService->listColorCardPaginate();
 
-        return $this->paginateResponse($list, new StyleTransformer, 200);
+        return $this->paginateResponse($list, new ColorTransformer, 200);
     }
 
     /**
@@ -97,9 +92,9 @@ class StyleController extends Controller
      */
     public function destroy(string $id): Response
     {
-        $item = $this->styleService->show($id);
+        $item = $this->colorCardService->show($id);
 
-        $this->styleService->destroy($item);
+        $this->colorCardService->destroy($item);
 
         return response(null, 200);
     }

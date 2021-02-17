@@ -23,11 +23,16 @@ class CreateTablePaymentTransactions extends Migration
 
             $table->string('status')->nullable();
 
-            $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedInteger('item_id')->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
-            $table->unsignedInteger('payment_id')->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
-            $table->unsignedInteger('payer_id')->foreign('payer_id')->references('id')->on('payers')->onDelete('cascade');
-            $table->unsignedInteger('card_id')->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('item_id');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->unsignedBigInteger('payment_id');
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
+            $table->unsignedBigInteger('payer_id');
+            $table->foreign('payer_id')->references('id')->on('payers')->onDelete('cascade');
+            $table->unsignedBigInteger('card_id');
+            $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
 
             $table->timestamps();
         });

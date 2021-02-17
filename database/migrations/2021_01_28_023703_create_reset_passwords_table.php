@@ -19,7 +19,8 @@ class CreateResetPasswordsTable extends Migration
             $table->dateTime('validated_at');
             $table->boolean('enable')->default(true);
             $table->timestamps();
-            $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index(['user_id', 'enable', 'hash', 'validated_at']);
         });
     }

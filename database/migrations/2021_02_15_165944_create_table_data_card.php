@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableModelStyle extends Migration
+class CreateTableDataCard extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTableModelStyle extends Migration
      */
     public function up()
     {
-        Schema::create('styles_cards', function (Blueprint $table) {
+        Schema::create('data_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 150)->unique();
-            $table->string('background', 255);
+            $table->longText('data');
+            $table->integer('dataable_id');
+            $table->string('dataable_type');
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,6 @@ class CreateTableModelStyle extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('styles_cards');
+        Schema::dropIfExists('data_cards');
     }
 }

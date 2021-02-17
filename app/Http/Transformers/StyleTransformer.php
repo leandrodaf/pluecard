@@ -2,12 +2,16 @@
 
 namespace App\Http\Transformers;
 
-use App\Models\Card\Style;
+use App\Models\Card\StyleCard;
 use League\Fractal\TransformerAbstract;
 
 class StyleTransformer extends TransformerAbstract
 {
-    public function transform(Style $style)
+    protected $availableIncludes = [
+        'models',
+    ];
+
+    public function transform(StyleCard $style)
     {
         return [
             'id' => $style->id,
@@ -17,5 +21,10 @@ class StyleTransformer extends TransformerAbstract
             'updated_at' => $style->updated_at,
             'deleted_at' => $style->deleted_at,
         ];
+    }
+
+    public function includeModels(StyleCard $style)
+    {
+        return $this->collection($style->models, new ModelCardTransformer);
     }
 }

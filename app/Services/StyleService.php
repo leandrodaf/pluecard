@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Card\Style;
+use App\Models\Card\StyleCard;
 use Exception;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Pagination\Paginator;
@@ -12,19 +12,19 @@ class StyleService
     private $style;
 
     /**
-     * @param Style $style
+     * @param StyleCard $style
      * @return void
      */
-    public function __construct(Style $style)
+    public function __construct(StyleCard $style)
     {
         $this->style = $style;
     }
 
     /**
      * @param array $data
-     * @return Style
+     * @return StyleCard
      */
-    public function create(array $data): Style
+    public function create(array $data): StyleCard
     {
         return $this->style->create($data);
     }
@@ -36,31 +36,31 @@ class StyleService
     }
 
     /**
-     * @param Style $style
+     * @param StyleCard $style
      * @param array $data
      * @return bool
      * @throws MassAssignmentException
      */
-    public function update(Style $style, array $data): bool
+    public function update(StyleCard $style, array $data): bool
     {
         return $style->fillAndSave($data);
     }
 
     /**
      * @param string $id
-     * @return Style
+     * @return StyleCard
      */
-    public function show(string $id): Style
+    public function show(string $id): StyleCard
     {
         return $this->style->where('id', $id)->firstOrFail();
     }
 
     /**
-     * @param Style $style
+     * @param StyleCard $style
      * @return void
      * @throws Exception
      */
-    public function destroy(Style $style): void
+    public function destroy(StyleCard $style): void
     {
         $style->delete();
     }

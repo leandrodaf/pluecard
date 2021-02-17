@@ -57,6 +57,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [];
     }
 
+    /**
+     * Automatically encrypts the user's specified password.
+     *
+     * @param mixed $value
+     * @return void
+     */
     public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = Hash::make($value);

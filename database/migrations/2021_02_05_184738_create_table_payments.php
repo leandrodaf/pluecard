@@ -55,7 +55,8 @@ class CreateTablePayments extends Migration
             $table->json('metadata')->nullable();
             $table->string('callback_url')->nullable();
             $table->string('coupon_code')->nullable();
-            $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

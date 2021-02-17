@@ -15,7 +15,8 @@ class CreateTableSocialAuth extends Migration
     {
         Schema::create('social_auths', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('channel_id');
             $table->string('social_id');
             $table->timestamps();

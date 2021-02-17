@@ -52,12 +52,26 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->delete('/users', 'UserController@meDestroy');
     $router->delete('/users/{id}', 'UserController@destroy');
 
+    // Colors
+    $router->post('/cards/colors', 'ColorCardController@create');
+    $router->get('/cards/colors', 'ColorCardController@index');
+    $router->get('/cards/colors/{id}', 'ColorCardController@show');
+    $router->put('/cards/colors/{id}', 'ColorCardController@update');
+    $router->delete('/cards/colors/{id}', 'ColorCardController@destroy');
+
     // Styles
     $router->post('/cards/styles', 'StyleController@create');
     $router->get('/cards/styles', 'StyleController@index');
     $router->get('/cards/styles/{id}', 'StyleController@show');
     $router->put('/cards/styles/{id}', 'StyleController@update');
     $router->delete('/cards/styles/{id}', 'StyleController@destroy');
+
+    // Models
+    $router->post('/cards/models', 'ModelCardController@create');
+    $router->get('/cards/models', 'ModelCardController@index');
+    $router->get('/cards/models/{id}', 'ModelCardController@show');
+    $router->put('/cards/models/{id}', 'ModelCardController@update');
+    $router->delete('/cards/models/{id}', 'ModelCardController@destroy');
 
     // Items
     $router->post('/items', 'ItemController@create');

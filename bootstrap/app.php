@@ -69,6 +69,7 @@ $app->configure('permission');
 $app->configure('filesystems');
 $app->configure('services');
 $app->configure('payment');
+$app->configure('database');
 
 /*
 |--------------------------------------------------------------------------
