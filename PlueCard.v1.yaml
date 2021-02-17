@@ -2440,6 +2440,77 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/User'
+    ModelCard:
+      description: |-
+        Modelo de "Modelo" de cartão
+
+        Possíveis inclusões do modelo: `styles, body, bodys, colors`
+      type: object
+      title: ModelCard
+      x-examples: {}
+      properties:
+        id:
+          type: number
+          description: Identificador único do modelo
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          example: 'Força, Foco e Fé'
+          description: Nome do modelo
+        background:
+          type: string
+          minLength: 1
+          description: URL da imagem de fundo
+          format: uri
+          example: 'http://image.com/example.jpg'
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          description: Data de criação
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          description: Data da última atualização
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          description: Data de inativação
+          readOnly: true
+        body:
+          type: object
+          description: Corpo html/txt do modelo
+          properties:
+            data:
+              $ref: '#/components/schemas/DataCard'
+          readOnly: true
+        colors:
+          type: object
+          description: Listagem das cores do modelo
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/ColorCard'
+              readOnly: true
+          readOnly: true
+        styles:
+          type: object
+          description: Estilos do modelo
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/StyleCard'
+              readOnly: true
+          readOnly: true
     Card:
       description: |-
         Modelo do Cartão
@@ -2626,77 +2697,6 @@ components:
           example: '2021-02-17T18:39:08.000000Z'
           readOnly: true
       title: DataCard
-    ModelCard:
-      description: |-
-        Modelo de "Modelo" de cartão
-
-        Possíveis inclusões do modelo: `styles, body, bodys, colors`
-      type: object
-      title: ModelCard
-      x-examples: {}
-      properties:
-        id:
-          type: number
-          description: Identificador único do modelo
-          readOnly: true
-        name:
-          type: string
-          minLength: 1
-          example: 'Força, Foco e Fé'
-          description: Nome do modelo
-        background:
-          type: string
-          minLength: 1
-          description: URL da imagem de fundo
-          format: uri
-          example: 'http://image.com/example.jpg'
-        created_at:
-          type: string
-          format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
-          description: Data de criação
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
-          description: Data da última atualização
-          readOnly: true
-        deleted_at:
-          type: string
-          format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
-          description: Data de inativação
-          readOnly: true
-        body:
-          type: object
-          description: Corpo html/txt do modelo
-          properties:
-            data:
-              $ref: '#/components/schemas/DataCard'
-          readOnly: true
-        colors:
-          type: object
-          description: Listagem das cores do modelo
-          properties:
-            data:
-              type: array
-              description: Listagem dos dados
-              items:
-                $ref: '#/components/schemas/ColorCard'
-              readOnly: true
-          readOnly: true
-        styles:
-          type: object
-          description: Estilos do modelo
-          properties:
-            data:
-              type: array
-              description: Listagem dos dados
-              items:
-                $ref: '#/components/schemas/StyleCard'
-              readOnly: true
-          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
