@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: PlueCard
   version: '1.0'
-  description: Documentação da interface de integração dos servidores REST da aplicação PlueCard.
+  description: Documentação da interface de integração dos servidores REST da aplicação PlueCard
   contact:
     name: Leandro Ferreira
     url: 'https://github.com/leandrodaf'
@@ -1300,7 +1300,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: get-payments-items-id
-      description: Retorna um item de pagamento específico.
+      description: Retorna um item de pagamento específico
       tags:
         - Itens
       parameters:
@@ -1328,7 +1328,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Atualiza um item de pagamento específico.
+      description: Atualiza um item de pagamento específico
       requestBody:
         content:
           application/json:
@@ -1465,7 +1465,7 @@ paths:
                     description: Identificador do método de pagamento
                   description:
                     type: string
-                    description: Descrição do pagamento.
+                    description: Descrição do pagamento
                   token:
                     type: string
                     minLength: 1
@@ -1763,9 +1763,9 @@ components:
   schemas:
     User:
       description: |-
-        Modelo do usuário.
+        Modelo do usuário
 
-        Possíveis inclusões no modelo de usuário: `rules, payments, transactions, payers, cards`
+        Possíveis inclusões do modelo: `rules, payments, transactions, payers, cards`
       type: object
       x-examples:
         Exemplo de usuário:
@@ -1802,13 +1802,15 @@ components:
           description: Confirmação do email do usuário
         created_at:
           type: string
-          minLength: 1
           description: Data de criação
+          example: '2021-02-16T20:32:53.000000Z'
+          format: date-time
           readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Data da última atualização
+          example: '2021-02-16T20:32:53.000000Z'
+          format: date-time
           readOnly: true
         id:
           type: integer
@@ -1819,7 +1821,7 @@ components:
           description: Listagem de regras de permissionamento do usuário
           properties:
             data:
-              $ref: '#/components/schemas/Rules'
+              $ref: '#/components/schemas/Rule'
           readOnly: true
         payments:
           type: object
@@ -1829,7 +1831,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Payments'
+                $ref: '#/components/schemas/Payment'
               readOnly: true
           readOnly: true
         transactions:
@@ -1851,7 +1853,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Payers'
+                $ref: '#/components/schemas/Payer'
               readOnly: true
           readOnly: true
         cards:
@@ -1862,7 +1864,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Cards'
+                $ref: '#/components/schemas/Card'
               readOnly: true
           readOnly: true
     MetaPaginate:
@@ -1893,7 +1895,7 @@ components:
               type: object
               deprecated: true
               description: Link para a próxima iteração
-    Rules:
+    Rule:
       type: array
       description: Lista das regras de permissionamento
       items:
@@ -1907,7 +1909,10 @@ components:
       x-tags:
         - Usuário
     StyleCard:
-      description: Estilo de modelos
+      description: |-
+        Estilo de modelos
+
+        Possíveis inclusões do modelo: `models`
       type: object
       x-examples:
         'Exemplo ':
@@ -1922,6 +1927,7 @@ components:
         id:
           type: number
           description: Identificador único do Estilo de modelo
+          readOnly: true
         name:
           type: string
           minLength: 1
@@ -1932,26 +1938,36 @@ components:
           description: URL da imagem de fundo do modelo
         created_at:
           type: string
-          minLength: 1
           description: Data de criação
           format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
           readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Data da última atualização
           format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
           readOnly: true
         deleted_at:
           type: string
           format: date-time
           description: Data de inativação do estilo de modelo
+          example: '2021-02-16T20:32:53.000000Z'
           readOnly: true
+        models:
+          type: object
+          description: Listagem de regras de modelos
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/ModelCard'
     Item:
       description: |-
-        Modelo do Item.
+        Modelo do Item
 
-        Possíveis inclusões no modelo de usuário: `transactions`
+        Possíveis inclusões do modelo: `transactions`
       type: object
       title: Item
       properties:
@@ -1977,20 +1993,21 @@ components:
           example: 10.2
         created_at:
           type: string
-          minLength: 0
           description: Data de criação
           format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
           readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Data da última atualização
           format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
           readOnly: true
         deleted_at:
           type: string
-          description: Data de inativação.
+          description: Data de inativação
           format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
           readOnly: true
         transactions:
           type: object
@@ -2004,11 +2021,11 @@ components:
         id:
           type: integer
           description: Identificador único do item
-    Payments:
+    Payment:
       description: |-
-        Modelo de Transação.
+        Modelo de Transação
 
-        Possíveis inclusões no modelo de usuário: `user, transactions, card, payer`
+        Possíveis inclusões do modelo: `user, transactions, card, payer`
       type: object
       title: Payment
       x-examples: {}
@@ -2035,7 +2052,7 @@ components:
           description: 'Quando definido como true, o pagamento só pode ter os status approved ou rejected. Caso contrário, o status in_process é adicionado.'
         external_reference:
           type: string
-          description: Referência que pode sincronizar com seu sistema de pagamentos.
+          description: Referência que pode sincronizar com seu sistema de pagamentos
         status:
           type: string
           minLength: 1
@@ -2081,7 +2098,7 @@ components:
         currency_id:
           type: string
           minLength: 1
-          description: Identificador de moeda em formato ISO 4217.
+          description: Identificador de moeda em formato ISO 4217
           example: BRL
           enum:
             - BRL
@@ -2098,7 +2115,7 @@ components:
           example: 5.1
         collector_id:
           type: number
-          description: Sua identificação como um vendedor no Mercado Pago.
+          description: Sua identificação como um vendedor no Mercado Pago
           example: 205648376
         payment_method_id:
           type: string
@@ -2191,16 +2208,16 @@ components:
         coupon_code: {}
         created_at:
           type: string
-          minLength: 1
           description: Data de criação
           format: date-time
           example: '2021-02-06T19:31:30.000000Z'
+          readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Data da última atualização
           format: date-time
           example: '2021-02-06T19:31:30.000000Z'
+          readOnly: true
         user:
           type: object
           description: Usuário vinculado ao pagamento
@@ -2221,20 +2238,22 @@ components:
           description: Cartão utilizado no pagamento
           properties:
             data:
-              $ref: '#/components/schemas/Cards'
+              $ref: '#/components/schemas/Card'
         payer:
           type: object
           description: Pagador responsável
           properties:
             data:
-              $ref: '#/components/schemas/Payers'
+              $ref: '#/components/schemas/Payer'
     Transaction:
       description: |-
-        Modelo de Transação.
+        Modelo de Transação
 
-        Possíveis inclusões no modelo de usuário: `user, item, payment, card, payer`
+        Possíveis inclusões do modelo: `user, item, payment, card, payer`
       type: object
       title: Transaction
+      x-tags:
+        - Pagamento
       properties:
         id:
           type: number
@@ -2243,7 +2262,7 @@ components:
         currency_id:
           type: string
           minLength: 1
-          description: Identificador de moeda em formato ISO 4217.
+          description: Identificador de moeda em formato ISO 4217
           example: BRL
           enum:
             - BRL
@@ -2267,14 +2286,12 @@ components:
           example: 12
         created_at:
           type: string
-          minLength: 1
           description: Data de criação
           format: date-time
           example: '2021-02-09T00:39:30.000000Z'
           readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Data da última atualização
           format: date-time
           example: '2021-02-09T00:39:30.000000Z'
@@ -2296,26 +2313,24 @@ components:
           description: Dados do pagamento da transação
           properties:
             data:
-              $ref: '#/components/schemas/Payments'
+              $ref: '#/components/schemas/Payment'
         card:
           type: object
           description: 'Cartão usado na transação '
           properties:
             data:
-              $ref: '#/components/schemas/Cards'
+              $ref: '#/components/schemas/Card'
         payer:
           type: object
           description: Pagador da transação
           properties:
             data:
-              $ref: '#/components/schemas/Payers'
-      x-tags:
-        - Pagamento
-    Payers:
+              $ref: '#/components/schemas/Payer'
+    Payer:
       description: |-
-        Modelo do Pagador.
+        Modelo do Pagador
 
-        Possíveis inclusões no modelo de usuário: `payment, user`
+        Possíveis inclusões do modelo: `payment, user`
       type: object
       x-tags:
         - Pagamento
@@ -2360,10 +2375,6 @@ components:
         phone:
           type: object
           description: Dados do telefone do pagador
-          required:
-            - number
-            - area_code
-            - extension
           properties:
             number:
               type: string
@@ -2378,12 +2389,13 @@ components:
             extension:
               type: string
               description: Campo extra para mais detalhes
+          required:
+            - number
+            - area_code
+            - extension
         identification:
           type: object
           description: Dados do documento do pagador
-          required:
-            - type
-            - number
           properties:
             type:
               type: string
@@ -2398,38 +2410,41 @@ components:
               minLength: 1
               description: Número do documento
               example: '32659430'
+          required:
+            - type
+            - number
         address:
           description: Dados do endereço do pagador
           type: object
         created_at:
           type: string
-          minLength: 1
           description: Data de criação
           format: date-time
           example: '2021-02-09T00:39:30.000000Z'
+          readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Data da última atualização
           format: date-time
           example: '2021-02-09T00:39:30.000000Z'
+          readOnly: true
         payment:
           type: object
           description: Pagamento relacionado
           properties:
             data:
-              $ref: '#/components/schemas/Payments'
+              $ref: '#/components/schemas/Payment'
         user:
           type: object
           description: Usuário relacionado
           properties:
             data:
               $ref: '#/components/schemas/User'
-    Cards:
+    Card:
       description: |-
-        Modelo do Cartão.
+        Modelo do Cartão
 
-        Possíveis inclusões no modelo de usuário: `payment, user`
+        Possíveis inclusões do modelo: `payment, user`
       type: object
       title: Card
       properties:
@@ -2507,28 +2522,181 @@ components:
         empty: {}
         created_at:
           type: string
-          minLength: 1
           description: Data de criação
           format: date-time
           example: '2021-02-09T00:39:30.000000Z'
+          readOnly: true
         updated_at:
           type: string
-          minLength: 1
           description: Identificador do usuário
           format: date-time
           example: '2021-02-09T00:39:30.000000Z'
+          readOnly: true
         payment:
           type: object
           description: Pagamento relacionado
           properties:
             data:
-              $ref: '#/components/schemas/Payments'
+              $ref: '#/components/schemas/Payment'
         user:
           type: object
           description: Usuário associado
           properties:
             data:
               $ref: '#/components/schemas/User'
+    ColorCard:
+      description: |-
+        Modelo de cores
+
+        Possíveis inclusões do modelo: `models`
+      type: object
+      title: ColorCard
+      properties:
+        id:
+          type: number
+          description: Identificador único da cor
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          description: Nome da cor
+          example: Verão
+        matrix:
+          type: string
+          minLength: 1
+          description: Hexadecimal color ou RGB(a)
+          example: '#FFFFFF'
+        created_at:
+          type: string
+          description: Data de criação
+          example: '2021-02-16T20:32:53.000000Z'
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          description: Data da última atualização
+          format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
+          readOnly: true
+        deleted_at:
+          type: string
+          description: Data de inativação
+          format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
+          readOnly: true
+        models:
+          type: object
+          description: Listagem de regras de modelos
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/ModelCard'
+    DataCard:
+      description: Modelo de dados do cartão
+      type: object
+      properties:
+        id:
+          type: number
+          description: Identificador único do body
+          example: 1
+          readOnly: true
+        data:
+          type: string
+          minLength: 1
+          description: Template em html/txt
+          example: <html><head><title>Hello World</title></head><body>Hello World!</body></html>
+        created_at:
+          type: string
+          description: Data de criação
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          readOnly: true
+        updated_at:
+          type: string
+          description: Data da última atualização
+          example: '2021-02-17T18:39:08.000000Z'
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type: string
+          description: Data de inativação
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          readOnly: true
+      title: DataCard
+    ModelCard:
+      description: |-
+        Modelo de "Modelo" de cartão
+
+        Possíveis inclusões do modelo: `styles, body, bodys, colors`
+      type: object
+      title: ModelCard
+      x-examples: {}
+      properties:
+        id:
+          type: number
+          description: Identificador único do modelo
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          example: 'Força, Foco e Fé'
+          description: Nome do modelo
+        background:
+          type: string
+          minLength: 1
+          description: URL da imagem de fundo
+          format: uri
+          example: 'http://image.com/example.jpg'
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          description: Data de criação
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          description: Data da última atualização
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: '2021-02-17T18:39:08.000000Z'
+          description: Data de inativação
+          readOnly: true
+        body:
+          type: object
+          description: Corpo html/txt do modelo
+          properties:
+            data:
+              $ref: '#/components/schemas/DataCard'
+          readOnly: true
+        colors:
+          type: object
+          description: Listagem das cores do modelo
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/ColorCard'
+              readOnly: true
+          readOnly: true
+        styles:
+          type: object
+          description: Estilos do modelo
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/StyleCard'
+              readOnly: true
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http

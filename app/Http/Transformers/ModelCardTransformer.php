@@ -40,9 +40,6 @@ class ModelCardTransformer extends TransformerAbstract
 
     public function includeColors(ModelCard $modelCard)
     {
-        // dd(
-        //     $modelCard->colors()->withPivot('status')
-        // );
         return $this->collection($modelCard->colors, new ColorModelRelationTransformer);
     }
 }

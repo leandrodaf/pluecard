@@ -32,11 +32,22 @@ class ModelCardService
         $model = $this->modelcard->create($data);
 
         $model->styles()->sync($data['styles']);
-        $model->colors()->sync(array_combine(Arr::pluck($data['colors'], 'id'), $data['colors']));
+
+        $model->colors()->sync($this->syncColors($data['colors']));
 
         $model->bodys()->create(['data' => $data['body']]);
 
         return $model;
+    }
+
+    private function syncColors(array $sync = []): array
+    {
+        $listSync = [];
+        foreach ($sync as $color) {
+            $listSync[$color['id']]['status'] = $color['status'];
+        }
+
+        return $listSync;
     }
 
     /**

@@ -23,7 +23,7 @@ class CreateTableModelCardColorsCards extends Migration
 
             $table->enum('status', ['PRIMARY', 'SECONDARY', 'CUSTOM']);
 
-            // $table->unique(['model_id', 'color_id']);
+            $table->unique(['model_id', 'color_id']);
         });
     }
 
