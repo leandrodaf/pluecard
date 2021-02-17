@@ -856,7 +856,7 @@ paths:
                     type: array
                     description: Listagem de estilo de modelos
                     items:
-                      $ref: '#/components/schemas/Style'
+                      $ref: '#/components/schemas/StyleCard'
                   meta:
                     $ref: '#/components/schemas/MetaPaginate'
               examples:
@@ -962,7 +962,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Style'
+                    $ref: '#/components/schemas/StyleCard'
         '400':
           description: Bad Request
         '401':
@@ -1906,7 +1906,7 @@ components:
           - Administrator
       x-tags:
         - Usuário
-    Style:
+    StyleCard:
       description: Estilo de modelos
       type: object
       x-examples:
@@ -1917,7 +1917,7 @@ components:
           created_at: '2021-02-02T13:20:27.000000Z'
           updated_at: '2021-02-02T13:20:27.000000Z'
           deleted_at: '2021-02-02T13:20:27.000000Z'
-      title: Style
+      title: StyleCard
       properties:
         id:
           type: number
