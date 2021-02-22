@@ -9,15 +9,12 @@ use Illuminate\Pagination\Paginator;
 
 class ColorCardService
 {
-    private $colorCard;
-
     /**
      * @param ColorCard $colorCard
      * @return void
      */
-    public function __construct(ColorCard $colorCard)
+    public function __construct(private ColorCard $colorCard)
     {
-        $this->colorCard = $colorCard;
     }
 
     /**

@@ -9,11 +9,8 @@ use Illuminate\Pagination\Paginator;
 
 class ItemService
 {
-    private $item;
-
-    public function __construct(Item $item)
+    public function __construct(private Item $item)
     {
-        $this->item = $item;
     }
 
     /**

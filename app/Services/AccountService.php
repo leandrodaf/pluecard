@@ -15,20 +15,13 @@ use Throwable;
 
 class AccountService
 {
-    private $user;
-
-    private $resetPassword;
-
     /**
      * @param User $user
      * @param ResetPassword $resetPassword
      * @return void
      */
-    public function __construct(User $user, ResetPassword $resetPassword)
+    public function __construct(private User $user, private  ResetPassword $resetPassword)
     {
-        $this->user = $user;
-
-        $this->resetPassword = $resetPassword;
     }
 
     /**

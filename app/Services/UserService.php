@@ -9,15 +9,12 @@ use Illuminate\Pagination\Paginator;
 
 class UserService extends Services
 {
-    private $user;
-
     /**
      * @param User $user
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(private User $user)
     {
-        $this->user = $user;
     }
 
     /**

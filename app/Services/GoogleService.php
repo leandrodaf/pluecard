@@ -9,10 +9,6 @@ use Illuminate\Validation\ValidationException;
 
 class GoogleService implements SocialAuthInterface
 {
-    private $client;
-
-    private $googleOauuth2Service;
-
     private $tokenValidator = [
         'token_type' => 'required|string',
         'access_token' => 'required|string',
@@ -25,7 +21,7 @@ class GoogleService implements SocialAuthInterface
         'session_state.extraQueryParams.authuser' => 'required|string',
     ];
 
-    public function __construct(Client $googleClient, GoogleOauuth2Service $googleOauuth2Service)
+    public function __construct(private Client $googleClient, private  GoogleOauuth2Service $googleOauuth2Service)
     {
         $this->client = $googleClient;
 

@@ -67,10 +67,3 @@ services:
       - .:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["composer", "--ignore-platform-reqs"]
-
-  php-cs-fixer:
-    image: cytopia/php-cs-fixer:latest
-    volumes:
-      - .:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ["php-cs-fixer"]

@@ -12,11 +12,8 @@ use Illuminate\Pagination\Paginator;
 
 class TransactionService
 {
-    private $transaction;
-
-    public function __construct(Transaction $transaction)
+    public function __construct(private Transaction $transaction)
     {
-        $this->transaction = $transaction;
     }
 
     /**

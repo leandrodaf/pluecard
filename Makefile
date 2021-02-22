@@ -36,7 +36,7 @@ migrate:
 
 .PHONY: style-fix
 style-fix:
-	docker-compose run --rm php-cs-fixer --config=.php-cs.dist.php fix --verbose
+	docker run --rm -it -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --config=.php-cs.dist.php
 
 .PHONY: tests
 tests:

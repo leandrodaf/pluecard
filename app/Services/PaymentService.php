@@ -10,32 +10,13 @@ use App\Services\Payments\GatewayMethod;
 
 class PaymentService
 {
-    private $payment;
-
-    private $gatewayMethod;
-
-    private $payerService;
-
-    private $cardService;
-
-    private $transactionService;
-
     public function __construct(
-        Payment $payment,
-        GatewayMethod $gatewayMethod,
-        PayerService $payerService,
-        CardService $cardService,
-        TransactionService $transactionService
+        private Payment $payment,
+        private GatewayMethod $gatewayMethod,
+        private PayerService $payerService,
+        private CardService $cardService,
+        private TransactionService $transactionService
     ) {
-        $this->payment = $payment;
-
-        $this->gatewayMethod = $gatewayMethod;
-
-        $this->payerService = $payerService;
-
-        $this->cardService = $cardService;
-
-        $this->transactionService = $transactionService;
     }
 
     /**
