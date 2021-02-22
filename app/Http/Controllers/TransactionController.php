@@ -12,25 +12,11 @@ use Illuminate\Support\Facades\Gate;
 
 class TransactionController extends Controller
 {
-    private $userService;
-
-    private $auth;
-
-    private $transactionService;
-
-    /**
-     * @param UserService $userService
-     * @param AuthManager $auth
-     * @param TransactionService $transactionService
-     * @return void
-     */
-    public function __construct(UserService $userService, AuthManager $auth, TransactionService $transactionService)
-    {
-        $this->userService = $userService;
-
-        $this->auth = $auth;
-
-        $this->transactionService = $transactionService;
+    public function __construct(
+        private UserService $userService,
+        private AuthManager $auth,
+        private TransactionService $transactionService
+    ) {
     }
 
     /**

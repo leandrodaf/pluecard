@@ -12,15 +12,10 @@ use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    private $userService;
-
-    private $auth;
-
-    public function __construct(UserService $userService, AuthManager $auth)
-    {
-        $this->userService = $userService;
-
-        $this->auth = $auth;
+    public function __construct(
+        private UserService $userService,
+        private AuthManager $auth
+    ) {
     }
 
     public function index(Request $request): Response

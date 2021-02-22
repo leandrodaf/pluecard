@@ -12,7 +12,7 @@ class GatewayMethod
     ];
 
     /**
-     * Select specific payment dateway.
+     * Select specific payment gateway.
      *
      * @param string $gateway
      * @param Item $item

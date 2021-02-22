@@ -21,8 +21,10 @@ class GoogleService implements SocialAuthInterface
         'session_state.extraQueryParams.authuser' => 'required|string',
     ];
 
-    public function __construct(private Client $googleClient, private  GoogleOauuth2Service $googleOauuth2Service)
-    {
+    public function __construct(
+        private Client $googleClient,
+        private  GoogleOauuth2Service $googleOauuth2Service
+    ) {
         $this->client = $googleClient;
 
         $this->googleOauuth2Service = $googleOauuth2Service;

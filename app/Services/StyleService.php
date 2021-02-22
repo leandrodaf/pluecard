@@ -9,12 +9,9 @@ use Illuminate\Pagination\Paginator;
 
 class StyleService
 {
-    /**
-     * @param StyleCard $style
-     * @return void
-     */
-    public function __construct(private StyleCard $style)
-    {
+    public function __construct(
+        private StyleCard $style
+    ) {
     }
 
     /**

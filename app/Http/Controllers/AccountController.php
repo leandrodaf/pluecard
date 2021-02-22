@@ -10,15 +10,10 @@ use Illuminate\Http\Response;
 
 class AccountController extends Controller
 {
-    private $accountService;
-
-    private $authService;
-
-    public function __construct(AccountService $accountService, AuthService $authService)
-    {
-        $this->accountService = $accountService;
-
-        $this->authService = $authService;
+    public function __construct(
+        private AccountService $accountService,
+        private AuthService $authService
+    ) {
     }
 
     public function register(Request $request): Response

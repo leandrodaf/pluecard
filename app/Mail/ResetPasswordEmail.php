@@ -12,17 +12,12 @@ class ResetPasswordEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $user;
-
-    private $resetPassword;
-
     public $subject = 'Solicitação de reset de senha | PlueCard';
 
-    public function __construct(User $user, ResetPassword $resetPassword)
-    {
-        $this->user = $user;
-
-        $this->resetPassword = $resetPassword;
+    public function __construct(
+        private User $user,
+        private ResetPassword $resetPassword
+    ) {
     }
 
     public function build(): Mailable

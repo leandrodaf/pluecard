@@ -12,15 +12,10 @@ class ConfirmationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $user;
-
-    private $confirmationAccount;
-
-    public function __construct(User $user, ConfirmationAccount $confirmationAccount)
-    {
-        $this->user = $user;
-
-        $this->confirmationAccount = $confirmationAccount;
+    public function __construct(
+        private User $user,
+        private ConfirmationAccount $confirmationAccount
+    ) {
     }
 
     public function build(): Mailable

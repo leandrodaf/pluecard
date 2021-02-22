@@ -15,15 +15,10 @@ use Illuminate\Validation\ValidationException;
 
 class StyleController extends Controller
 {
-    private $styleService;
-
-    /**
-     * @param StyleService $styleService
-     * @param AuthManager $auth
-     * @return void
-     */
-    public function __construct(StyleService $styleService, AuthManager $auth)
-    {
+    public function __construct(
+        private StyleService $styleService,
+        AuthManager $auth
+    ) {
         $this->styleService = $styleService;
 
         Gate::authorize('admin', $auth->user());

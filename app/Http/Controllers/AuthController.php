@@ -9,11 +9,9 @@ use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
-    private $authService;
-
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
+    public function __construct(
+        private AuthService $authService
+    ) {
     }
 
     public function socialLogin(Request $request, string $channel): Response

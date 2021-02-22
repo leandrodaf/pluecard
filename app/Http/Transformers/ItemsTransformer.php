@@ -10,6 +10,7 @@ class ItemsTransformer extends TransformerAbstract
     public function transform(Item $item)
     {
         return [
+            'id' => $item->id,
             'title' => $item->title,
             'description' => $item->description,
             'picture_url' => $item->picture_url,

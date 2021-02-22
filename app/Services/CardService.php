@@ -7,8 +7,9 @@ use App\Models\Payment\Payment;
 
 class CardService
 {
-    public function __construct(private Card $card)
-    {
+    public function __construct(
+        private Card $card
+    ) {
     }
 
     /**

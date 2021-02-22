@@ -7,8 +7,9 @@ use App\Models\Payment\Payment;
 
 class PayerService
 {
-    public function __construct(private Payer $payer)
-    {
+    public function __construct(
+        private Payer $payer
+    ) {
     }
 
     /**

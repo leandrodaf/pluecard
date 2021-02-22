@@ -13,15 +13,10 @@ use Illuminate\Support\Facades\Gate;
 
 class ModelCardController extends Controller
 {
-    private $modelCardService;
-
-    private $auth;
-
-    public function __construct(ModelCardService $modelCardService, AuthManager $auth)
-    {
-        $this->modelCardService = $modelCardService;
-
-        $this->auth = $auth;
+    public function __construct(
+        private ModelCardService $modelCardService,
+        private AuthManager $auth
+    ) {
     }
 
     public function create(Request $request): Response

@@ -12,18 +12,11 @@ use Illuminate\Support\Facades\Gate;
 
 class PaymentController extends Controller
 {
-    private $paymentService;
-
-    private $itemService;
-
     public function __construct(
-        PaymentService $paymentService,
-        ItemService $itemService,
-        AuthManager $authManager
+        private PaymentService $paymentService,
+        private ItemService $itemService,
+        private AuthManager $authManager
     ) {
-        $this->paymentService = $paymentService;
-        $this->itemService = $itemService;
-        $this->authManager = $authManager;
     }
 
     public function payment(Request $request, string $itemId, string $gateway)

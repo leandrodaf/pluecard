@@ -15,10 +15,10 @@ use Illuminate\Validation\ValidationException;
 
 class ColorCardController extends Controller
 {
-    private $colorCardService;
-
-    public function __construct(ColorCardService $colorCardService, AuthManager $auth)
-    {
+    public function __construct(
+        private ColorCardService $colorCardService,
+        AuthManager $auth
+    ) {
         $this->colorCardService = $colorCardService;
 
         Gate::authorize('admin', $auth->user());

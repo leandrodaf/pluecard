@@ -10,12 +10,9 @@ use Illuminate\Support\Arr;
 
 class ModelCardService
 {
-    /**
-     * @param ModelCard $modelcard
-     * @return void
-     */
-    public function __construct(private ModelCard $modelcard)
-    {
+    public function __construct(
+        private ModelCard $modelcard
+    ) {
     }
 
     /**

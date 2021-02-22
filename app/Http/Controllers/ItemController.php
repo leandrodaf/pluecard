@@ -15,17 +15,10 @@ use Illuminate\Validation\ValidationException;
 
 class ItemController extends Controller
 {
-    private $itemService;
-
-    /**
-     * @param ItemService $itemService
-     * @param AuthManager $auth
-     * @return void
-     */
-    public function __construct(ItemService $itemService, AuthManager $auth)
-    {
-        $this->itemService = $itemService;
-
+    public function __construct(
+        private ItemService $itemService,
+        AuthManager $auth
+    ) {
         Gate::authorize('admin', $auth->user());
     }
 

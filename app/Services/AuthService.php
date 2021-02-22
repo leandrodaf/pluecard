@@ -14,13 +14,11 @@ use Throwable;
 
 class AuthService extends Services
 {
-    /**
-     * @param User $user
-     * @param ConfirmationAccount $confirmationAccount
-     * @return void
-     */
-    public function __construct(private User $user, private ConfirmationAccount $confirmationAccount, private SocialAuthService $socialAuthService)
-    {
+    public function __construct(
+        private User $user,
+        private ConfirmationAccount $confirmationAccount,
+        private SocialAuthService $socialAuthService
+    ) {
     }
 
     public function social(string $channel, array $authToken): string

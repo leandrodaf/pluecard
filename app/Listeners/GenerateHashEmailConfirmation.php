@@ -7,11 +7,9 @@ use App\Services\AuthService;
 
 class GenerateHashEmailConfirmation
 {
-    private $authService;
-
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
+    public function __construct(
+        private AuthService $authService
+    ) {
     }
 
     public function handle(UserCreate $event)

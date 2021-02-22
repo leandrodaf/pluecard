@@ -4,6 +4,7 @@ namespace App\Services\Payments;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 abstract class Gateway
 {
@@ -11,6 +12,12 @@ abstract class Gateway
 
     protected $validate = [];
 
+    /**
+     * Validate payment map gateway.
+     *
+     * @return void
+     * @throws Throwable
+     */
     protected function validation(): void
     {
         $validator = Validator::make($this->data, $this->validate);

@@ -4,30 +4,38 @@ namespace App\Services\Payments;
 
 use App\Exceptions\ValidatorException;
 use App\Models\Item;
+use Exception;
 use MercadoPago\Payer as MercadoPagoPayer;
 use MercadoPago\Payment as MercadoPagoPayment;
 use MercadoPago\SDK as MercadoPagoSDK;
+use Throwable;
 
 class MercadoPagoGateway extends Gateway implements GatewayInterface
 {
-    protected $item;
-
-    protected $data;
-
-    public function __construct(Item $item, array $data)
-    {
-        $this->item = $item;
-
-        $this->data = $data;
-
+    public function __construct(
+        protected Item $item,
+        protected array $data
+    ) {
         MercadoPagoSDK::setAccessToken(config('payment.mercadopago.secret'));
     }
 
+    /**
+     * Get Item payment.
+     *
+     * @return Item
+     */
     public function getItem(): Item
     {
         return $this->item;
     }
 
+    /**
+     * Make payment.
+     *
+     * @return MercadoPagoPayment
+     * @throws Exception
+     * @throws Throwable
+     */
     public function payment(): MercadoPagoPayment
     {
         $payment = new MercadoPagoPayment($this->data);
