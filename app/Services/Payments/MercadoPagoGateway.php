@@ -12,10 +12,16 @@ use Throwable;
 
 class MercadoPagoGateway extends Gateway implements GatewayInterface
 {
+    protected $data = [];
+
+    protected $validate = [];
+
     public function __construct(
         protected Item $item,
-        protected array $data
+        array $data
     ) {
+        $this->data = $data;
+
         MercadoPagoSDK::setAccessToken(config('payment.mercadopago.secret'));
     }
 
