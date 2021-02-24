@@ -1,16 +1,16 @@
 openapi: 3.0.0
 info:
   title: PlueCard
-  version: '1.0'
+  version: "1.0"
   description: Documentação da interface de integração dos servidores REST da aplicação PlueCard
   contact:
     name: Leandro Ferreira
-    url: 'https://github.com/leandrodaf'
+    url: "https://github.com/leandrodaf"
     email: leandro.daf4@gmail.com
 servers:
-  - url: 'https://api.pluecard.com'
+  - url: "https://api.pluecard.com"
     description: Produção
-  - url: 'http://localhost'
+  - url: "http://localhost"
     description: Desenvolvimento
 paths:
   /account/create:
@@ -18,17 +18,17 @@ paths:
       summary: Criação de usuário
       operationId: post-account-create
       responses:
-        '201':
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Cria um usuário
       requestBody:
@@ -90,7 +90,7 @@ paths:
       summary: Autenticação de usuário
       operationId: post-auth-login
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -120,7 +120,7 @@ paths:
                         readOnly: true
                       expiresIn:
                         type: string
-                        example: '2021-01-28T15:06:41.534407Z'
+                        example: "2021-01-28T15:06:41.534407Z"
                         description: Tempo de vida do token
                         format: date-time
                         readOnly: true
@@ -133,16 +133,16 @@ paths:
                     data:
                       accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
                       tokenType: bearer
-                      expiresIn: '2021-01-28T15:06:41.534407Z'
-        '400':
+                      expiresIn: "2021-01-28T15:06:41.534407Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Autentica um usuário
       requestBody:
@@ -178,7 +178,7 @@ paths:
       summary: Atualização de token de autenticação
       operationId: post-auth-refresh
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -207,7 +207,7 @@ paths:
                       expiresIn:
                         type: string
                         description: Tempo de vida do token
-                        example: '2021-01-28T15:08:02.486877Z'
+                        example: "2021-01-28T15:08:02.486877Z"
                         format: date-time
                         readOnly: true
                     readOnly: true
@@ -219,16 +219,16 @@ paths:
                     data:
                       accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL3JlZnJlc2giLCJpYXQiOjE2MTE1MzAzNTcsImV4cCI6MTYxMTUzMzk3MiwibmJmIjoxNjExNTMwMzcyLCJqdGkiOiJ4YVpmMndXTUNjc2FEeXJ2Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.8xQIZSqTmvCOidroICz9UdX7RmiG7k5TPHgkOu0Q6xg
                       tokenType: bearer
-                      expiresIn: '2021-01-28T15:29:24.017877Z'
-        '400':
+                      expiresIn: "2021-01-28T15:29:24.017877Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Esse endpoint gera um novo token de acesso sem a necessidade de informar o nome de usuário e senha
       tags:
@@ -238,17 +238,17 @@ paths:
       summary: Invalidar token de usuário
       operationId: post-auth-logout
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Faz o logout do usuário
       tags:
@@ -258,12 +258,12 @@ paths:
       summary: Confirmação de (E-mail / Conta)
       operationId: post-account-confirmation
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
@@ -298,37 +298,37 @@ paths:
                     data:
                       accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnBsdWVjYXJkLmNvbVwvYWNjb3VudFwvY29uZmlybWF0aW9uIiwiaWF0IjoxNjExODQzMTgxLCJleHAiOjE2MTE4NDY3ODEsIm5iZiI6MTYxMTg0MzE4MSwianRpIjoiOWM4d0hXclZocElRcmpmOCIsInN1YiI6MTAsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sKtfzqIB8JKKAh47wmWYT3a4aqXAoRMI_cEklsh4DVI
                       tokenType: bearer
-                      expiresIn: '2021-01-28T15:13:01.152812Z'
-        '400':
+                      expiresIn: "2021-01-28T15:13:01.152812Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Esse endpoint faz a validação da conta do usuário utilizando a hash que foi notificada no email do mesmo
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 hash:
                   type: string
                   minLength: 1
                   description: Hash recebida no e-mail do usuário
-                  example: '5687618537'
+                  example: "5687618537"
                   writeOnly: true
               required:
                 - hash
             examples:
               Exemplo De integração:
                 value:
-                  hash: '3502183397'
+                  hash: "3502183397"
         description: Confirmação de email de usuário
       tags:
         - Conta de usuário
@@ -338,24 +338,24 @@ paths:
       summary: Notificar token de confirmação de Email
       operationId: post-account-confirmation-refresh
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Esse endpoint renotifica o email do usuário com uma nova hash de confirmação de email
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 email:
@@ -369,7 +369,7 @@ paths:
               Exemplo de solicitação de nova hash:
                 value:
                   email: foo@gmail.com
-        description: ''
+        description: ""
       tags:
         - Conta de usuário
       security: []
@@ -378,17 +378,17 @@ paths:
       summary: Solicitar reset de senha
       operationId: post-account-password-reset
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Esse endpoint notifica o email do usuário com uma hash para a troca de senha
       tags:
@@ -398,26 +398,26 @@ paths:
       summary: Resetar senha do usuário
       operationId: put-account-password
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
-      description: 'Esse endpoint troca a senha do usuário, é necessário ter uma hash válida.'
+      description: "Esse endpoint troca a senha do usuário, é necessário ter uma hash válida."
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 hash:
@@ -442,9 +442,9 @@ paths:
             examples:
               Exemplo de payload para troca de senha.:
                 value:
-                  hash: '9918219100'
-                  password: '123456789900'
-                  password_confirmation: '123456789900'
+                  hash: "9918219100"
+                  password: "123456789900"
+                  password_confirmation: "123456789900"
       tags:
         - Conta de usuário
   /users:
@@ -470,14 +470,14 @@ paths:
           in: query
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
-        - $ref: '#/components/parameters/page'
+        - $ref: "#/components/parameters/page"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
@@ -486,9 +486,9 @@ paths:
                     minItems: 1
                     description: Listagem de usuários
                     items:
-                      $ref: '#/components/schemas/User'
+                      $ref: "#/components/schemas/User"
                   meta:
-                    $ref: '#/components/schemas/MetaPaginate'
+                    $ref: "#/components/schemas/MetaPaginate"
               examples:
                 Exemplo de retorno:
                   value:
@@ -500,8 +500,8 @@ paths:
                         newsletter: true
                         discount_coupons: true
                         confirmation_email: true
-                        created_at: '2021-01-28T17:20:40.000000Z'
-                        updated_at: '2021-01-28T21:25:53.000000Z'
+                        created_at: "2021-01-28T17:20:40.000000Z"
+                        updated_at: "2021-01-28T21:25:53.000000Z"
                     meta:
                       pagination:
                         total: 0
@@ -510,15 +510,15 @@ paths:
                         current_page: 1
                         total_pages: 1
                         links: {}
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-users
       description: Lista todos os usuários do sistema
@@ -526,14 +526,14 @@ paths:
       summary: Atualizar usuário autenticado
       operationId: put-users
       responses:
-        '200':
+        "200":
           description: OK
       description: Atualização do usuário logado
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 name:
@@ -562,22 +562,22 @@ paths:
       summary: Deletar usuário autenticado
       operationId: delete-users
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Deletar completamente do sistema o usuário autenticado
       tags:
         - Usuário
-  '/users/{id}':
+  "/users/{id}":
     parameters:
       - schema:
           type: string
@@ -603,16 +603,16 @@ paths:
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: "#/components/schemas/User"
               examples:
                 Exemplo de retorno:
                   value:
@@ -624,17 +624,17 @@ paths:
                       newsletter: true
                       discount_coupons: true
                       confirmation_email: true
-                      created_at: '2021-01-28T17:20:40.000000Z'
-                      updated_at: '2021-01-28T21:25:53.000000Z'
-        '400':
+                      created_at: "2021-01-28T17:20:40.000000Z"
+                      updated_at: "2021-01-28T21:25:53.000000Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-users-id
       description: Retorna o contexto de um usuário específico
@@ -642,12 +642,12 @@ paths:
       summary: Atualiza usuário específico
       operationId: put-users-id
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   name:
@@ -670,15 +670,15 @@ paths:
                     name: Igor Bruno Monteiro
                     newsletter: true
                     discount_coupons: true
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Atualiza um usuário específico
       tags:
@@ -687,17 +687,17 @@ paths:
       summary: Deletar usuário específico
       operationId: delete-users-id
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - Usuário - Administração
@@ -708,7 +708,7 @@ paths:
       operationId: get-users-me
       description: Retorna o contexto do usuário logado
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -716,7 +716,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: "#/components/schemas/User"
               examples:
                 Exemplo de retorno:
                   value:
@@ -728,19 +728,19 @@ paths:
                       newsletter: true
                       discount_coupons: true
                       confirmation_email: true
-                      created_at: '2021-01-28T17:20:40.000000Z'
-                      updated_at: '2021-01-28T21:25:53.000000Z'
-        '201':
+                      created_at: "2021-01-28T17:20:40.000000Z"
+                      updated_at: "2021-01-28T21:25:53.000000Z"
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - Usuário
@@ -762,17 +762,17 @@ paths:
       summary: Solicitação de recuperação de senha
       operationId: post-account-password-forgot
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Envie uma hash para reset de senha no e-mail do usuário
       security: []
@@ -780,7 +780,7 @@ paths:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 email:
@@ -802,7 +802,7 @@ paths:
       summary: Confirmação da recuperação de senha
       operationId: put-account-password-forgot-reset
       responses:
-        '200':
+        "200":
           description: OK
       security: []
       description: Realiza a troca de senha usando o token enviado no email do usuário
@@ -811,7 +811,7 @@ paths:
           application/json:
             schema:
               type: object
-              description: ''
+              description: ""
               properties:
                 hash:
                   type: string
@@ -844,8 +844,9 @@ paths:
       summary: Listagem de Estilos de modelos
       tags:
         - Cartão - Administração
+        - Estilos
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -856,19 +857,19 @@ paths:
                     type: array
                     description: Listagem de estilo de modelos
                     items:
-                      $ref: '#/components/schemas/StyleCard'
+                      $ref: "#/components/schemas/StyleCard"
                   meta:
-                    $ref: '#/components/schemas/MetaPaginate'
+                    $ref: "#/components/schemas/MetaPaginate"
               examples:
                 Exemplo de retorno:
                   value:
                     data:
                       - id: 1
                         name: Paisagem
-                        background: 'data:image/jpeg;base64,...'
-                        created_at: '2021-01-28T18:11:23.000000Z'
-                        updated_at: '2021-01-28T18:11:23.000000Z'
-                        deleted_at: '2021-01-28T18:11:23.000000Z'
+                        background: "data:image/jpeg;base64,..."
+                        created_at: "2021-01-28T18:11:23.000000Z"
+                        updated_at: "2021-01-28T18:11:23.000000Z"
+                        deleted_at: "2021-01-28T18:11:23.000000Z"
                     meta:
                       pagination:
                         total: 0
@@ -877,42 +878,42 @@ paths:
                         current_page: 0
                         total_pages: 0
                         links: {}
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-models-styles
       description: Lista todos os modelos do sistema
       parameters:
-        - $ref: '#/components/parameters/page'
+        - $ref: "#/components/parameters/page"
     post:
       summary: Criação de novo Estilos de modelos
       operationId: post-models-styles
       responses:
-        '201':
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Criação de estilo de modelos
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 name:
@@ -925,7 +926,7 @@ paths:
                   type: string
                   minLength: 1
                   format: string
-                  example: 'data:image/jpeg;base64,,...'
+                  example: "data:image/jpeg;base64,,..."
                   description: Imagem de fundo em formato base64
                   writeOnly: true
               required:
@@ -935,12 +936,13 @@ paths:
               Exemplo de integração:
                 value:
                   name: escritorio
-                  background: 'data:image/jpeg;base64,,...'
+                  background: "data:image/jpeg;base64,,..."
         description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
       tags:
         - Cartão - Administração
+        - Estilos
     parameters: []
-  '/cards/styles/{id}':
+  "/cards/styles/{id}":
     parameters:
       - schema:
           type: string
@@ -952,26 +954,82 @@ paths:
       summary: Retornar estilo de modelo específico
       tags:
         - Cartão - Administração
+        - Estilos
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/StyleCard'
-        '400':
+                    $ref: "#/components/schemas/StyleCard"
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: escritori 1o
+                        background: /storage/cards/styles/background/791613507573.jpeg
+                        created_at: "2021-02-16T20:32:53.000000Z"
+                        updated_at: "2021-02-16T20:32:53.000000Z"
+                        deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 1
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+                Exemplo de retorno com inclusão da entidade models:
+                  value:
+                    data:
+                      - id: 1
+                        name: escritori 1o
+                        background: /storage/cards/styles/background/791613507573.jpeg
+                        created_at: "2021-02-16T20:32:53.000000Z"
+                        updated_at: "2021-02-16T20:32:53.000000Z"
+                        deleted_at: null
+                        models:
+                          data:
+                            - id: 1
+                              name: teste5
+                              background: /storage/cards/models/background/241613587147.jpeg
+                              created_at: "2021-02-17T18:39:08.000000Z"
+                              updated_at: "2021-02-17T18:39:08.000000Z"
+                              deleted_at: null
+                            - id: 12
+                              name: okokok
+                              background: /storage/cards/models/background/451613591536.jpeg
+                              created_at: "2021-02-17T19:52:16.000000Z"
+                              updated_at: "2021-02-17T19:52:16.000000Z"
+                              deleted_at: null
+                            - id: 13
+                              name: okokok s
+                              background: /storage/cards/models/background/681613591544.jpeg
+                              created_at: "2021-02-17T19:52:24.000000Z"
+                              updated_at: "2021-02-17T19:52:24.000000Z"
+                              deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 1
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-models-styles-id
       description: Retorna um estilo de modelo específico
@@ -980,17 +1038,17 @@ paths:
       summary: Atualizar estilo de modelo específico
       operationId: put-models-styles
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Atualização de estilo de modelos
       requestBody:
@@ -1009,37 +1067,39 @@ paths:
                 background:
                   type: string
                   description: Imagem de fundo em formato base64
-                  example: 'data:image/jpeg;base64,,...'
+                  example: "data:image/jpeg;base64,,..."
                   format: string
                   writeOnly: true
             examples:
               Exemplo de integração:
                 value:
                   name: Plumas
-                  background: 'data:image/jpeg;base64,...'
+                  background: "data:image/jpeg;base64,..."
         description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
       tags:
         - Cartão - Administração
+        - Estilos
     delete:
       summary: Inativar estilo de modelo específico
       operationId: delete-models-styles-id
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Inativa o estilo de modelo
       tags:
         - Cartão - Administração
-  '/auth/login/social/{driver}':
+        - Estilos
+  "/auth/login/social/{driver}":
     parameters:
       - schema:
           type: string
@@ -1052,7 +1112,7 @@ paths:
       summary: Autenticação usando token social
       operationId: post-auth-login-social-driver
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -1082,7 +1142,7 @@ paths:
                         readOnly: true
                       expiresIn:
                         type: string
-                        example: '2021-01-28T15:06:41.534407Z'
+                        example: "2021-01-28T15:06:41.534407Z"
                         description: Tempo de vida do token
                         format: date-time
                         readOnly: true
@@ -1095,16 +1155,16 @@ paths:
                     data:
                       accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjExNTMzMTMxLCJleHAiOjE2MTE1MzY3MzEsIm5iZiI6MTYxMTUzMzEzMSwianRpIjoiVzNQQUhtdWl4MG9FeDhyYiIsInN1YiI6MjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CvasSTZPqWRQr5cgm7jFiHho8RGnZIzQwJzAfjUql3A
                       tokenType: bearer
-                      expiresIn: '2021-01-28T15:06:41.534407Z'
-        '400':
+                      expiresIn: "2021-01-28T15:06:41.534407Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Fazer a autenticação usando os tokens sociais
       requestBody:
@@ -1118,13 +1178,13 @@ paths:
                 value:
                   token_type: Bearer
                   access_token: ya29.a0AfH6SMCz8aSk6KcR1hNENY_xGSbo1vIHpT-pgaZ9avg6MsByml0sSUs3WNkTbuUFOQWjOhfLt__Os5EiWnETt4vI85_7PKKL2b_wQWWQBdJ9LdtKAemrnJ7P6umT1zD2M5vEdea-zBKO7BNolVl8JYr3azSx3GlEX5olJXm2QVw
-                  scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+                  scope: "email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
                   login_hint: AJDLj6JUa8yxXrhHdWRHIV0S13cATs_fEsP0qZryg3SEy8EZfDsnYJfwSd5l6aTd4GcTM4RMOiXm3M39wcjZRG9ctd82IfQJHA
                   expires_in: 3599
                   id_token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjAzYjJkMjJjMmZlY2Y4NzNlZDE5ZTViOGNmNzA0YWZiN2UyZWQ0YmUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiOTg0NDQ2Mjg1ODUxLXAxOGo3aGlsZ3NjMXFocHYxOG1lNmUyNnMwNnBsYmhwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiOTg0NDQ2Mjg1ODUxLXAxOGo3aGlsZ3NjMXFocHYxOG1lNmUyNnMwNnBsYmhwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE3NTA3MzYwOTkyNzA1NjAyMTgzIiwiZW1haWwiOiJsZWFuZHJvLmRhZjRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJadnc4VmdUZEpicG8wVWtXeGxnYW53IiwibmFtZSI6IkxlYW5kcm8gRmVycmVpcmEiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2pIalhZOHJudlJLaUdNelB5S2Q1aUJGQkdWN1Q5S2trUHllNTZRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkxlYW5kcm8iLCJmYW1pbHlfbmFtZSI6IkZlcnJlaXJhIiwibG9jYWxlIjoicHQtQlIiLCJpYXQiOjE2MTI0MTAwMjcsImV4cCI6MTYxMjQxMzYyNywianRpIjoiNjdkYzg4ZGE0NWU1OGQwZGRmNWM5ZTQ0ZGFhM2Q4NTRiNzllZjEzZCJ9.bfFEIwY3o_9Ms75oAlvWHRoDdeW5N6-OZbfPCPmY0UGWC_PdOfQkiEFN6f8n5j7F8twqqmqsgonZbGAUfdtsb65ptxH2zyKCX6NaggH2MqAqHIY65MyIK2flI-ZCXWmSbHJfGp1i4c8WtfWUvvzSqfJgyE9qmZGlD0avHKFkBUJEkwHRAmAvZ4fSP0TjS5psuHxNm54Uy1OESKHituXbnG9LYixB0vlEM1hEOYtCkSEoPd7oQpQksAEPS3y_oacVLMQZ4y-RHxze2tk2ft_nM8yLUojSm5LffspdrkLAgoZIpjDZhd2ng9xLTUitWg05ekn0gXUrwJx0kAdYYYAhig
                   session_state:
                     extraQueryParams:
-                      authuser: '0'
+                      authuser: "0"
         description: Os payload de integração sofrem variações conforme a rede social que está sendo integrada
       tags:
         - Autenticação
@@ -1132,12 +1192,12 @@ paths:
     get:
       summary: Listagem de itens de pagamento
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
@@ -1145,12 +1205,12 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      $ref: '#/components/schemas/Item'
+                      $ref: "#/components/schemas/Item"
                   meta:
                     type: object
                     properties:
                       pagination:
-                        $ref: '#/components/schemas/MetaPaginate'
+                        $ref: "#/components/schemas/MetaPaginate"
               examples:
                 Retorno de listagem paginado:
                   value:
@@ -1160,9 +1220,9 @@ paths:
                         picture_url: /storage/items/821612643073.jpeg
                         category_id: cards
                         unit_price: 58.8
-                        created_at: '2021-02-06T20:24:33.000000Z'
-                        updated_at: '2021-02-06T20:24:33.000000Z'
-                        deleted_at: '2021-02-06T20:24:33.000000Z'
+                        created_at: "2021-02-06T20:24:33.000000Z"
+                        updated_at: "2021-02-06T20:24:33.000000Z"
+                        deleted_at: "2021-02-06T20:24:33.000000Z"
                     meta:
                       pagination:
                         pagination:
@@ -1172,15 +1232,15 @@ paths:
                           current_page: 0
                           total_pages: 0
                           links: {}
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-payments-items
       description: Listagem dos itens de payment item
@@ -1195,29 +1255,29 @@ paths:
           in: query
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
-        - $ref: '#/components/parameters/page'
+        - $ref: "#/components/parameters/page"
     post:
       summary: Criação de item de pagamento
       operationId: post-payments-items
       responses:
-        '201':
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Cria um novo item de pagamento
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 title:
@@ -1250,13 +1310,13 @@ paths:
                 value:
                   title: Point Mini
                   description: Producto Point para cobros con tarjetas mediante bluetooth
-                  picture_url: 'data:image/jpeg;base64,...'
+                  picture_url: "data:image/jpeg;base64,..."
                   category_id: cards
                   unit_price: 58.8
-        description: ''
+        description: ""
       tags:
         - Itens
-  '/items/{id}':
+  "/items/{id}":
     parameters:
       - schema:
           type: string
@@ -1267,16 +1327,16 @@ paths:
     get:
       summary: Retorna um Item de pagamento específico
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Item'
+                    $ref: "#/components/schemas/Item"
               examples:
                 Exemplo de retorno:
                   value:
@@ -1286,18 +1346,18 @@ paths:
                       picture_url: /storage/items/821612643073.jpeg
                       category_id: cards
                       unit_price: 58.8
-                      created_at: '2021-02-06T20:24:33.000000Z'
-                      updated_at: '2021-02-06T20:24:33.000000Z'
-                      deleted_at: '2019-08-24T14:15:22Z'
-        '400':
+                      created_at: "2021-02-06T20:24:33.000000Z"
+                      updated_at: "2021-02-06T20:24:33.000000Z"
+                      deleted_at: "2019-08-24T14:15:22Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-payments-items-id
       description: Retorna um item de pagamento específico
@@ -1316,24 +1376,24 @@ paths:
       summary: Atualiza um item de pagamento específico
       operationId: put-payments-items-id
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Atualiza um item de pagamento específico
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: "#/components/schemas/Item"
             examples:
               example-1:
                 value:
@@ -1348,22 +1408,22 @@ paths:
       summary: Deletar um item de pagamento específico
       operationId: delete-payments-items-id
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Exemplo de delete
       tags:
         - Itens
-  '/items/{id}/gateways/{gateways}':
+  "/items/{id}/gateways/{gateways}":
     parameters:
       - schema:
           type: string
@@ -1383,12 +1443,12 @@ paths:
       summary: Criação de pagamento
       operationId: post-payments-items-item_id-gateways-gateways
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   payer:
@@ -1485,25 +1545,25 @@ paths:
                       email: rraulkauealves@serteccontabil.com.br
                       identification:
                         type: CPF
-                        number: '78730291828'
+                        number: "78730291828"
                       address:
                         street_name: Rua Santa Bernadete
-                        street_number: '654'
-                        zip_code: '09941300'
-                    issuer_id: '24'
-                    installments: '12'
+                        street_number: "654"
+                        zip_code: "09941300"
+                    issuer_id: "24"
+                    installments: "12"
                     payment_method_id: master
-                    description: ''
+                    description: ""
                     token: 3b86a3259af5ece0d241b74a698e28e2
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Cria o pagamento de um item
       tags:
@@ -1515,12 +1575,12 @@ paths:
         - Pagamento
         - Usuário
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
@@ -1529,9 +1589,9 @@ paths:
                     minItems: 1
                     description: Listagem de transações
                     items:
-                      $ref: '#/components/schemas/Transaction'
+                      $ref: "#/components/schemas/Transaction"
                   meta:
-                    $ref: '#/components/schemas/MetaPaginate'
+                    $ref: "#/components/schemas/MetaPaginate"
               examples:
                 Exemplo de retorno:
                   value:
@@ -1542,8 +1602,8 @@ paths:
                         quantity: 1
                         status: null
                         installments: 11
-                        created_at: '2021-02-09T00:39:30.000000Z'
-                        updated_at: '2021-02-09T00:39:30.000000Z'
+                        created_at: "2021-02-09T00:39:30.000000Z"
+                        updated_at: "2021-02-09T00:39:30.000000Z"
                     meta:
                       pagination:
                         total: 0
@@ -1552,15 +1612,15 @@ paths:
                         current_page: 1
                         total_pages: 1
                         links: {}
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-users-transactions
       description: Lista todas as transações feitas pelo usuário
@@ -1577,9 +1637,9 @@ paths:
           in: query
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
-        - $ref: '#/components/parameters/page'
+        - $ref: "#/components/parameters/page"
     parameters: []
-  '/users/transactions/{id}':
+  "/users/transactions/{id}":
     parameters:
       - schema:
           type: string
@@ -1593,27 +1653,27 @@ paths:
         - Pagamento
         - Usuário
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Transaction'
+                    $ref: "#/components/schemas/Transaction"
                 required:
                   - data
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-users-transactions-id
       description: Retorna uma transação específica do usuário logado
@@ -1630,7 +1690,7 @@ paths:
           in: query
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
-  '/users/{userId}/transactions/{id}':
+  "/users/{userId}/transactions/{id}":
     parameters:
       - schema:
           type: integer
@@ -1651,16 +1711,16 @@ paths:
       tags:
         - Pagamento
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Transaction'
+                    $ref: "#/components/schemas/Transaction"
                 required:
                   - data
               examples:
@@ -1673,17 +1733,17 @@ paths:
                       quantity: 1
                       status: null
                       installments: 11
-                      created_at: '2021-02-09T00:39:30.000000Z'
-                      updated_at: '2021-02-09T00:39:30.000000Z'
-        '400':
+                      created_at: "2021-02-09T00:39:30.000000Z"
+                      updated_at: "2021-02-09T00:39:30.000000Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-users-userId-transactions-id
       description: Retorna uma transação específica com base no usuário fornecido
@@ -1700,7 +1760,7 @@ paths:
           in: query
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
-  '/users/{userId}/transactions':
+  "/users/{userId}/transactions":
     parameters:
       - schema:
           type: integer
@@ -1714,12 +1774,12 @@ paths:
       tags:
         - Pagamento
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   data:
@@ -1727,21 +1787,21 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      $ref: '#/components/schemas/Transaction'
+                      $ref: "#/components/schemas/Transaction"
                   meta:
-                    $ref: '#/components/schemas/MetaPaginate'
+                    $ref: "#/components/schemas/MetaPaginate"
                 required:
                   - data
                   - meta
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-users-userId-transactions
       description: Lista todas as transações do usuário especificado
@@ -1758,7 +1818,221 @@ paths:
           in: query
           name: include
           description: Inclusão de entidades conforme os relacionamentos do modelo
-        - $ref: '#/components/parameters/page'
+        - $ref: "#/components/parameters/page"
+  /cards/colors:
+    get:
+      summary: Listagem de cores
+      tags:
+        - Cartão - Administração
+        - Cores
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ""
+                type: object
+                properties:
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: Listagem dos dados
+                    items:
+                      $ref: "#/components/schemas/ColorCard"
+                  meta:
+                    $ref: "#/components/schemas/MetaPaginate"
+                required:
+                  - data
+                  - meta
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Escritório
+                        matrix: "rgba(248,249,250,1)"
+                        created_at: "2021-02-16T20:32:43.000000Z"
+                        updated_at: "2021-02-16T20:32:43.000000Z"
+                        deleted_at: "2021-02-16T20:32:43.000000Z"
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      operationId: get-cards-colors
+      description: Lista todas as cores do sistema
+    post:
+      summary: Criação de Cor de Cartão
+      operationId: post-cards-colors
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ""
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Nome da cor
+                  example: Paz
+                  writeOnly: true
+                matrix:
+                  type: string
+                  minLength: 1
+                  description: Hexadecimal color ou RGB(a)
+                  example: "#FFFFFF"
+                  writeOnly: true
+              required:
+                - name
+                - matrix
+            examples: {}
+        description: ""
+      description: Criação de cor de cartão
+      tags:
+        - Cartão - Administração
+        - Cores
+  "/cards/colors/{id}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificação única da cor
+    get:
+      summary: Retorna uma cor
+      tags:
+        - Cores
+        - Cartão - Administração
+      operationId: get-cards-colors-id
+      description: Retorna uma cor especifica
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ""
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ColorCard"
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      id: 2
+                      name: escritori 11o
+                      matrix: "rgba(248,249,250,2)"
+                      created_at: "2021-02-17T18:47:14.000000Z"
+                      updated_at: "2021-02-17T18:47:14.000000Z"
+                      deleted_at: "2021-02-17T18:47:14.000000Z"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+    put:
+      summary: Retorna uma cor específica
+      operationId: put-cards-colors-id
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      description: Atualiza uma cor especifica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ""
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Nome da cor
+                  example: Verão
+                  writeOnly: true
+                matrix:
+                  type: string
+                  minLength: 1
+                  description: Hexadecimal color ou RGB(a)
+                  example: "#FFFFFF"
+                  writeOnly: true
+              required:
+                - name
+                - matrix
+            examples:
+              Exemplo de integração:
+                value:
+                  name: escritori 1o
+                  matrix: "rgba(248,249,250,1)"
+      tags:
+        - Cores
+        - Cartão - Administração
+    delete:
+      summary: Deletar cor especifica
+      operationId: delete-cards-colors-id
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      description: Deleta uma cor especifica
+      tags:
+        - Cores
+        - Cartão - Administração
 components:
   schemas:
     User:
@@ -1775,8 +2049,8 @@ components:
           newsletter: true
           discount_coupons: true
           confirmation_email: true
-          created_at: '2021-01-28T17:20:40.000000Z'
-          updated_at: '2021-01-28T21:25:53.000000Z'
+          created_at: "2021-01-28T17:20:40.000000Z"
+          updated_at: "2021-01-28T21:25:53.000000Z"
       title: User
       properties:
         name:
@@ -1803,13 +2077,13 @@ components:
         created_at:
           type: string
           description: Data de criação
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           format: date-time
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           format: date-time
           readOnly: true
         id:
@@ -1821,7 +2095,7 @@ components:
           description: Listagem de regras de permissionamento do usuário
           properties:
             data:
-              $ref: '#/components/schemas/Rule'
+              $ref: "#/components/schemas/Rule"
           readOnly: true
         payments:
           type: object
@@ -1831,7 +2105,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Payment'
+                $ref: "#/components/schemas/Payment"
               readOnly: true
           readOnly: true
         transactions:
@@ -1842,7 +2116,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Transaction'
+                $ref: "#/components/schemas/Transaction"
               readOnly: true
           readOnly: true
         payers:
@@ -1853,7 +2127,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Payer'
+                $ref: "#/components/schemas/Payer"
               readOnly: true
           readOnly: true
         cards:
@@ -1864,7 +2138,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Card'
+                $ref: "#/components/schemas/Card"
               readOnly: true
           readOnly: true
     MetaPaginate:
@@ -1915,13 +2189,13 @@ components:
         Possíveis inclusões do modelo: `models`
       type: object
       x-examples:
-        'Exemplo ':
+        "Exemplo ":
           id: 2
           name: escritorio
-          background: 'https://s3.amazonaws.com/asset.api.pluecard.com//cards/styles/background/771612272026.png'
-          created_at: '2021-02-02T13:20:27.000000Z'
-          updated_at: '2021-02-02T13:20:27.000000Z'
-          deleted_at: '2021-02-02T13:20:27.000000Z'
+          background: "https://s3.amazonaws.com/asset.api.pluecard.com//cards/styles/background/771612272026.png"
+          created_at: "2021-02-02T13:20:27.000000Z"
+          updated_at: "2021-02-02T13:20:27.000000Z"
+          deleted_at: "2021-02-02T13:20:27.000000Z"
       title: StyleCard
       properties:
         id:
@@ -1940,19 +2214,19 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         deleted_at:
           type: string
           format: date-time
           description: Data de inativação do estilo de modelo
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         models:
           type: object
@@ -1962,7 +2236,9 @@ components:
               type: array
               description: Listagem dos dados
               items:
-                $ref: '#/components/schemas/ModelCard'
+                $ref: "#/components/schemas/ModelCard"
+              readOnly: true
+          readOnly: true
     Item:
       description: |-
         Modelo do Item
@@ -1995,19 +2271,19 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         deleted_at:
           type: string
           description: Data de inativação
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         transactions:
           type: object
@@ -2017,7 +2293,7 @@ components:
               type: array
               description: Dados do relacionamento
               items:
-                $ref: '#/components/schemas/Transaction'
+                $ref: "#/components/schemas/Transaction"
         id:
           type: integer
           description: Identificador único do item
@@ -2037,7 +2313,7 @@ components:
           type: string
           minLength: 1
           description: Identificador externo
-          example: '1233540725'
+          example: "1233540725"
           readOnly: true
         operation_type:
           type: string
@@ -2049,7 +2325,7 @@ components:
           type: object
         binary_mode:
           type: boolean
-          description: 'Quando definido como true, o pagamento só pode ter os status approved ou rejected. Caso contrário, o status in_process é adicionado.'
+          description: "Quando definido como true, o pagamento só pode ter os status approved ou rejected. Caso contrário, o status in_process é adicionado."
         external_reference:
           type: string
           description: Referência que pode sincronizar com seu sistema de pagamentos
@@ -2068,7 +2344,7 @@ components:
           minLength: 1
           description: Data de criação
           format: date-time
-          example: '2021-02-06T15:10:38.000000Z'
+          example: "2021-02-06T15:10:38.000000Z"
         last_modified: {}
         live_mode:
           type: boolean
@@ -2077,24 +2353,24 @@ components:
           minLength: 1
           description: Data da última atualização
           format: date-time
-          example: '2021-02-06T15:10:38.000000Z'
+          example: "2021-02-06T15:10:38.000000Z"
         date_of_expiration:
           type: string
           format: date-time
-          example: '2021-02-06T15:10:38.000000Z'
+          example: "2021-02-06T15:10:38.000000Z"
           description: Data de expiração
         date_approved:
           type: string
           minLength: 1
           format: date-time
-          example: '2021-02-06T15:10:38.000000Z'
+          example: "2021-02-06T15:10:38.000000Z"
           description: Data da aprovação
         money_release_date:
           type: string
           minLength: 1
           description: O valor é referente a cotação do dia
           format: date-time
-          example: '2021-02-06T15:10:38.000000Z'
+          example: "2021-02-06T15:10:38.000000Z"
         currency_id:
           type: string
           minLength: 1
@@ -2179,7 +2455,7 @@ components:
         statement_descriptor:
           type: string
           minLength: 1
-          description: 'Como aparecerá o pagamento no extrato do cartão (ex: o MERCADOPAGO).'
+          description: "Como aparecerá o pagamento no extrato do cartão (ex: o MERCADOPAGO)."
         refunds: {}
         additional_info:
           type: object
@@ -2202,7 +2478,7 @@ components:
         issuer_id:
           type: string
           minLength: 1
-          example: '12'
+          example: "12"
         metadata: {}
         callback_url: {}
         coupon_code: {}
@@ -2210,20 +2486,20 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-06T19:31:30.000000Z'
+          example: "2021-02-06T19:31:30.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
           format: date-time
-          example: '2021-02-06T19:31:30.000000Z'
+          example: "2021-02-06T19:31:30.000000Z"
           readOnly: true
         user:
           type: object
           description: Usuário vinculado ao pagamento
           properties:
             data:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
         transactions:
           type: object
           description: Transações relacionadas
@@ -2232,19 +2508,19 @@ components:
               description: Dados do relacionamento
               type: array
               items:
-                $ref: '#/components/schemas/Transaction'
+                $ref: "#/components/schemas/Transaction"
         card:
           type: object
           description: Cartão utilizado no pagamento
           properties:
             data:
-              $ref: '#/components/schemas/Card'
+              $ref: "#/components/schemas/Card"
         payer:
           type: object
           description: Pagador responsável
           properties:
             data:
-              $ref: '#/components/schemas/Payer'
+              $ref: "#/components/schemas/Payer"
     Transaction:
       description: |-
         Modelo de Transação
@@ -2288,44 +2564,44 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-09T00:39:30.000000Z'
+          example: "2021-02-09T00:39:30.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
           format: date-time
-          example: '2021-02-09T00:39:30.000000Z'
+          example: "2021-02-09T00:39:30.000000Z"
           readOnly: true
         user:
           type: object
           description: Usuário vinculado
           properties:
             data:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
         item:
           type: object
           description: Itens consumidos na transação
           properties:
             data:
-              $ref: '#/components/schemas/Item'
+              $ref: "#/components/schemas/Item"
         payment:
           type: object
           description: Dados do pagamento da transação
           properties:
             data:
-              $ref: '#/components/schemas/Payment'
+              $ref: "#/components/schemas/Payment"
         card:
           type: object
-          description: 'Cartão usado na transação '
+          description: "Cartão usado na transação "
           properties:
             data:
-              $ref: '#/components/schemas/Card'
+              $ref: "#/components/schemas/Card"
         payer:
           type: object
           description: Pagador da transação
           properties:
             data:
-              $ref: '#/components/schemas/Payer'
+              $ref: "#/components/schemas/Payer"
     Payer:
       description: |-
         Modelo do Pagador
@@ -2385,7 +2661,7 @@ components:
               type: string
               minLength: 1
               description: DDD do telefone
-              example: '01'
+              example: "01"
             extension:
               type: string
               description: Campo extra para mais detalhes
@@ -2409,7 +2685,7 @@ components:
               type: string
               minLength: 1
               description: Número do documento
-              example: '32659430'
+              example: "32659430"
           required:
             - type
             - number
@@ -2420,26 +2696,26 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-09T00:39:30.000000Z'
+          example: "2021-02-09T00:39:30.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
           format: date-time
-          example: '2021-02-09T00:39:30.000000Z'
+          example: "2021-02-09T00:39:30.000000Z"
           readOnly: true
         payment:
           type: object
           description: Pagamento relacionado
           properties:
             data:
-              $ref: '#/components/schemas/Payment'
+              $ref: "#/components/schemas/Payment"
         user:
           type: object
           description: Usuário relacionado
           properties:
             data:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
     ModelCard:
       description: |-
         Modelo de "Modelo" de cartão
@@ -2456,30 +2732,30 @@ components:
         name:
           type: string
           minLength: 1
-          example: 'Força, Foco e Fé'
+          example: "Força, Foco e Fé"
           description: Nome do modelo
         background:
           type: string
           minLength: 1
           description: URL da imagem de fundo
           format: uri
-          example: 'http://image.com/example.jpg'
+          example: "http://image.com/example.jpg"
         created_at:
           type: string
           format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
+          example: "2021-02-17T18:39:08.000000Z"
           description: Data de criação
           readOnly: true
         updated_at:
           type: string
           format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
+          example: "2021-02-17T18:39:08.000000Z"
           description: Data da última atualização
           readOnly: true
         deleted_at:
           type: string
           format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
+          example: "2021-02-17T18:39:08.000000Z"
           description: Data de inativação
           readOnly: true
         body:
@@ -2487,7 +2763,7 @@ components:
           description: Corpo html/txt do modelo
           properties:
             data:
-              $ref: '#/components/schemas/DataCard'
+              $ref: "#/components/schemas/DataCard"
           readOnly: true
         colors:
           type: object
@@ -2497,7 +2773,7 @@ components:
               type: array
               description: Listagem dos dados
               items:
-                $ref: '#/components/schemas/ColorCard'
+                $ref: "#/components/schemas/ColorCard"
               readOnly: true
           readOnly: true
         styles:
@@ -2508,7 +2784,7 @@ components:
               type: array
               description: Listagem dos dados
               items:
-                $ref: '#/components/schemas/StyleCard'
+                $ref: "#/components/schemas/StyleCard"
               readOnly: true
           readOnly: true
     Card:
@@ -2539,12 +2815,12 @@ components:
           type: string
           minLength: 1
           description: Primeiros 6 dígitos do cartão
-          example: '503143'
+          example: "503143"
         last_four_digits:
           type: string
           minLength: 1
           description: Ultimos 4 digitos do cartão
-          example: '6351'
+          example: "6351"
         payment_method:
           description: Método de pagamento
         security_code:
@@ -2574,19 +2850,19 @@ components:
                   type: string
                   minLength: 1
                   description: Número do documento
-                  example: '48989553040'
+                  example: "48989553040"
         date_created:
           type: string
           minLength: 1
           description: Data de criação
           format: date-time
-          example: '2021-02-08T20:39:28.000000Z'
+          example: "2021-02-08T20:39:28.000000Z"
         date_last_updated:
           type: string
           minLength: 1
           description: Data da última alteração
           format: date-time
-          example: '2021-02-08T20:39:28.000000Z'
+          example: "2021-02-08T20:39:28.000000Z"
         last: {}
         error: {}
         pagination_params: {}
@@ -2595,26 +2871,26 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-09T00:39:30.000000Z'
+          example: "2021-02-09T00:39:30.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Identificador do usuário
           format: date-time
-          example: '2021-02-09T00:39:30.000000Z'
+          example: "2021-02-09T00:39:30.000000Z"
           readOnly: true
         payment:
           type: object
           description: Pagamento relacionado
           properties:
             data:
-              $ref: '#/components/schemas/Payment'
+              $ref: "#/components/schemas/Payment"
         user:
           type: object
           description: Usuário associado
           properties:
             data:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
     ColorCard:
       description: |-
         Modelo de cores
@@ -2636,24 +2912,24 @@ components:
           type: string
           minLength: 1
           description: Hexadecimal color ou RGB(a)
-          example: '#FFFFFF'
+          example: "#FFFFFF"
         created_at:
           type: string
           description: Data de criação
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           format: date-time
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         deleted_at:
           type: string
           description: Data de inativação
           format: date-time
-          example: '2021-02-16T20:32:53.000000Z'
+          example: "2021-02-16T20:32:53.000000Z"
           readOnly: true
         models:
           type: object
@@ -2663,7 +2939,7 @@ components:
               type: array
               description: Listagem dos dados
               items:
-                $ref: '#/components/schemas/ModelCard'
+                $ref: "#/components/schemas/ModelCard"
     DataCard:
       description: Modelo de dados do cartão
       type: object
@@ -2682,19 +2958,19 @@ components:
           type: string
           description: Data de criação
           format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
+          example: "2021-02-17T18:39:08.000000Z"
           readOnly: true
         updated_at:
           type: string
           description: Data da última atualização
-          example: '2021-02-17T18:39:08.000000Z'
+          example: "2021-02-17T18:39:08.000000Z"
           format: date-time
           readOnly: true
         deleted_at:
           type: string
           description: Data de inativação
           format: date-time
-          example: '2021-02-17T18:39:08.000000Z'
+          example: "2021-02-17T18:39:08.000000Z"
           readOnly: true
       title: DataCard
   securitySchemes:
@@ -2721,5 +2997,7 @@ tags:
   - name: Cartão - Administração
   - name: Itens
   - name: Pagamento
+  - name: Cores
+  - name: Estilos
 security:
   - bearerAuth: []
