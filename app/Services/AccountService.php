@@ -17,7 +17,7 @@ class AccountService
 {
     public function __construct(
         private User $user,
-        private  ResetPassword $resetPassword
+        private ResetPassword $resetPassword
     ) {
     }
 
@@ -64,9 +64,16 @@ class AccountService
      */
     public function resetPassword(User $user): void
     {
-        $quantity = $this->resetPassword->where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
+        $quantity = $this->resetPassword
+            ->where('user_id', $user->id)
+            ->whereDate('created_at', Carbon::today())
+            ->count();
 
-        throw_if($quantity >= 5, ValidatorException::class, ['Password reset attempts exhausted.']);
+        throw_if(
+            $quantity >= 5,
+            ValidatorException::class,
+            ['Password reset attempts exhausted.']
+        );
 
         $this->resetPassword->where('user_id', $user->id)->update(['enable' => false]);
 

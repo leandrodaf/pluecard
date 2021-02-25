@@ -32,7 +32,7 @@ class AccountController extends Controller
         return response(null, 201);
     }
 
-    public function confirmation_email(Request $request): Response
+    public function confirmationEmail(Request $request): Response
     {
         $payload = $this->validate($request, [
             'hash' => 'required|string',

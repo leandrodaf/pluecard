@@ -2,15 +2,11 @@
 
 namespace App\Http\Transformers;
 
+use App\Http\CardIncludeAbstract;
 use App\Models\Card\StyleCard;
-use League\Fractal\TransformerAbstract;
 
-class StyleTransformer extends TransformerAbstract
+class StyleTransformer extends CardIncludeAbstract
 {
-    protected $availableIncludes = [
-        'models',
-    ];
-
     public function transform(StyleCard $style)
     {
         return [

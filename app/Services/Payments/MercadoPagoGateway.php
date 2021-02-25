@@ -54,7 +54,12 @@ class MercadoPagoGateway extends Gateway implements GatewayInterface
 
         $payment->save();
 
-        throw_unless(empty($payment->error), ValidatorException::class, [$payment->error->message], $payment->error->status);
+        throw_unless(
+            empty($payment->error),
+            ValidatorException::class,
+            [$payment->error->message],
+            $payment->error->status
+        );
 
         return  $payment;
     }

@@ -1,4 +1,6 @@
-engines:
+version: "2"
+
+plugins:
   duplication:
     enabled: true
     config:
@@ -10,11 +12,7 @@ engines:
     config:
       standard: "PSR2"
 
-ratings:
-  paths:
-    - "**.php"
-
-exclude_paths:
+exclude_patterns:
   - "tests/"
   - "**.md"
   - "**.json"

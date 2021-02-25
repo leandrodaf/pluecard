@@ -22,7 +22,11 @@ class GatewayMethod
      */
     public function get(string $gateway, Item $item, array $data): GatewayInterface
     {
-        throw_unless(array_key_exists($gateway, $this->gatewayList), ValidatorException::class, ['gateway' => "Notfound  gateway $gateway"]);
+        throw_unless(
+            array_key_exists($gateway, $this->gatewayList),
+            ValidatorException::class,
+            ['gateway' => "Notfound  gateway $gateway"]
+        );
 
         return new $this->gatewayList[$gateway]($item, $data);
     }

@@ -22,7 +22,11 @@ class SocialAuthService
      */
     public function getDriver(string $channelId, array $authToken): SocialAuthInterface
     {
-        throw_unless(array_key_exists($channelId, $this->avaliableChanels), ValidatorException::class, 'The requested driver does not exist');
+        throw_unless(
+            array_key_exists($channelId, $this->avaliableChanels),
+            ValidatorException::class,
+            'The requested driver does not exist'
+        );
 
         $driver = app($this->avaliableChanels[$channelId]);
 
