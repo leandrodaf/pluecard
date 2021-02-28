@@ -24,7 +24,7 @@ class ModelCardController extends Controller
         Gate::authorize('admin', $this->auth->user());
 
         $data = $this->validate($request, [
-            'name' => 'required|string|max:60|unique:models_cards',
+            'name' => 'required|string|max:60',
             'background' => 'required|base64_image',
             'body' => 'required|string',
             'styles' => 'required|array',
@@ -54,7 +54,7 @@ class ModelCardController extends Controller
         Gate::authorize('admin', $this->auth->user());
 
         $data = $this->validate($request, [
-            'name' => 'string|max:60|unique:models_cards'.',id,'.$id,
+            'name' => 'string|max:60',
             'background' => 'base64_image',
             'body' => 'string',
             'styles' => 'array',

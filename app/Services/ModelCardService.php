@@ -83,9 +83,9 @@ class ModelCardService
             $modelcard->colors()->sync(array_combine(Arr::pluck($data['colors'], 'id'), $data['colors']));
         }
 
-        if (! empty($data['data'])) {
-            $modelcard->body()->create(['data' => $data['data']]);
-        }
+        // if (! empty($data['data'])) {
+        //     $modelcard->body()->create(['data' => $data['data']]);
+        // }
 
         return $result;
     }

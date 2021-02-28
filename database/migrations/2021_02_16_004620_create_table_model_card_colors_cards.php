@@ -22,8 +22,6 @@ class CreateTableModelCardColorsCards extends Migration
             $table->foreign('color_id')->references('id')->on('colors_cards')->onDelete('cascade');
 
             $table->enum('status', ['PRIMARY', 'SECONDARY', 'CUSTOM']);
-
-            $table->unique(['model_id', 'color_id']);
         });
     }
 

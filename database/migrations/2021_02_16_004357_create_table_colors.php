@@ -16,7 +16,7 @@ class CreateTableColors extends Migration
         Schema::create('colors_cards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('matrix')->unique();
+            $table->string('matrix');
             $table->timestamps();
             $table->softDeletes();
         });

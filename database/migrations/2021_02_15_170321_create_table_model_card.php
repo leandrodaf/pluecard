@@ -16,7 +16,7 @@ class CreateTableModelCard extends Migration
     {
         Schema::create('models_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('background');
             $table->timestamps();
             $table->softDeletes();

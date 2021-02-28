@@ -20,8 +20,6 @@ class CreateTablePivotModelAndStyleCard extends Migration
             $table->foreign('model_id')->references('id')->on('models_cards')->onDelete('cascade');
             $table->unsignedBigInteger('style_id');
             $table->foreign('style_id')->references('id')->on('styles_cards')->onDelete('cascade');
-
-            $table->unique(['model_id', 'style_id']);
         });
     }
 
