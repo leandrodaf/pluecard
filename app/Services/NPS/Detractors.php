@@ -11,10 +11,17 @@ class Detractors extends AbstractMetrics implements MetricInterface
 
     public function result(string $entity, Carbon $startDate, Carbon $endDate, int | null $entityId): NPSResult
     {
-        $quantity = $this->query($entity, $startDate, $endDate, $entityId)
-            ->whereIn('rating', [0, 1, 2, 3, 4, 5, 6])
-            ->count();
+        $quantity = $this->query($entity, $startDate, $endDate, $entityId)->whereIn('rating', [0, 1, 2, 3, 4, 5, 6])->count();
+        $total = $this->query($entity, $startDate, $endDate, $entityId)->count();
+        $rating = ($quantity * 100) / $total;
 
-        return new NPSResult('DETRACTORS', $quantity, $entity, $entityId);
+        return new NPSResult(
+            'DETRACTORS',
+            $quantity,
+            $total,
+            $rating,
+            $entity,
+            $entityId
+        );
     }
 }

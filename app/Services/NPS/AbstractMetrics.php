@@ -10,7 +10,7 @@ abstract class AbstractMetrics
 {
     const NOT_RELATION = 'NOT_RELATION';
 
-    public function query(string $entity, Carbon $startDate, Carbon $endDate, int | null $entityId)
+    protected function query(string $entity, Carbon $startDate, Carbon $endDate, int | null $entityId)
     {
         throw_if(
             $entity !== self::NOT_RELATION && $entityId === null,

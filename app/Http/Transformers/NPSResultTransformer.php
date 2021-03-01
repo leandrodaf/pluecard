@@ -11,7 +11,9 @@ class NPSResultTransformer extends TransformerAbstract
     {
         return [
             'metric' => $NPSResult->metric,
+            'quantity' => $NPSResult->quantity,
             'total' => $NPSResult->total,
+            'rating' => $NPSResult->rating,
             'entity' => $NPSResult->entity,
             'entityId' => $NPSResult->entityId,
         ];
