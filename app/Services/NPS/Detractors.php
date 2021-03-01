@@ -13,7 +13,7 @@ class Detractors extends AbstractMetrics implements MetricInterface
     {
         $quantity = $this->query($entity, $startDate, $endDate, $entityId)->whereIn('rating', [0, 1, 2, 3, 4, 5, 6])->count();
         $total = $this->query($entity, $startDate, $endDate, $entityId)->count();
-        $rating = ($quantity * 100) / $total;
+        $rating = ceil(($quantity * 100) / $total);
 
         return new NPSResult(
             'DETRACTORS',
