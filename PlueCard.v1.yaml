@@ -3507,9 +3507,9 @@ components:
             - PROMOTERS
           example: PROMOTERS
           readOnly: true
-        total:
+        quantity:
           type: number
-          description: Contagem da métrica
+          description: Quantidade de votos da métrica
           example: 1
           readOnly: true
         entity:
@@ -3524,6 +3524,17 @@ components:
           example: 12
           exclusiveMinimum: false
           default: 'null'
+          readOnly: true
+        total:
+          type: integer
+          description: 'Total de votos no período '
+          example: 1
+          readOnly: true
+        rating:
+          type: number
+          format: float
+          example: 90
+          description: Percentagem de votos considerando todos os votos
           readOnly: true
   securitySchemes:
     bearerAuth:
