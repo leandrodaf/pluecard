@@ -37,6 +37,11 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->post('/account/password/reset', 'AccountController@resetPassword');
     $router->put('/account/password', 'AccountController@updatePassword');
 
+    // NPS
+
+    $router->get('/nps/metrics/{metricId}', 'NPSController@index');
+    $router->post('/nps', 'NPSController@rating');
+
     // Users Transaction
     $router->get('/users/transactions/{id}', 'TransactionController@show');
     $router->get('/users/transactions', 'TransactionController@index');

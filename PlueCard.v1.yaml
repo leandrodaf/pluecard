@@ -2389,6 +2389,163 @@ paths:
       tags:
         - Cartão - Administração
         - Modelos
+  '/nps/metrics/{metricId}':
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - DETRACTORS
+            - LIABILITIES
+            - PROMOTERS
+          example: PROMOTERS
+        name: metricId
+        in: path
+        required: true
+        description: Métrica NPS
+    get:
+      summary: Relatórios de NPS
+      tags:
+        - NPS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NPSResult'
+                required:
+                  - data
+              examples:
+                Exemplo PROMOTERS:
+                  value:
+                    data:
+                      metric: PROMOTERS
+                      total: 4
+                      entity: NOT_RELATION
+                      entityId: 1
+                Exemplo DETRACTORS:
+                  value:
+                    data:
+                      metric: DETRACTORS
+                      total: 1
+                      entity: NOT_RELATION
+                      entityId: 2
+                Exemplo LIABILITIES:
+                  value:
+                    data:
+                      metric: LIABILITIES
+                      total: 20
+                      entity: NOT_RELATION
+                      entityId: 2
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-nps-metrics-metricId
+      description: Realiza os cálculos de NPS
+      parameters:
+        - schema:
+            type: string
+            format: date-time
+            example: '2021-02-01T00:00:00.000000Z'
+          in: query
+          name: startDate
+          description: Data de início
+        - schema:
+            type: string
+            format: date-time
+            example: '2021-03-02T00:00:00.000000Z'
+          in: query
+          name: endDate
+          description: Data final
+        - schema:
+            type: string
+            example: NOT_RELATION
+            default: NOT_RELATION
+          in: query
+          name: entity
+          description: Nome da entidade relacionada
+        - schema:
+            type: integer
+            example: 12
+          in: query
+          name: entityId
+          description: Id único da entidade relacionada
+  /nps:
+    post:
+      summary: Criação de métrica NPS
+      operationId: post-nps
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      tags:
+        - NPS
+      description: Permite fazer a avaliação da aplicação ou entidade permitidas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                rating:
+                  type: number
+                  description: Nota de avaliação
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                  example: 9
+                  writeOnly: true
+                relationships:
+                  type: string
+                  minLength: 1
+                  description: Relacionar entidade
+                  default: NOT_RELATION
+                  example: NOT_RELATION
+                  writeOnly: true
+                relationId:
+                  type: number
+                  description: Identificador único da entidade relacionada
+                  example: 1
+                  writeOnly: true
+              required:
+                - rating
+                - relationships
+                - relationId
+            examples:
+              Exemplo de integração:
+                value:
+                  rating: 10
+                  relationships: NOT_RELATION
+                  relationId: 1
 components:
   schemas:
     User:
@@ -3329,6 +3486,45 @@ components:
           example: '2021-02-17T18:39:08.000000Z'
           readOnly: true
       title: DataCard
+    NPSResult:
+      description: Modelo de relatório de nps
+      type: object
+      title: NPSResult
+      x-examples:
+        Exemplo de modelo:
+          metric: PROMOTERS
+          total: 1
+          entity: NOT_RELATION
+          entityId: 1
+      properties:
+        metric:
+          type: string
+          minLength: 1
+          description: Tipo da métrica
+          enum:
+            - DETRACTORS
+            - LIABILITIES
+            - PROMOTERS
+          example: PROMOTERS
+          readOnly: true
+        total:
+          type: number
+          description: Contagem da métrica
+          example: 1
+          readOnly: true
+        entity:
+          type: string
+          minLength: 1
+          description: entidade relacionada
+          example: NOT_RELATION
+          readOnly: true
+        entityId:
+          type: integer
+          description: Identificador único da entidade relacionada
+          example: 12
+          exclusiveMinimum: false
+          default: 'null'
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
@@ -3356,5 +3552,6 @@ tags:
   - name: Cores
   - name: Estilos
   - name: Modelos
+  - name: NPS
 security:
   - bearerAuth: []
