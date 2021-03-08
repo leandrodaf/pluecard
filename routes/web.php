@@ -22,7 +22,7 @@ $router->get('/payment/tests', function () use ($router) {
 });
 
 $router->post('/account/create', 'AccountController@register');
-$router->post('/account/confirmation', 'AccountController@confirmation_email');
+$router->post('/account/confirmation', 'AccountController@confirmationEmail');
 $router->post('/account/confirmation/refresh', 'AccountController@refreshConfirmationEmail');
 $router->post('/account/password/forgot', 'AccountController@forgotPassword');
 $router->put('/account/password/forgot/reset', 'AccountController@forgotPasswordConfirmation');

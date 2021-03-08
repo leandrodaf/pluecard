@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Transformers\AuthenticationTransformer;
 use App\Services\AccountService;
 use App\Services\AuthService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
@@ -27,7 +29,17 @@ class AccountController extends Controller
             'discount_coupons' => 'required|boolean',
         ]);
 
-        $this->accountService->create($data);
+        try {
+            DB::beginTransaction();
+
+            $this->accountService->create($data);
+
+            DB::commit();
+        } catch (Exception $exec) {
+            DB::rollBack();
+
+            throw $exec;
+        }
 
         return response(null, 201);
     }

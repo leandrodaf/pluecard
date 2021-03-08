@@ -8,12 +8,6 @@
     ],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/leandrodaf/dx-php"
-        }
-    ],
     "require": {
         "php": "^7.3|^8.0",
         "google/apiclient": "^2.9",
@@ -23,9 +17,9 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "league/fractal": "^0.19.2",
         "marvinlabs/laravel-discord-logger": "^1.1",
+        "mercadopago/dx-php": "^2.2",
         "spatie/laravel-permission": "^4.0",
-        "tymon/jwt-auth": "^1.0",
-        "mercadopago/dx-php": "dev-master"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
