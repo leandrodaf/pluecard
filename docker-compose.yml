@@ -32,7 +32,8 @@ services:
     user: ${CURRENT_USER}
     volumes:
       - .:/var/www/html
-      - ~/.ssh:/root/.ssh
+      - ~/.ssh:${HOME}/.ssh
+      - ~/.gitconfig:${HOME}/.gitconfig
     working_dir: /var/www/html
     links:
       - db:db
@@ -44,16 +45,16 @@ services:
   artisan:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/php/artisan.dockerfile
       args:
         - CURRENT_UID=${CURRENT_UID}
         - CURRENT_USER=${CURRENT_USER}
     user: ${CURRENT_USER}
     volumes:
       - .:/var/www/html
-      - ~/.ssh:/root/.ssh
+      - ~/.ssh:${HOME}/.ssh
+      - ~/.gitconfig:${HOME}/.gitconfig
     working_dir: /var/www/html
-    entrypoint: ["php", "/var/www/html/artisan"]
 
   composer:
     build:
@@ -66,4 +67,3 @@ services:
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
-    entrypoint: ["composer", "--ignore-platform-reqs"]

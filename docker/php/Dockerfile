@@ -8,23 +8,30 @@ ENV CURRENT_USER=$CURRENT_USER
 ENV CURRENT_UID=$CURRENT_UID
 ENV CURRENT_GID=$CURRENT_GID
 
+# Install PECL and PEAR  extensions
+RUN apk add --no-cache git openssh \
+    $PHPIZE_DEPS \
+    && pecl install xdebug
+
+RUN apk --update add --no-cache git
+
+# Enable PECL and PEAR extensions
+RUN docker-php-ext-enable xdebug
+
+RUN docker-php-source delete
+
+RUN echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN mkdir -p /var/www/html
+
 RUN (adduser -h /home/${CURRENT_USER} -D -u ${CURRENT_UID} ${CURRENT_USER} \ 
     && mkdir -p /home/$CURRENT_USER \
     && chown -R "${CURRENT_UID}:${CURRENT_UID}" /home/${CURRENT_USER})
 
 RUN docker-php-ext-install tokenizer mysqli pdo_mysql
-
-RUN apk --update add --no-cache openssh bash \
-    && sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
-    && echo "root:root" | chpasswd \
-    && rm -rf /var/cache/apk/* \
-    && sed -ie 's/#Port 22/Port 22/g' /etc/ssh/sshd_config \
-    && sed -ri 's/#HostKey \/etc\/ssh\/ssh_host_key/HostKey \/etc\/ssh\/ssh_host_key/g' /etc/ssh/sshd_config \
-    && sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/etc\/ssh\/ssh_host_rsa_key/g' /etc/ssh/sshd_config \
-    && sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_dsa_key/HostKey \/etc\/ssh\/ssh_host_dsa_key/g' /etc/ssh/sshd_config \
-    && sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_ecdsa_key/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/g' /etc/ssh/sshd_config \
-    && sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_ed25519_key/HostKey \/etc\/ssh\/ssh_host_ed25519_key/g' /etc/ssh/sshd_config \
-    && /usr/bin/ssh-keygen -A \
-    && ssh-keygen -t rsa -b 4096 -f  /etc/ssh/ssh_host_key
 
 USER $CURRENT_USER

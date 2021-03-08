@@ -12,13 +12,8 @@ RUN (adduser -h /home/${CURRENT_USER} -D -u ${CURRENT_UID} ${CURRENT_USER} \
     && mkdir -p /home/$CURRENT_USER \
     && chown -R "${CURRENT_UID}:${CURRENT_UID}" /home/${CURRENT_USER})
 
-RUN apk add --update
-
-RUN apk --no-cache add curl git \
-    && rm -rf /var/cache/apk/*
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN docker-php-ext-install pdo_mysql
 
 USER $CURRENT_USER
 
-ENTRYPOINT ["composer", "--ignore-platform-reqs"]
+ENTRYPOINT ["php", "/var/www/html/artisan"]
