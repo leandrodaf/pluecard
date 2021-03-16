@@ -2,7 +2,7 @@
 
 use App\Services\GoogleOauuth2Service;
 use App\Services\GoogleService;
-use Google\Client;
+use Google_Client as GoogleClient;
 use Illuminate\Support\Facades\Config;
 
 class GoogleServiceTest extends TestCase
@@ -23,7 +23,7 @@ class GoogleServiceTest extends TestCase
             ],
         ];
 
-        $this->mockDependence(Client::class, function (Client $client) use ($token) {
+        $this->mockDependence(GoogleClient::class, function (GoogleClient $client) use ($token) {
             Config::set('services.google.clientId', 'foo-1');
             Config::set('services.google.clientSecret', 'foo-2');
             Config::set('services.google.redirect', 'foo-3');
@@ -58,7 +58,7 @@ class GoogleServiceTest extends TestCase
             ],
         ];
 
-        $this->mockDependence(Client::class, function (Client $client) use ($token) {
+        $this->mockDependence(GoogleClient::class, function (GoogleClient $client) use ($token) {
             Config::set('services.google.clientId', 'foo-1');
             Config::set('services.google.clientSecret', 'foo-2');
             Config::set('services.google.redirect', 'foo-3');
