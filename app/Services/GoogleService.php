@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Google\Client;
+use Google_Client as GoogleClient;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -22,7 +22,7 @@ class GoogleService implements SocialAuthInterface
     ];
 
     public function __construct(
-        private Client $googleClient,
+        private GoogleClient $googleClient,
         private  GoogleOauuth2Service $googleOauuth2Service
     ) {
         $this->client = $googleClient;
