@@ -10,15 +10,15 @@ use Illuminate\Validation\ValidationException;
 class GoogleService implements SocialAuthInterface
 {
     private $tokenValidator = [
-        'token_type' => 'string',
-        'access_token' => 'string',
-        'scope' => 'string',
-        'login_hint' => 'string',
-        'expires_in' => 'integer',
-        'id_token' => 'string',
-        'session_state' => 'array',
-        'session_state.extraQueryParams' => 'array',
-        'session_state.extraQueryParams.authuser' => 'string',
+        'token_type' => 'required|string',
+        'access_token' => 'required|string',
+        'scope' => 'required|string',
+        'login_hint' => 'required|string',
+        'expires_in' => 'required|integer',
+        'id_token' => 'required|string',
+        'session_state' => 'required|array',
+        'session_state.extraQueryParams' => 'required|array',
+        'session_state.extraQueryParams.authuser' => 'required|string',
     ];
 
     public function __construct(

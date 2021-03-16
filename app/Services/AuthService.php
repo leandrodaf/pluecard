@@ -9,7 +9,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 
 class AuthService extends Services
@@ -17,7 +16,8 @@ class AuthService extends Services
     public function __construct(
         private User $user,
         private ConfirmationAccount $confirmationAccount,
-        private SocialAuthService $socialAuthService
+        private SocialAuthService $socialAuthService,
+        private AccountService $accountService
     ) {
     }
 
@@ -29,12 +29,15 @@ class AuthService extends Services
 
         $user = $this->user->where('email', $socialUser['email'])->first();
 
-        throw_if($user === null, ModelNotFoundException::class, 'The user does not yet have an account.');
+        if ($user === null) {
+            $user = $this->createNewUser($socialUser);
+        }
 
         $socialRegistred = $user->socialAuths->firstWhere('channel_id', $channel);
 
         if (! $socialRegistred) {
-            $user->socialAuths()->create(['channel_id' => $channel, 'social_id' => $socialUser['id']]);
+            $socialRegistred = $user->socialAuths()
+                ->create(['channel_id' => $channel, 'social_id' => $socialUser['id']]);
         }
 
         throw_unless(
@@ -44,6 +47,18 @@ class AuthService extends Services
         );
 
         return auth()->login($user);
+    }
+
+    private function createNewUser(array $socialUser): User
+    {
+        return $this->accountService->create([
+            'name' => $socialUser['name'],
+            'email' => $socialUser['email'],
+            'password' => substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32),
+            'accept_terms' => true,
+            'newsletter' => false,
+            'discount_coupons' => false,
+        ]);
     }
 
     /**
