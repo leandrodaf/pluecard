@@ -47,6 +47,11 @@ class ModelCard extends Model
         return $this->belongsToMany(StyleCard::class, 'model_card_styles_cards', 'model_id', 'style_id');
     }
 
+    public function styleButtons(): BelongsToMany
+    {
+        return $this->belongsToMany(StyleButtonCard::class, 'model_card_style_buttons', 'model_id', 'style_buttons_id');
+    }
+
     public function colors(): BelongsToMany
     {
         return $this->belongsToMany(ColorCard::class, 'model_card_colors_cards', 'model_id', 'color_id');

@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class ModelCardTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'styles', 'body', 'bodys', 'colors',
+        'styles', 'body', 'bodys', 'colors', 'styleButtons',
     ];
 
     public function transform(ModelCard $modelCard)
@@ -26,6 +26,11 @@ class ModelCardTransformer extends TransformerAbstract
     public function includeStyles(ModelCard $modelCard)
     {
         return $this->collection($modelCard->styles, new StyleTransformer);
+    }
+
+    public function includeStyleButtons(ModelCard $modelCard)
+    {
+        return $this->collection($modelCard->styleButtons, new StyleButtonsTransformer);
     }
 
     public function includeBodys(ModelCard $modelCard)

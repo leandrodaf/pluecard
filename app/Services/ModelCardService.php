@@ -27,6 +27,8 @@ class ModelCardService
 
         $model->styles()->sync($data['styles']);
 
+        $model->styleButtons()->sync($data['styleButtons']);
+
         $model->colors()->sync($this->syncColors($data['colors']));
 
         $model->bodys()->create(['data' => $data['body']]);
