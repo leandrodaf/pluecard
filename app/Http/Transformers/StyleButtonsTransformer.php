@@ -7,6 +7,10 @@ use App\Models\Card\StyleButtonCard;
 
 class StyleButtonsTransformer extends CardIncludeAbstract
 {
+    protected $availableIncludes = [
+        'models', 'buttons',
+    ];
+
     public function transform(StyleButtonCard $styleButton)
     {
         return [
@@ -22,5 +26,10 @@ class StyleButtonsTransformer extends CardIncludeAbstract
     public function includeModels(StyleButtonCard $styleButton)
     {
         return $this->collection($styleButton->models, new ModelCardTransformer);
+    }
+
+    public function includeButtons(StyleButtonCard $styleButton)
+    {
+        return $this->collection($styleButton->buttons, new ButtonTransformer);
     }
 }

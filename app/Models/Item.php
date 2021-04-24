@@ -31,7 +31,7 @@ class Item extends Model
 
     public function setPictureUrlAttribute(string $value): void
     {
-        $fileUrl = $this->uploadBase64File('payments/items',  $value);
+        $fileUrl = $this->uploadBase64File('payments/items', $value);
 
         $this->attributes['picture_url'] = $fileUrl;
     }

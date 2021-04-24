@@ -78,6 +78,13 @@ $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
     $router->put('/cards/buttons/style/{id}', 'StyleButtonController@update');
     $router->delete('/cards/buttons/style/{id}', 'StyleButtonController@destroy');
 
+    // Buttons
+    $router->post('/cards/buttons', 'ButtonController@create');
+    $router->get('/cards/buttons', 'ButtonController@index');
+    $router->get('/cards/buttons/{id}', 'ButtonController@show');
+    $router->put('/cards/buttons/{id}', 'ButtonController@update');
+    $router->delete('/cards/buttons/{id}', 'ButtonController@destroy');
+
     // Models
     $router->post('/cards/models', 'ModelCardController@create');
     $router->get('/cards/models', 'ModelCardController@index');

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Transformers\StyleButtonsTransformer;
-use App\Services\StyleButtonService;
+use App\Http\Transformers\ButtonTransformer;
+use App\Services\ButtonService;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -13,13 +13,13 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
-class StyleButtonController extends Controller
+class ButtonController extends Controller
 {
     public function __construct(
-        private StyleButtonService $styleButtonService,
+        private ButtonService $buttonService,
         AuthManager $auth
     ) {
-        $this->styleButtonService = $styleButtonService;
+        $this->buttonService = $buttonService;
 
         Gate::authorize('admin', $auth->user());
     }
@@ -32,11 +32,12 @@ class StyleButtonController extends Controller
     public function create(Request $request): Response
     {
         $data = $this->validate($request, [
-            'name' => 'required|string|max:60|unique:style_buttons',
+            'name' => 'required|string|max:60|unique:buttons_card',
             'background' => 'required|base64_image',
+            'style_buttons_id' => 'required|integer|exists:style_buttons,id',
         ]);
 
-        $this->styleButtonService->create($data);
+        $this->buttonService->create($data);
 
         return response(null, 201);
     }
@@ -51,13 +52,14 @@ class StyleButtonController extends Controller
     public function update(Request $request, string $id): Response
     {
         $data = $this->validate($request, [
-            'name' => 'string|max:60|unique:style_buttons'.',id,'.$id,
+            'name' => 'string|max:60|unique:buttons_card'.',id,'.$id,
             'background' => 'base64_image',
+            'style_buttons_id' => 'required|integer|exists:style_buttons,id',
         ]);
 
-        $style = $this->styleButtonService->show($id);
+        $style = $this->buttonService->show($id);
 
-        $this->styleButtonService->update($style, $data);
+        $this->buttonService->update($style, $data);
 
         return response(null, 200);
     }
@@ -69,9 +71,9 @@ class StyleButtonController extends Controller
      */
     public function show(string $id): Response
     {
-        $item = $this->styleButtonService->show($id);
+        $item = $this->buttonService->show($id);
 
-        return $this->itemResponse($item, new StyleButtonsTransformer, 200);
+        return $this->itemResponse($item, new ButtonTransformer, 200);
     }
 
     /**
@@ -80,9 +82,9 @@ class StyleButtonController extends Controller
      */
     public function index(): Response
     {
-        $list = $this->styleButtonService->listStyleButtonPaginate();
+        $list = $this->buttonService->listButtonPaginate();
 
-        return $this->paginateResponse($list, new StyleButtonsTransformer, 200);
+        return $this->paginateResponse($list, new ButtonTransformer, 200);
     }
 
     /**
@@ -92,9 +94,9 @@ class StyleButtonController extends Controller
      */
     public function destroy(string $id): Response
     {
-        $item = $this->styleButtonService->show($id);
+        $item = $this->buttonService->show($id);
 
-        $this->styleButtonService->destroy($item);
+        $this->buttonService->destroy($item);
 
         return response(null, 200);
     }

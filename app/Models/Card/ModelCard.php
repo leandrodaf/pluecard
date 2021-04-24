@@ -33,7 +33,7 @@ class ModelCard extends Model
      */
     public function setBackgroundAttribute(string $value): void
     {
-        $fileUrl = $this->uploadBase64File('cards/models/background',  $value);
+        $fileUrl = $this->uploadBase64File('cards/models/background', $value);
 
         $this->attributes['background'] = $fileUrl;
     }

@@ -4,29 +4,30 @@ namespace App\Models\Card;
 
 use App\Models\Model;
 use App\Services\Helpers\UploadFile;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class StyleCard extends Model
+class ButtonCard extends Model
 {
     use SoftDeletes, UploadFile;
 
-    protected $table = 'styles_cards';
+    protected $table = 'buttons_card';
 
     protected $fillable = [
         'name',
         'background',
+        'style_buttons_id',
     ];
 
     public function setBackgroundAttribute(string $value): void
     {
-        $fileUrl = $this->uploadBase64File('cards/styles/background', $value);
+        $fileUrl = $this->uploadBase64File('cards/buttons/background', $value);
 
         $this->attributes['background'] = $fileUrl;
     }
 
-    public function models(): BelongsToMany
+    public function styleButton(): BelongsTo
     {
-        return $this->belongsToMany(ModelCard::class, 'model_card_styles_cards', 'style_id', 'model_id');
+        return $this->belongsTo(StyleButtonCard::class, 'style_buttons_id', 'id');
     }
 }
