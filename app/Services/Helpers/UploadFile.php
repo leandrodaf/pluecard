@@ -4,20 +4,19 @@ namespace App\Services\Helpers;
 
 use Illuminate\Support\Facades\Storage;
 
-class UploadFile
+trait UploadFile
 {
-    private $base64Service;
-
-    public function __construct(Base64Service $base64Service)
+    public function uploadBase64File(string $path, string $base64, string $fileName = null): string
     {
-        $this->base64Service = $base64Service;
-    }
+        if (is_null($fileName)) {
+            $fileName = rand(10, 100) . time();
+        }
+        
+        $base64Service = app(Base64Service::class);
 
-    public function uploadBase64File(string $path, string $fileName, string $base64): string
-    {
-        $file = $this->base64Service->convertToFile($base64);
+        $file = $base64Service->convertToFile($base64);
 
-        $extension = $this->base64Service->getExtensionByMimeType($file);
+        $extension = $base64Service->getExtensionByMimeType($file);
 
         $fullPath = "$path/$fileName.$extension";
 

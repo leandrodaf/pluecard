@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, UploadFile;
 
     protected $table = 'items';
 
@@ -31,11 +31,7 @@ class Item extends Model
 
     public function setPictureUrlAttribute(string $value): void
     {
-        $uploadFile = app(UploadFile::class);
-
-        $fileName = rand(10, 100).time();
-
-        $fileUrl = $uploadFile->uploadBase64File('payments/items', $fileName, $value);
+        $fileUrl = $this->uploadBase64File('payments/items',  $value);
 
         $this->attributes['picture_url'] = $fileUrl;
     }

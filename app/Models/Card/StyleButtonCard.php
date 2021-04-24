@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StyleButtonCard extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UploadFile;
 
     protected $table = 'style_buttons';
 
@@ -20,11 +20,7 @@ class StyleButtonCard extends Model
 
     public function setBackgroundAttribute(string $value): void
     {
-        $uploadFile = app(UploadFile::class);
-
-        $fileName = rand(10, 100).time();
-
-        $fileUrl = $uploadFile->uploadBase64File('cards/styles/background', $fileName, $value);
+        $fileUrl = $this->uploadBase64File('cards/styles/background',  $value);
 
         $this->attributes['background'] = $fileUrl;
     }

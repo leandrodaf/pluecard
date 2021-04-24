@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModelCard extends Model
 {
-    use SoftDeletes, FullTextSearch;
+    use SoftDeletes, FullTextSearch, UploadFile;
 
     protected $table = 'models_cards';
 
@@ -33,11 +33,7 @@ class ModelCard extends Model
      */
     public function setBackgroundAttribute(string $value): void
     {
-        $uploadFile = app(UploadFile::class);
-
-        $fileName = rand(10, 100).time();
-
-        $fileUrl = $uploadFile->uploadBase64File('cards/models/background', $fileName, $value);
+        $fileUrl = $this->uploadBase64File('cards/models/background',  $value);
 
         $this->attributes['background'] = $fileUrl;
     }
