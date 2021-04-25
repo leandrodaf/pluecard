@@ -950,6 +950,149 @@ paths:
         - Cartão - Administração
         - Estilos
     parameters: []
+  /cards/buttons:
+    get:
+      summary: Listagem de botões
+      tags:
+        - Botão
+        - Cartão - Administração
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Listagem de estilo de modelos
+                    items:
+                      $ref: '#/components/schemas/ButtonCard'
+                  meta:
+                    $ref: '#/components/schemas/MetaPaginate'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Redondo
+                        background: /storage/cards/buttons/background/841619301275.jpeg
+                        created_at: '2021-04-24T21:54:35.000000Z'
+                        updated_at: '2021-04-24T21:54:35.000000Z'
+                        deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+                Exemplo de retorno com inclusão do style:
+                  value:
+                    data:
+                      - id: 1
+                        name: Redondo
+                        background: /storage/cards/buttons/background/841619301275.jpeg
+                        created_at: '2021-04-24T21:54:35.000000Z'
+                        updated_at: '2021-04-24T21:54:35.000000Z'
+                        deleted_at: null
+                        style:
+                          data:
+                            id: 1
+                            name: Quadrado
+                            background: /storage/cards/styles/background/581619209816.jpeg
+                            created_at: '2021-04-23T20:30:16.000000Z'
+                            updated_at: '2021-04-23T20:32:51.000000Z'
+                            deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-buttons
+      description: Listagem de botões
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - schema:
+            type: string
+            example: style
+            enum:
+              - style
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+    post:
+      summary: Criação de novo botão
+      operationId: post-buttons
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Criação de botão
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  example: Escritório
+                  description: Nome do estilo
+                  writeOnly: true
+                background:
+                  type: string
+                  minLength: 1
+                  format: string
+                  example: 'data:image/jpeg;base64,,...'
+                  description: Imagem de fundo em formato base64
+                  writeOnly: true
+                style_buttons_id:
+                  type: integer
+                  example: 1
+                  description: Associação de estilo de botão
+                  writeOnly: true
+              required:
+                - name
+                - background
+                - style_buttons_id
+            examples:
+              Exemplo de integração:
+                value:
+                  name: escritorio
+                  background: 'data:image/jpeg;base64,,...'
+                  style_buttons_id: 1
+        description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
+      tags:
+        - Cartão - Administração
+        - Botão
+    parameters: []
   '/cards/styles/{id}':
     parameters:
       - schema:
@@ -1095,6 +1238,407 @@ paths:
       tags:
         - Cartão - Administração
         - Estilos
+  /cards/buttons/style:
+    get:
+      summary: Listagem de Estilos de botão
+      tags:
+        - Cartão - Administração
+        - Botão
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Listagem de estilo de botão
+                    items:
+                      $ref: '#/components/schemas/StyleCard'
+                  meta:
+                    $ref: '#/components/schemas/MetaPaginate'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Paisagem
+                        background: 'data:image/jpeg;base64,...'
+                        created_at: '2021-01-28T18:11:23.000000Z'
+                        updated_at: '2021-01-28T18:11:23.000000Z'
+                        deleted_at: '2021-01-28T18:11:23.000000Z'
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 0
+                        per_page: 0
+                        current_page: 0
+                        total_pages: 0
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-style-buttons
+      description: Lista todos os estilos botão do sistema
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - schema:
+            type: string
+            enum:
+              - models
+            example: models
+          in: query
+          name: include
+          description: Inclusão de entidades conforme os relacionamentos do modelo
+    post:
+      summary: Criação de novo Estilos de botão
+      operationId: post-style-buttons
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Criação de estilo de botão
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  example: Escritório
+                  description: Nome do estilo
+                  writeOnly: true
+                background:
+                  type: string
+                  minLength: 1
+                  format: string
+                  example: 'data:image/jpeg;base64,,...'
+                  description: Imagem de fundo em formato base64
+                  writeOnly: true
+              required:
+                - name
+                - background
+            examples:
+              Exemplo de integração:
+                value:
+                  name: escritorio
+                  background: 'data:image/jpeg;base64,,...'
+        description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
+      tags:
+        - Cartão - Administração
+        - Botão
+    parameters: []
+  '/cards/buttons/style/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificado do estilo de modelo
+    get:
+      summary: Retornar estilo de botão específico
+      tags:
+        - Cartão - Administração
+        - Botão
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/StyleButtonCard'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Quadrado
+                        background: /storage/cards/styles/background/581619209816.jpeg
+                        created_at: '2021-04-23T20:30:16.000000Z'
+                        updated_at: '2021-04-23T20:32:51.000000Z'
+                        deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+                Exemplo de retorno com inclusão da entidade buttons:
+                  value:
+                    data:
+                      - id: 1
+                        name: Quadrado
+                        background: /storage/cards/styles/background/581619209816.jpeg
+                        created_at: '2021-04-23T20:30:16.000000Z'
+                        updated_at: '2021-04-23T20:32:51.000000Z'
+                        deleted_at: null
+                        buttons:
+                          data:
+                            - id: 1
+                              name: Redondo
+                              background: /storage/cards/buttons/background/841619301275.jpeg
+                              created_at: '2021-04-24T21:54:35.000000Z'
+                              updated_at: '2021-04-24T21:54:35.000000Z'
+                              deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-buttons-styles-id
+      description: Retorna um estilo de botão específico
+      parameters: []
+    put:
+      summary: Atualizar estilo de botão específico
+      operationId: put-buttons-styles
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Atualização de estilo de botão
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome do estilo
+                  example: Plumas
+                  minLength: 1
+                  maxLength: 150
+                  writeOnly: true
+                background:
+                  type: string
+                  description: Imagem de fundo em formato base64
+                  example: 'data:image/jpeg;base64,,...'
+                  format: string
+                  writeOnly: true
+            examples:
+              Exemplo de integração:
+                value:
+                  name: Plumas
+                  background: 'data:image/jpeg;base64,...'
+        description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
+      tags:
+        - Cartão - Administração
+        - Botão
+    delete:
+      summary: Inativar estilo de botão específico
+      operationId: delete-buttons-styles-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Inativa o estilo de botão
+      tags:
+        - Cartão - Administração
+        - Botão
+  '/cards/buttons/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificado do estilo de modelo
+    get:
+      summary: Retornar botão específico
+      tags:
+        - Cartão - Administração
+        - Botão
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ButtonCard'
+              examples:
+                Exemplo de retorno:
+                  value:
+                    data:
+                      - id: 1
+                        name: Redondo
+                        background: /storage/cards/buttons/background/841619301275.jpeg
+                        created_at: '2021-04-24T21:54:35.000000Z'
+                        updated_at: '2021-04-24T21:54:35.000000Z'
+                        deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+                Exemplo de retorno com inclusão da entidade style de botão:
+                  value:
+                    data:
+                      - id: 1
+                        name: Redondo
+                        background: /storage/cards/buttons/background/841619301275.jpeg
+                        created_at: '2021-04-24T21:54:35.000000Z'
+                        updated_at: '2021-04-24T21:54:35.000000Z'
+                        deleted_at: null
+                        style:
+                          data:
+                            id: 1
+                            name: Quadrado
+                            background: /storage/cards/styles/background/581619209816.jpeg
+                            created_at: '2021-04-23T20:30:16.000000Z'
+                            updated_at: '2021-04-23T20:32:51.000000Z'
+                            deleted_at: null
+                    meta:
+                      pagination:
+                        total: 0
+                        count: 2
+                        per_page: 15
+                        current_page: 1
+                        total_pages: 1
+                        links: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-buttons-id
+      description: Retorna um botão específico
+      parameters: []
+    put:
+      summary: Atualizar botão específico
+      operationId: put-buttons
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Atualização de botão
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome do estilo
+                  example: Plumas
+                  minLength: 1
+                  maxLength: 150
+                  writeOnly: true
+                background:
+                  type: string
+                  description: Imagem de fundo em formato base64
+                  example: 'data:image/jpeg;base64,,...'
+                  format: string
+                  writeOnly: true
+            examples:
+              Exemplo de integração:
+                value:
+                  name: Plumas
+                  background: 'data:image/jpeg;base64,...'
+        description: Para integrar é necessário informar o campo background com os valores de uma imagem válida. O sistema irá interpretar os bytes e então salvar em uma CDN
+      tags:
+        - Cartão - Administração
+        - Botão
+    delete:
+      summary: Inativar botão específico
+      operationId: delete-buttons-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Inativa o botão
+      tags:
+        - Cartão - Administração
+        - Botão
   '/auth/login/social/{driver}':
     parameters:
       - schema:
@@ -2702,10 +3246,10 @@ components:
         Possíveis inclusões do modelo: `models`
       type: object
       x-examples:
-        'Exemplo ':
+        Exemplo:
           id: 2
           name: escritorio
-          background: 'https://s3.amazonaws.com/asset.api.pluecard.com//cards/styles/background/771612272026.png'
+          background: 'https://s3.amazonaws.com/asset.api.pluecard.com/cards/styles/background/771612272026.png'
           created_at: '2021-02-02T13:20:27.000000Z'
           updated_at: '2021-02-02T13:20:27.000000Z'
           deleted_at: '2021-02-02T13:20:27.000000Z'
@@ -3536,6 +4080,115 @@ components:
           example: 90
           description: Percentagem de votos considerando todos os votos
           readOnly: true
+    StyleButtonCard:
+      description: |-
+        Estilo de botões
+
+        Possíveis inclusões do modelo: `buttons`
+      type: object
+      title: StyleButtonCard
+      x-examples:
+        Exemplo:
+          id: 2
+          name: WhastApp
+          background: 'https://s3.amazonaws.com/asset.api.pluecard.com/cards/styles/background/771612272026.png'
+          created_at: '2021-04-24T21:54:55.000000Z'
+          updated_at: '2021-04-24T21:54:55.000000Z'
+          deleted_at: '2021-04-24T21:54:55.000000Z'
+      properties:
+        id:
+          type: number
+          description: Identificador único do Estilo de modelo
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          description: Nome do modelo
+        background:
+          type: string
+          minLength: 1
+          description: URL da imagem de fundo
+          example: 'http://image.com/example.jpg'
+        created_at:
+          type: string
+          description: Data de criação
+          example: '2021-02-16T20:32:53.000000Z'
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type: string
+          description: Data de inativação do estilo de modelo
+          format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
+          readOnly: true
+        buttons:
+          type: object
+          description: Botões relacionados
+          properties:
+            data:
+              type: array
+              description: Listagem dos dados
+              items:
+                $ref: '#/components/schemas/ButtonCard'
+    ButtonCard:
+      description: |-
+        Modelo de Botões
+
+        Possíveis inclusões do modelo: `style`
+      type: object
+      title: ButtonCard
+      x-examples:
+        Exemplo:
+          id: 2
+          name: WhastApp
+          background: 'https://s3.amazonaws.com/asset.api.pluecard.com/cards/styles/background/771612272026.png'
+          created_at: '2021-04-24T21:54:55.000000Z'
+          updated_at: '2021-04-24T21:54:55.000000Z'
+          deleted_at: '2021-04-24T21:54:55.000000Z'
+      properties:
+        id:
+          type: number
+          description: Identificador único do Estilo de modelo
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          description: Nome do modelo
+        background:
+          type: string
+          minLength: 1
+          description: URL da imagem de fundo
+          example: 'http://image.com/example.jpg'
+        created_at:
+          type: string
+          description: Data de criação
+          example: '2021-02-16T20:32:53.000000Z'
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          minLength: 1
+          description: Data da última atualização
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type: string
+          description: Data de inativação do estilo de modelo
+          format: date-time
+          example: '2021-02-16T20:32:53.000000Z'
+          readOnly: true
+        style:
+          type: object
+          description: Estilo associado
+          properties:
+            data:
+              $ref: '#/components/schemas/StyleCard'
   securitySchemes:
     bearerAuth:
       type: http
@@ -3563,6 +4216,7 @@ tags:
   - name: Cores
   - name: Estilos
   - name: Modelos
+  - name: Botão
   - name: NPS
 security:
   - bearerAuth: []
