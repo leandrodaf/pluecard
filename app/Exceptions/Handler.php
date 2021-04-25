@@ -2,24 +2,21 @@
 
 namespace App\Exceptions;
 
-use App\Http\Controllers\FractalTrait;
-use App\Http\Transformers\ExceptionTransformer;
 use Exception;
+use Throwable;
+use Illuminate\Http\Response;
+use Illuminate\Database\QueryException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
+use App\Http\Transformers\ExceptionTransformer;
 use Google\Service\Exception as GoogleException;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    use FractalTrait;
-
     /**
      * A list of the exception types that should not be reported.
      *
