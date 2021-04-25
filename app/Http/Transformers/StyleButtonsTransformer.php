@@ -2,10 +2,10 @@
 
 namespace App\Http\Transformers;
 
-use App\Http\CardIncludeAbstract;
 use App\Models\Card\StyleButtonCard;
+use League\Fractal\TransformerAbstract;
 
-class StyleButtonsTransformer extends CardIncludeAbstract
+class StyleButtonsTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'models', 'buttons',

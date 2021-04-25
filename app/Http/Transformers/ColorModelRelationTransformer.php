@@ -2,7 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use App\Http\CardIncludeAbstract;
 use App\Models\Card\ColorCard;
 
 class ColorModelRelationTransformer extends CardIncludeAbstract

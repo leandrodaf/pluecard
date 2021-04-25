@@ -2,7 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use App\Http\CardIncludeAbstract;
 use App\Models\Card\StyleCard;
 
 class StyleTransformer extends CardIncludeAbstract
