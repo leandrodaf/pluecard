@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ConfirmationEmailRequest;
+use App\Http\Requests\ForgotPasswordConfirmationRequest;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\RefreshConfirmationEmailRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Transformers\AuthenticationTransformer;
 use App\Services\AccountService;
 use App\Services\AuthService;
@@ -18,16 +24,9 @@ class AccountController extends Controller
     ) {
     }
 
-    public function register(Request $request): Response
+    public function register(RegisterRequest $registerRequest, Request $request): Response
     {
-        $data = $this->validate($request, [
-            'name' => 'required|string|max:155|min:3',
-            'accept_terms' => 'accepted',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:8',
-            'newsletter' => 'required|boolean',
-            'discount_coupons' => 'required|boolean',
-        ]);
+        $data = $registerRequest->validator($request);
 
         try {
             DB::beginTransaction();
@@ -44,11 +43,9 @@ class AccountController extends Controller
         return response(null, 201);
     }
 
-    public function confirmationEmail(Request $request): Response
+    public function confirmationEmail(ConfirmationEmailRequest $confirmationEmailRequest, Request $request): Response
     {
-        $payload = $this->validate($request, [
-            'hash' => 'required|string',
-        ]);
+        $payload = $confirmationEmailRequest->validator($request);
 
         $user = $this->authService->hashConfirmation($payload['hash']);
 
@@ -57,11 +54,9 @@ class AccountController extends Controller
         return response()->item($token, new AuthenticationTransformer, 200);
     }
 
-    public function refreshConfirmationEmail(Request $request): Response
+    public function refreshConfirmationEmail(RefreshConfirmationEmailRequest $refreshConfirmationEmailRequest, Request $request): Response
     {
-        $payload = $this->validate($request, [
-            'email' => 'required|email',
-        ]);
+        $payload = $refreshConfirmationEmailRequest->validator($request);
 
         $this->authService->refreshHash($payload['email']);
 
@@ -75,35 +70,27 @@ class AccountController extends Controller
         return response(null, 200);
     }
 
-    public function updatePassword(Request $request): Response
+    public function updatePassword(UpdatePasswordRequest $updatePasswordRequest, Request $request): Response
     {
-        $data = $this->validate($request, [
-            'hash' => 'required|string',
-            'password' => 'required|confirmed|min:8',
-        ]);
+        $data = $$updatePasswordRequest->validator($request);
 
         $this->accountService->resetPasswordUpdate($request->user(), $data);
 
         return response(null, 200);
     }
 
-    public function forgotPassword(Request $request): Response
+    public function forgotPassword(ForgotPasswordRequest $forgotPasswordRequest, Request $request): Response
     {
-        $data = $this->validate($request, [
-            'email' => 'required|email',
-        ]);
+        $data = $forgotPasswordRequest->validator($request);
 
         $this->accountService->forgotPassword($data['email']);
 
         return response(null, 200);
     }
 
-    public function forgotPasswordConfirmation(Request $request): Response
+    public function forgotPasswordConfirmation(ForgotPasswordConfirmationRequest $forgotPasswordConfirmationRequest, Request $request): Response
     {
-        $data = $this->validate($request, [
-            'hash' => 'required|string',
-            'password' => 'required|confirmed|min:8',
-        ]);
+        $data = $forgotPasswordConfirmationRequest->validator($request);
 
         $this->accountService->forgotPasswordConfirmation($data['hash'], $data['password']);
 
