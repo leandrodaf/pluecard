@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ConfirmationEmailRequest;
-use App\Http\Requests\ForgotPasswordConfirmationRequest;
-use App\Http\Requests\ForgotPasswordRequest;
-use App\Http\Requests\RefreshConfirmationEmailRequest;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\Account\ConfirmationEmailRequest;
+use App\Http\Requests\Account\ForgotPasswordConfirmationRequest;
+use App\Http\Requests\Account\ForgotPasswordRequest;
+use App\Http\Requests\Account\RefreshConfirmationEmailRequest;
+use App\Http\Requests\Account\RegisterRequest;
+use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Http\Transformers\AuthenticationTransformer;
 use App\Services\AccountService;
 use App\Services\AuthService;

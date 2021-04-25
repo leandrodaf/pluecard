@@ -8,7 +8,6 @@ use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
 class TransactionController extends Controller
