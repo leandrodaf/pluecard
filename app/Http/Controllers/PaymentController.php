@@ -7,6 +7,7 @@ use App\Services\PaymentService;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,7 +20,7 @@ class PaymentController extends Controller
     ) {
     }
 
-    public function payment(Request $request, string $itemId, string $gateway)
+    public function payment(Request $request, string $itemId, string $gateway): Response
     {
         Gate::authorize('adminOrSimpleUser', $this->authManager->user());
 

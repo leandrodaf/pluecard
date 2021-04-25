@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Transformers\AuthenticationTransformer;
 use App\Services\AuthService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class AuthController extends Controller
     ) {
     }
 
-    public function socialLogin(Request $request, string $channel): Response
+    public function socialLogin(Request $request, string $channel): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -29,10 +30,10 @@ class AuthController extends Controller
             throw $exception;
         }
 
-        return $this->itemResponse($token, new AuthenticationTransformer, 200);
+        return response()->item($token, new AuthenticationTransformer, 200);
     }
 
-    public function login(Request $request): Response
+    public function login(Request $request): JsonResponse
     {
         $data = $this->validate($request, [
             'email' => 'required|email',
@@ -41,14 +42,14 @@ class AuthController extends Controller
 
         $token = $this->authService->login($data['email'], $data['password']);
 
-        return $this->itemResponse($token, new AuthenticationTransformer, 200);
+        return response()->item($token, new AuthenticationTransformer, 200);
     }
 
-    public function refresh(): Response
+    public function refresh(): JsonResponse
     {
         $token = auth()->refresh();
 
-        return $this->itemResponse($token, new AuthenticationTransformer, 200);
+        return response()->item($token, new AuthenticationTransformer, 200);
     }
 
     public function logout()

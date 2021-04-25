@@ -54,7 +54,7 @@ class AccountController extends Controller
 
         $token = auth()->login($user);
 
-        return $this->itemResponse($token, new AuthenticationTransformer, 200);
+        return response()->item($token, new AuthenticationTransformer, 200);
     }
 
     public function refreshConfirmationEmail(Request $request): Response

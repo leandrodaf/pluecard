@@ -108,7 +108,7 @@ class Handler extends ExceptionHandler
 
         $response['debug'] = (string) $exception;
 
-        return $this->itemResponse($response, new ExceptionTransformer, $response['status']);
+        return response()->item($response, new ExceptionTransformer, $response['status']);
     }
 
     private function getStatusText(int $code): string

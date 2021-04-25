@@ -7,6 +7,7 @@ use App\Services\TransactionService;
 use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
@@ -20,38 +21,38 @@ class TransactionController extends Controller
     }
 
     /**
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());
 
         $list = $this->transactionService->listTransactionsPaginate($this->auth->user());
 
-        return $this->paginateResponse($list, new TransactionTransformer, 200);
+        return response()->collection($list, new TransactionTransformer, 200);
     }
 
     /**
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function show(string $id): Response
+    public function show(string $id): JsonResponse
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());
 
         $item = $this->transactionService->show($this->auth->user(), $id);
 
-        return $this->itemResponse($item, new TransactionTransformer, 200);
+        return response()->item($item, new TransactionTransformer, 200);
     }
 
     /**
      * @param string $userId
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function listByUser(string $userId): Response
+    public function listByUser(string $userId): JsonResponse
     {
         Gate::authorize('admin', $this->auth->user());
 
@@ -59,16 +60,16 @@ class TransactionController extends Controller
 
         $list = $this->transactionService->listTransactionsPaginate($user);
 
-        return $this->paginateResponse($list, new TransactionTransformer, 200);
+        return response()->collection($list, new TransactionTransformer, 200);
     }
 
     /**
      * @param string $userId
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function showByUser(string $userId, string $id): Response
+    public function showByUser(string $userId, string $id): JsonResponse
     {
         Gate::authorize('admin', $this->auth->user());
 
@@ -76,6 +77,6 @@ class TransactionController extends Controller
 
         $item = $this->transactionService->show($user, $id);
 
-        return $this->itemResponse($item, new TransactionTransformer, 200);
+        return response()->item($item, new TransactionTransformer, 200);
     }
 }

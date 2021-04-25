@@ -8,6 +8,7 @@ use App\Services\NPSService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +52,7 @@ class NPSController extends Controller
         return response(null, 201);
     }
 
-    public function index(Request $request, string $metricId): Response
+    public function index(Request $request, string $metricId): JsonResponse
     {
         Gate::authorize('admin', $this->auth->user());
 
@@ -83,6 +84,6 @@ class NPSController extends Controller
             $request->input('entityId', null)
         );
 
-        return $this->itemResponse($item, new NPSResultTransformer);
+        return response()->item($item, new NPSResultTransformer);
     }
 }

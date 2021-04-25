@@ -6,6 +6,7 @@ use App\Exceptions\ValidatorException;
 use App\Http\Transformers\UserTransformer;
 use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +19,7 @@ class UserController extends Controller
     ) {
     }
 
-    public function index(Request $request): Response
+    public function index(Request $request): JsonResponse
     {
         Gate::authorize('admin', $this->auth->user());
 
@@ -26,7 +27,7 @@ class UserController extends Controller
 
         $list = $this->userService->listUsersPaginate($search);
 
-        return $this->paginateResponse($list, new UserTransformer, 200);
+        return response()->collection($list, new UserTransformer, 200);
     }
 
     public function meUpdate(Request $request): Response
@@ -61,20 +62,20 @@ class UserController extends Controller
         return response(null, 200);
     }
 
-    public function me(): Response
+    public function me(): JsonResponse
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());
 
-        return $this->itemResponse($this->auth->user(), new UserTransformer, 200);
+        return response()->item($this->auth->user(), new UserTransformer, 200);
     }
 
-    public function show(string $id): Response
+    public function show(string $id): JsonResponse
     {
         $user = $this->userService->show($id);
 
         Gate::authorize('adminOrSimpleUser', $user);
 
-        return $this->itemResponse($user, new UserTransformer, 200);
+        return response()->item($user, new UserTransformer, 200);
     }
 
     public function meDestroy(): Response

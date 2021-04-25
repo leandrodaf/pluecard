@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -26,7 +27,7 @@ class ColorCardController extends Controller
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function create(Request $request): Response
@@ -48,7 +49,7 @@ class ColorCardController extends Controller
     /**
      * @param Request $request
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws ValidationException
      * @throws MassAssignmentException
      */
@@ -68,30 +69,30 @@ class ColorCardController extends Controller
 
     /**
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function show(string $id): Response
+    public function show(string $id): JsonResponse
     {
         $item = $this->colorCardService->show($id);
 
-        return $this->itemResponse($item, new ColorTransformer, 200);
+        return response()->item($item, new ColorTransformer, 200);
     }
 
     /**
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
         $list = $this->colorCardService->listColorCardPaginate();
 
-        return $this->paginateResponse($list, new ColorTransformer, 200);
+        return response()->collection($list, new ColorTransformer, 200);
     }
 
     /**
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws Exception
      */
     public function destroy(string $id): Response

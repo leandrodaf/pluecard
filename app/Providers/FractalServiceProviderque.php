@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Transformers\ApplicationSerializer;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
@@ -11,7 +13,11 @@ class FractalServiceProviderque extends ServiceProvider
 {
     public function boot()
     {
-        $fractal = $this->app->make('League\Fractal\Manager');
+        $manager = $this->app->make('League\Fractal\Manager');
+
+        $manager->parseIncludes(Request::input('include') ?? []);
+
+        $manager->setSerializer(new ApplicationSerializer());
 
         response()->macro('item', fn (
             $item,
@@ -19,7 +25,7 @@ class FractalServiceProviderque extends ServiceProvider
             int $status = 200,
             array $headers = []
         ) => response()->json(
-            $fractal->createData(new Item($item, $transformer))->toArray(),
+            $manager->createData(new Item($item, $transformer))->toArray(),
             $status,
             $headers
         ));
@@ -30,7 +36,7 @@ class FractalServiceProviderque extends ServiceProvider
             int $status = 200,
             array $headers = []
         ) => response()->json(
-            $fractal->createData(new Collection($collection, $transformer))->toArray(),
+            $manager->createData(new Collection($collection, $transformer))->toArray(),
             $status,
             $headers
         ));

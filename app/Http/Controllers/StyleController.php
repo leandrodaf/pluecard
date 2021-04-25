@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -26,7 +27,7 @@ class StyleController extends Controller
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function create(Request $request): Response
@@ -44,7 +45,7 @@ class StyleController extends Controller
     /**
      * @param Request $request
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws ValidationException
      * @throws MassAssignmentException
      */
@@ -64,30 +65,30 @@ class StyleController extends Controller
 
     /**
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function show(string $id): Response
+    public function show(string $id): JsonResponse
     {
         $item = $this->styleService->show($id);
 
-        return $this->itemResponse($item, new StyleTransformer, 200);
+        return response()->item($item, new StyleTransformer, 200);
     }
 
     /**
-     * @return Response
+     * @return JsonResponse
      * @throws BindingResolutionException
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
         $list = $this->styleService->listStylePaginate();
 
-        return $this->paginateResponse($list, new StyleTransformer, 200);
+        return response()->collection($list, new StyleTransformer, 200);
     }
 
     /**
      * @param string $id
-     * @return Response
+     * @return JsonResponse
      * @throws Exception
      */
     public function destroy(string $id): Response

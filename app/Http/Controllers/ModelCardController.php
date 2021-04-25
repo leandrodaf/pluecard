@@ -6,6 +6,7 @@ use App\Http\Transformers\ModelCardTransformer;
 use App\Services\ModelCardService;
 use Exception;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -84,16 +85,16 @@ class ModelCardController extends Controller
         return response(null, 200);
     }
 
-    public function show(string $id): Response
+    public function show(string $id): JsonResponse
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());
 
         $item = $this->modelCardService->show($id);
 
-        return $this->itemResponse($item, new ModelCardTransformer, 200);
+        return response()->item($item, new ModelCardTransformer, 200);
     }
 
-    public function index(Request $request): Response
+    public function index(Request $request): JsonResponse
     {
         Gate::authorize('adminOrSimpleUser', $this->auth->user());
 
@@ -102,7 +103,7 @@ class ModelCardController extends Controller
 
         $list = $this->modelCardService->listModelCardPaginate($search, $styles);
 
-        return $this->paginateResponse($list, new ModelCardTransformer, 200);
+        return response()->collection($list, new ModelCardTransformer, 200);
     }
 
     public function destroy(string $id): Response
