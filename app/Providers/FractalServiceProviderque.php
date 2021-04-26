@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\Transformers\ApplicationSerializer;
+use App\Http\Transformers\IlluminatePaginatorAdapter;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use League\Fractal\Resource\Collection;
@@ -30,15 +32,23 @@ class FractalServiceProviderque extends ServiceProvider
             $headers
         ));
 
-        response()->macro('collection', fn (
+        response()->macro('collection', function (
             $collection,
             TransformerAbstract $transformer,
             int $status = 200,
             array $headers = []
-        ) => response()->json(
-            $manager->createData(new Collection($collection, $transformer))->toArray(),
-            $status,
-            $headers
-        ));
+        ) use ($manager) {
+            $fractalCollection = new Collection($collection->flatten(), $transformer);
+
+            if ($collection instanceof Paginator) {
+                $fractalCollection->setPaginator(new IlluminatePaginatorAdapter($collection));
+            }
+
+            return response()->json(
+                $manager->createData($fractalCollection)->toArray(),
+                $status,
+                $headers
+            );
+        });
     }
 }

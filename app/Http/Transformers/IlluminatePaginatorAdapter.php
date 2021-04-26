@@ -14,32 +14,32 @@ class IlluminatePaginatorAdapter implements PaginatorInterface
         $this->paginator = $paginator;
     }
 
-    public function getCurrentPage()
+    public function getCurrentPage(): int
     {
         return $this->paginator->currentPage();
     }
 
-    public function getLastPage()
+    public function getLastPage(): int
     {
         return $this->paginator->hasMorePages() ? $this->getCurrentPage() + 1 : $this->getCurrentPage();
     }
 
-    public function getTotal()
+    public function getTotal(): ?int
     {
         return null;
     }
 
-    public function getCount()
+    public function getCount(): int
     {
         return $this->paginator->count();
     }
 
-    public function getPerPage()
+    public function getPerPage(): int
     {
         return $this->paginator->perPage();
     }
 
-    public function getUrl($page)
+    public function getUrl($page): string
     {
         return $this->paginator->url($page);
     }
